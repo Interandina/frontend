@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URLApi: 'https://backend-production-f626.up.railway.app/'
+  URLApi: 'https://backend.railway.internal/'
 };
