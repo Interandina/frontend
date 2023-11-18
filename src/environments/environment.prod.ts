@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URLApi: 'https://backend:3000/'
+  URLApi: 'https://andina-back.up.railway.app/'
 };
