@@ -1,0 +1,132 @@
+/*Material Table CSS*/
+  table {
+    /*display: block;*/
+    width: 100%;
+    overflow-x: auto !important;
+  }
+  /* Cuando se seleccione una fila */
+  .highlight{
+    background-color: #d7f0fb;
+  }
+
+  .rejectRow{
+    background-color:rgb(240, 149, 65) !important;
+  }
+
+  .NorejectRow{
+    background-color: rgb(161, 221, 191) !important;
+  }
+  /* .mat-mdc-row:nth-child(4n+1) {
+    background: red;
+  }
+   */
+  .mat-mdc-row:nth-child(2n) {
+    background: rgb(234, 234, 236);
+  }
+  .mat-mdc-row:nth-child(2n):hover {
+    background: rgb(234, 234, 236);
+  }
+  
+  /* .mat-mdc-cell {
+    width: auto !important;
+    min-width: 10% !important;
+  } */
+
+  .mat-mdc-cell{
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: auto !important;
+    /* 28% !important; */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-mdc-row:hover{
+    cursor: pointer;
+    border-color: black;
+  }
+
+  .mat-mdc-header-cell {
+    width: auto !important;
+    min-width: 10% !important;
+    background-color: #2780e3 !important;
+    color: white;
+    /* text-align: center; */
+  }
+
+  .hide_element{
+    display: none;
+  }
+  
+  /* ::ng-deep .mat-paginator {
+    .mat-paginator-container {
+        justify-content: center;
+    }
+
+    override material paginator page switch
+    .mat-paginator-range-label {
+        order: 2;
+    }
+
+    .mat-paginator-navigation-previous {
+        order: 1;
+    }
+    .mat-paginator-navigation-next {
+        order: 3;
+    }
+} */
+
+mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+/*=======================================*/
+.mat-mdc-form-field {
+  font-size: 14px !important;
+  width: 100% !important;
+}
+
+.btnExport:hover {
+  cursor: pointer;
+}
+
+.btn-primary-icons-table{
+  border: none !important;
+  background-color: #2780e3 !important;
+  color: white !important;
+  border-radius: 2px !important;
+  margin-right: 1%;
+  padding: 3px 5px 3px 5px;
+}
+
+.btn-primary-icons-table:hover{
+  cursor: pointer;
+  background-color: #0656b2 !important;
+}
+
+/* .mdc-evolution-chip, .mdc-evolution-chip__cell, .mdc-evolution-chip__action{
+  background-color: #2780e3 !important;
+} */
+
+
+.RRevisar{
+  background-color: #2780e3 !important;
+}
+
+.RRechazada{
+  background-color: rgb(121, 4, 4) !important;
+}
+
+.RAprobada{
+  background-color: rgb(4, 190, 97) !important;
+}
+
+.RCargar{
+  background-color: rgb(240, 149, 65) !important;
+}

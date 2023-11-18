@@ -1,0 +1,10 @@
+    .mat-mdc-dialog-content{
+      display:block;
+      /* overflow-y: auto !important; */
+      background-color: transparent;
+      overflow-x: hidden !important;
+    }
+
+    .hrheadfrm {
+      border: 1px solid gainsboro;
+    }

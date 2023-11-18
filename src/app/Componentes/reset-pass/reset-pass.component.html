@@ -1,0 +1,33 @@
+<body>
+    <form [formGroup]="FormRPass"  autocomplete="off" class="form" (ngSubmit)="ResetPass(FormRPass.value)">
+        <div mat-dialog-content class="col-md-4-offset-md-4" class="my-css-class" align="center">
+            <div class="container">
+                <div class="divtopRpass">
+                    <div style="display: inline-flex;  min-width:100%;">
+                        <p class="ptitlerpass">Nueva Contraseña</p>
+                    </div>
+                    <p class="pdescrpass">Por favor, cree una nueva contraseña que contenga 8 caracteres, un carácter especial, una mayúscula y un número.</p> 
+                </div>
+            </div><br>
+            <div class="container">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Contraseña</mat-label>
+                    <input class="pass" type="text"  matInput autocomplete="new-password" autocomplete="off" maxlength="10" title="Ingresar contraseña de usuario" formControlName="password" name="password" required>
+                    <mat-error *ngIf="FormRPass.get('password')?.invalid">Contraseña debe tener al menos 8 caracteres, 1 carácter especial, 1 mayúscula y un número!</mat-error>
+                </mat-form-field>
+            </div><br>
+            <div class="container">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Confirmación Contraseña</mat-label>
+                    <input class="pass" type="text" autocomplete="new-password" autocomplete="off" matInput maxlength="10" title="Ingresar confirmación de contraseña" formControlName="confirmPassword" name="confirmPassword" required>
+                    <mat-error *ngIf="FormRPass.get('confirmPassword')?.invalid">Contraseña y confirmación no coinciden!</mat-error>
+                </mat-form-field>
+            </div><br>
+        </div>
+        <div mat-dialog-actions style="text-align: center !important;" align="end">
+            <button mat-raised-button color="accent" style="width:80% !important; min-width:unset!important; background-color: #2780e3;" type="submit">Cambiar</button><br><br>
+            <button id="btnClose" mat-raised-button tabindex="-1" style="width:80% !important; min-width:unset!important;" (click)="Cancelrp()">Cancelar</button>
+            <br>
+        </div>
+    </form>
+</body>

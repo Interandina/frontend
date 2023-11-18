@@ -1,0 +1,18 @@
+<app-spinner *ngIf="MostrarSpinner"></app-spinner>
+<div class="container">
+    <!-- <div layout="row" layout-xs="column"  *ngIf="!GuardarUsuario"></div> -->
+    <div layout="row" layout-xs="column">
+        <div flex="">
+            <div class="col"><h1>Gestión de Usuarios</h1></div>
+        </div>
+        <br>
+        <div flex="">
+            <!-- (getRowOut)="openAlertDialog($event)"  [callbackEditar]="callbackEditar"llll-->
+            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" (eventosFormPadre)="EditarRowUsuario($event)"></app-table-app>
+        <br>
+        <div flex="">
+            <button mat-button color="primary" style="float: right;" class="btnprimary" title="Agregar nuevo usuario" (click)="openAlertDialog()">Agregar Usuario</button>
+            <!-- <button mat-button color="primary" style="float: right;" class="btnprimary" title="Agregar nuevo usuario" (click)="Guardarusuario()">Agregar Usuario</button> -->
+        </div>
+    </div> 
+</div>

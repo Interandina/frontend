@@ -1,0 +1,167 @@
+.container{
+    margin-top: 2% !important;
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+    overflow: hidden !important;
+    width: 96%;
+}
+
+.containerG{
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  overflow: hidden !important;
+}
+
+.col>h1 {
+    flex: 1 0 0%;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 1%;
+}
+
+.col>h3 {
+  flex: 1 0 0%;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.container2{
+  margin-top: 2% !important;
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  width: 96% !important;
+  height: 94%;
+  overflow: hidden !important;
+  display:inline-block !important;
+}
+
+.subcontainer{
+  /* margin-left: 2% !important; */
+  width: 59%;
+  max-width: 59%;
+  min-width: 59%;
+  height: 100%;
+  overflow-y: auto !important;
+  float: left !important;
+}
+
+.subcontainer2{
+  /* margin-left: 1px !important; */
+  width: 38%;
+  max-width: 38%;
+  min-width: 38%;
+  height: 100%;
+  overflow-y: auto !important;
+  float: right !important;
+}
+
+.subcontainerFixed{
+  left: 5% !important;
+  right: 2% !important;
+  overflow: hidden !important;
+  width: 93%;
+  bottom: 1% !important;
+  position: fixed;
+  background-color: white !important;
+  border-top: #2780e3 solid 1px !important;
+}
+
+/* .pnlcontbottons{
+  width: auto;
+  text-align: right; 
+  margin-right: 2%;
+  margin-bottom: 1%;
+} */
+
+mat-form-field {
+  width: 100%;
+  font-size: 12px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.btnprimary{
+  width: 5% !important;
+}
+  
+.mat-mdc-form-field-focus-overlay:hover .selectedElem
+{
+  background-color: #ececec !important;
+  /* background-color:rgb(240, 149, 65) !important; */
+}
+
+.NoselectedElem
+{
+  /* background-color:rgb(240, 149, 65) !important; */
+  background-color:rgb(240, 149, 65) !important;
+}
+
+.selectedElemOK
+{
+  background-color: rgb(4, 190, 97) !important;
+}
+
+.divMatSlide{
+  width: 100%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.no-resize {
+  resize: none;
+}
+
+.maticonsdocs:hover{
+  cursor: pointer;
+}
+
+
+.pnlcontbottons{
+  width: auto;
+  text-align: right; 
+  margin-right: 4%;
+}
+
+.btnprimaryHV {
+  background-color: #2780e3 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  right: 5%;
+  /* top:50%; */
+  bottom: 1%;
+  position: fixed;
+  z-index: 99;
+}
+
+.btnprimaryAtt {
+  background-color: #2780e3 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  margin-right: 1%;
+}
+
+.btnFileApp{
+  margin-top: 3%; 
+  font-size:8px; 
+  border-radius: 3px !important;
+  line-height: 1;
+}
+
+.mat-iconhvclient{
+  color: #2780e3;
+  margin-top: 1%;
+}
+.mat-iconhvclient:hover{
+  cursor: pointer;
+  color:#032752;
+}
+
+.btnprimaryHVGA {
+  background-color: #2780e3 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  text-align: right !important;
+}
+

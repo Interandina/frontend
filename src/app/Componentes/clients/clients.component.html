@@ -1,0 +1,23 @@
+<!-- <div class="container">
+    <div layout="row" layout-xs="column">
+        <div flex="">
+            <div class="col"><h1>Gestión de Clientes</h1></div>
+        </div>
+        <br>
+        <div flex="">
+            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar"></app-table-app>
+        <br>
+        <div flex="">
+            <button mat-button color="primary" style="float: right;" class="btnprimary" title="Agregar nuevo cliente" (click)="openAlertDialog()">Agregar Cliente</button>
+        </div>
+    </div> 
+</div> -->
+<div class="container" style="overflow: hidden !important;">
+    <div layout="row" layout-xs="column">
+        <div flex="">
+            <div class="col"><h1>Gestión de Clientes</h1></div>
+        </div>
+        <br>
+        <app-clients-form></app-clients-form>
+    </div> 
+</div>

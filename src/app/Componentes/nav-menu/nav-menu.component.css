@@ -1,0 +1,164 @@
+.containerNav {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+mat-toolbar{
+  /* background-color: ghostwhite; */
+  padding-top: 1% !important;
+  padding-bottom: 1% !important;
+  z-index: 5;
+  position: relative;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0,0,0,.16) !important;
+  -moz-box-shadow: 0 2px 12px 0 rgba(0,0,0,.16) !important;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.16) !important;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+mat-sidenav{
+  background-color: rgb(133,152,171);
+  width: 50px;
+  text-align: left;
+}
+
+.icon-nav{
+  color: white;
+  font-size: 19px;
+  vertical-align: middle !important;
+}
+
+.mat-list-itemc{
+  color:grey !important;
+  font-size: 13px;
+}
+.mat-list-itemc:hover{
+  /* background-color: #4e73de; */
+  background-color: #2780e3;
+  
+}
+
+.notmenu{
+  display: none !important;
+}
+
+.navmatmenutitle{
+  /* background-color: #4e73de !important; */
+  background-color: #2780e3  !important;
+  color: white;
+  padding: 10px 0px 10px 5px;
+  width: 100% !important;
+  display: block;
+  margin-top: -5%;
+}
+
+/*Submenú Nav*/
+.mat-list-subitem {
+  /* color: #4e73de !important; */
+  color: #2780e3  !important;
+}
+
+.matsubmenutitle{
+  /* color: #4e73de !important; */
+  color: #2780e3  !important;
+}
+
+/*========================*/
+
+/*Nav TOP o Horizontal*/
+.ulNav {
+  float: right;
+  position: absolute;
+  right: 0px;
+  display: flex;
+  padding-right: 15px;
+  font-size: 13px;
+  list-style-type: none;
+}
+
+.ulNav>li{
+  color: #787878;
+}
+/**/
+
+/* mat-list-item {
+  color:grey !important;
+  font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+  font-size: 14px !important;
+} */
+
+mat-sidenav-content{
+  margin-left: 10%;
+}
+
+/*Submenú*/
+.navsubmenu{
+  background-color: black;
+  width: 4%;
+  height: 30%;
+  position: absolute;
+  display:table;
+  z-index: 9999999;
+}
+
+.mat-mdc-menu-item, mat-mdc-focus-indicator, mdc-list-item mat-list-subitem, ng-tns-c58-1, ng-star-inserted{
+  /* color: #4e73de !important; */
+  color: #2780e3 !important;
+}
+
+.matlbNav{
+  /* color: #4e73de !important; */
+  color: #2780e3 !important;
+  height: 100%;
+}
+.matlbNav:hover{
+  color: white;
+}
+
+.icon-nav-sub{
+  /* color: #4e73de !important;*/
+  color: #2780e3 !important;
+  font-size: 20px;
+  vertical-align: middle !important;
+  margin-right: 2px !important;
+  margin-top: 1px;
+}
+
+.mat-mdc-menu-item:hover{
+  /* background-color: #4e73de !important; */
+  background-color: #2780e3 !important;
+  z-index: 99999;
+}
+
+.mat-mdc-menu-item:hover mat-label{
+  color: white !important;
+}
+.mat-mdc-menu-item:hover mat-icon{
+  color: white !important;
+}
+

@@ -1,0 +1,117 @@
+<div class="container">
+    <form #FormU="ngForm" [formGroup]="FormUser" novalidate (ngSubmit)="GuardarEditarUsuario(FormUser.value)">
+        <div class="bodyfrm" flex="">
+            <div flex="">
+                <mat-grid-list cols="7" rowHeight="2:1">
+                    <p style="margin-top: 7%;">Información Personal</p>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Tipo Documento</mat-label>
+                            <select matNativeControl required formControlName="type_document" name="type_document" >
+                                <option value="NA">Seleccione tipo de documento</option>
+                                <option value="TI">Tarjeta de Identidad</option>
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="DE">Documento de Extranjería</option>
+                                <option value="PA">Pasaporte</option>
+                            </select>
+                            <mat-error *ngIf="FormUser.get('type_document')?.invalid">Tipo de documento no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                        <input type="hidden" formControlName="id" name="id">
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="1" [rowspan]="1"></mat-grid-tile>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Documento</mat-label>
+                            <input matInput maxlength="18" title="Ingresar número de documento de usuario" formControlName="document" name="document" required>
+                            <mat-error *ngIf="FormUser.get('document')?.invalid">Documento no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Nombres</mat-label>
+                            <input matInput maxlength="100" class="input-upper" title="Ingresar nombre(s) de usuario" formControlName="first_name" name="first_name" required>
+                            <mat-error *ngIf="FormUser.get('first_name')?.invalid">Nombre(s) no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="1" [rowspan]="1"></mat-grid-tile>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Apellidos</mat-label>
+                            <input matInput maxlength="100" class="input-upper" title="Ingresar apellidos de usuario" formControlName="last_name" name="last_name" required>
+                            <mat-error *ngIf="FormUser.get('last_name')?.invalid">Apellido(s) no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Comisión</mat-label>
+                            <!-- <input matInput type="number" maxlength="5" min="0" max="100" title="Ingresar comisión del usuario" formControlName="comission" name="comission" required> -->
+                            <input matInput  maxlength="5" min="0" max="100" title="Ingresar comisión del usuario" formControlName="comission" name="comission" mask="9*.99" required>
+                            <mat-error *ngIf="FormUser.get('comission')?.invalid">Comisión no puede ser nulo. Formato ejemplo: 1,11!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="4" [rowspan]="1">
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <!--Grupo Contraseña-->
+            <div flex="">
+                <mat-grid-list cols="7" rowHeight="2:1">
+                    <p style="margin: 5px;">Autenticación</p>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1.2">
+                        <mat-form-field appearance="fill" class="mat-form-login">
+                            <mat-label>Email</mat-label>
+                            <input matInput maxlength="60" class="input-lower" title="Ingresar email" formControlName="email" name="email" required>
+                            <mat-error *ngIf="FormUser.get('email')?.invalid">
+                                Email es requerido y debe tener un formato de correo!
+                            </mat-error>
+                            </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="1" [rowspan]="1.2"></mat-grid-tile>
+                    <!-- <mat-grid-tile  [colspan]="2" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="" *ngIf="!EsEdicion">
+                            <mat-label>Contraseña</mat-label>
+                            <input type="password"  matInput autocomplete="off" maxlength="10" title="Ingresar contraseña de usuario" formControlName="password" name="password" required>
+                            <mat-error *ngIf="FormUser.get('password')?.invalid">Contraseña debe tener al menos 8 caracteres, 1 carácter especial, 1 mayúscula y un número!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="2" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="" *ngIf="!EsEdicion">
+                            <mat-label>Confirmación Contraseña</mat-label>
+                            <input type="password" autocomplete="off" matInput maxlength="10" title="Ingresar confirmación de contraseña" formControlName="confirmPassword" name="confirmPassword" required>
+                            <mat-error *ngIf="FormUser.get('confirmPassword')?.invalid">Contraseña y confirmación no coinciden!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile> -->
+                    <mat-grid-tile  [colspan]="2" [rowspan]="1">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Tipo de Usuario</mat-label>
+                            <!-- <select matNativeControl required formControlName="type_user_id" name="type_user_id">
+                                <option value="NA">Seleccione tipo de usuario</option>
+                                <option value="12">Digitador</option>
+                                <option value="13">Analista</option>
+                                <option value="14">Revisor</option>
+                            </select> -->
+                            <select matNativeControl required formControlName="typeuserId" name="typeuserId">
+                                <option value="NA">Seleccione tipo de usuario</option>
+                                [<option *ngFor="let opt of types_user_id" [value]="opt.id">{{opt.name}}</option>
+                            </select>
+                            <mat-error *ngIf="FormUser.get('typeuserId')?.invalid">Tipo de usuario no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="1" [rowspan]="1">
+                        <mat-checkbox matInput color="primary"  formControlName="inactive" name="inactive">Inactivo</mat-checkbox>
+                        <input hidden=true matInput>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="3" [rowspan]="1">
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+        <div class="bottomfrm" flex="">
+            <hr class="hrheadfrm">
+            <div class="divbtnsForm">
+                <button id="btnClose" mat-raised-button mat-dialog-close class="btnprimaryc" tabindex="-1">Cancelar</button>
+                <button mat-raised-button class="btnprimary" tabindex="-2" type="submit" style="margin-right: 4%;">{{titlebGoE}}</button>
+            </div>
+        </div>
+    </form>
+</div>

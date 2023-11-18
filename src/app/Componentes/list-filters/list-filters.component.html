@@ -1,0 +1,68 @@
+<div flex="">
+    <div class="col"><h1>{{tituloListado}}</h1></div><br>
+    <form [formGroup]="FrmFiltros" (ngSubmit)="ListarInfo(FrmFiltros.value)">
+        <mat-accordion class="accordion-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Filtros
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Aquí puede seleccionar como desea ver la información
+                        <!-- <mat-icon title="Clic aquí para listar">view_list</mat-icon> -->
+                        <mat-icon>view_list</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-grid-list cols="8" rowHeight="60px">
+                    <mat-grid-tile [colspan]="2" [rowspan]="1"  *ngFor="let object of getElementos('datepicker'); let i = index;">
+                        <mat-form-field>
+                            <mat-label>{{object.etiqueta}}</mat-label>
+                            <input matInput [matDatepicker]="datepickerToggle" formControlName="{{object.nameElementModel}}" name="{{object.nameElementModel}}" [max]="currentDate">
+                            <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggle"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerToggle></mat-datepicker>
+                            <mat-error *ngIf="object.requerido && FrmFiltros.get('{{object.nameElementModel}}')?.invalid">
+                                Fecha no puede ser nula!
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="4" [rowspan]="1"  *ngFor="let object of getElementos('inputele'); let i = index;">
+                        <mat-form-field>
+                            <mat-label>{{object.etiqueta}}</mat-label>
+                            <input matInput formControlName="{{object.nameElementModel}}" name="{{object.nameElementModel}}">
+                            <mat-error *ngIf="object.requerido && FrmFiltros.get('{{object.nameElementModel}}')?.invalid">
+                                El campo es requerido!
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="4" [rowspan]="1" *ngFor="let object of getElementos('select'); let i = index;">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{object.etiqueta}}:</mat-label>
+                            <select matNativeControl formControlName="{{object.nameElementModel}}" name="{{object.nameElementModel}}">
+                                <option [ngValue]="null">seleccione...</option>
+                                <option *ngFor="let item of object.value.data" [ngValue]="item[object.value.valorsl]">{{item[object.value.descsl]}}</option>
+                            </select>
+                            <mat-error *ngIf="object.requerido && FrmFiltros.get('{{object.nameElementModel}}')?.invalid">
+                                El campo es requerido!
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="4" [rowspan]="1"  *ngFor="let object of getElementos('radios'); let i = index;">
+                        <div>
+                            <label>{{object.etiqueta}}: </label>
+                            <mat-radio-group formControlName="{{object.nameElementModel}}" name="{{object.nameElementModel}}">
+                              <mat-radio-button [value]="object.etiqueta.split('/')[0]">{{object.etiqueta.split('/')[0]}}</mat-radio-button>
+                              <mat-radio-button [value]="object.etiqueta.split('/')[1]">{{object.etiqueta.split('/')[1]}}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        <!-- <mat-slide-toggle #mstoggleCS color="primary" formControlName="{{object.nameElementModel}}" name="{{object.nameElementModel}}">{{object.etiqueta}}</mat-slide-toggle>-->
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-expansion-panel>
+        </mat-accordion><br>
+        <div class="pnlcontbottons">
+            <button mat-raised-button *ngIf="VerBotonImprimir" class="btnprimary" type="button" title="Imprimir listado" (click)="ImprimirListado()">Imprimir</button>
+            <button mat-raised-button class="btnprimary" type="reset" title="Limpiar filtros">Limpiar</button>
+            <button mat-raised-button class="btnprimary" type="submit" title="Listar">Listar</button>
+        </div>
+    </form>
+</div>

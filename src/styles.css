@@ -1,1 +1,355 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+/*@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";*/
+@font-face{
+  font-family: LetterNav;
+  src:url(fonts/BaishyNav.ttf);
+  font-family: ITCFranklinGothicStd-BkCd;
+  src: url(fonts/ITCFranklinGothicStd-BkCp.otf);
+  font-family: ITCFranklinGothicStd-DmCd;
+  src: url(fonts/ITCFranklinGothicStd-DmCd.otf);
+}
+html, body { height: 100%; }
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+body{
+    margin: 0px !important;
+    /*font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;*/
+    /* font-family: 'ITCFranklinGothicStd-BkCd', 'Arial Narrow', Arial, sans-serif !important; */
+    font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    /*font-family: 'Poppins', sans-serif !important;*/
+    font-size: 18px !important;
+    line-height: 24px !important;
+    font-weight: 400 !important;
+    font-display: swap !important;
+    /*font-size: 18px !important;*/
+    /*font-family: 'ITCFranklinGothicStd-DmCd', 'Arial Narrow', Arial, sans-serif*/
+    overflow: auto !important;
+}
+
+.mat-dialog-container {
+    background-color: gainsboro;
+    color: black;
+    text-align: center;
+    height: 92% !important;
+  }
+
+  .mat-dialog-actions{
+    display: inline-block !important;
+  }
+
+  .mdc-list-item__primary-text {
+    color:grey !important;
+    /*font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;*/
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+    /*'ITCFranklinGothicStd-Book' !important*/;
+    font-display: swap !important;
+    font-size: 15px !important;
+    font-weight: 410 !important;
+  }
+
+  .loader {
+    border-top: 16px solid rgba(80, 80, 83, 0.817);
+    border-right: 16px solid rgba(146, 150, 146, 0.815);
+    border-bottom: 16px solid rgba(221, 218, 218, 0.79);
+    border-radius: 80%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    left: 46.5%;
+    right: 46.5%;
+    top: 35%;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .containerbody{
+    margin-top: 2%;
+    margin-left: 2%;
+  }
+
+  /*estilo del submenú de la barra nav*/
+  .mat-mdc-menu-panel{
+    border-radius: 0px !important;
+    width: auto !important;
+    overflow: hidden !important;
+    position: absolute;
+    padding-bottom: 0px !important;
+    bottom: 0 !important;
+  }
+
+  .mat-mdc-menu-content{
+    padding-bottom: 0px !important;
+    bottom: 0 !important;
+  }
+
+
+  /*No mover porque descuadra el menú lateral*/
+  .cdk-overlay-pane{
+    margin-left: 3.1% !important;
+    margin-top: -3% !important;
+  }
+
+  mat-error{
+    overflow-y: auto !important;
+    font-size: 11px !important;
+    padding-bottom: 10px;
+    display: flex;
+  }
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+  .cdk-overlay-pane {
+    margin-left: 6.6% !important;
+    margin-top: -5% !important;
+    /* background: red; */
+    /* background-color: red; */
+  }
+
+}
+
+@media screen and (min-width: 993px) {
+  .cdk-overlay-pane {
+    margin-left: 3.9% !important;
+    margin-top: -3.8% !important;
+    /* background: yellow; */
+  }
+
+  .ptitlecpass{
+    font-size: 9px;
+  }
+
+  .pdesccpass{
+    font-size: 8px;
+  }
+}
+
+
+/* On screens that are 600px or less, example: Celulares*/
+@media screen and (max-width: 600px) {
+  .cdk-overlay-pane{
+      margin-left: 13.6% !important;
+      margin-top: -10% !important;
+      /* background: olive;  */
+  }
+
+  .ptitlecpass{
+    font-size: 9px;
+  }
+
+  .pdesccpass{
+    font-size: 8px;
+  }
+
+  .NavimgLogoIni{
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1281px) {
+  .cdk-overlay-pane {
+    margin-left: 3.1% !important;
+    margin-top: -3% !important;
+    /* background: bisque; */
+  }
+
+}
+
+/*estilo del submenú de la barra nav*/
+.btnprimary {
+  background-color: #2780e3 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  margin-right: 1%;
+}
+
+.divbtnsForm{
+  width: auto;
+  /* float: right; */
+  text-align: right;
+}
+
+.btnprimaryc{
+  background-color: gainsboro !important;
+  border-radius: 0px !important;
+  margin-right:0.5% !important;
+}
+
+mat-dialog-container, .mat-mdc-dialog-surface {
+  overflow: hidden !important;
+}
+
+mat-label{
+  font-size: 12px !important;
+}
+
+.headfrm{
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  /* max-width: 68% !important; */
+  overflow-y: hidden !important;
+  width: 100%;
+  }
+
+  .close.mat-button {
+    position: relative !important;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;
+  } 
+
+  .bodyfrm{
+    position:initial;
+    margin-top: 6%;
+    /* overflow-y: auto !important; */
+    height: 2%;
+    max-height: 2%;
+    /* background-color: antiquewhite; */
+    /* margin-bottom: 5%; */
+    z-index: 0;
+  }
+
+  .bottomfrm{
+    /* position: sticky; */
+    position: absolute;
+    bottom: 6%;
+    overflow-y: hidden !important;
+    z-index: 2;
+    padding-bottom: 2px;
+    background-color: white;
+    width: 100%;
+  }
+
+.container
+{
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.container > * {
+  width: 100% !important;
+}
+
+/* .mat-step-header .mat-step-icon{
+  background-color: white;
+  color: #053264;
+}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edi{
+  background-color: #053264;
+}
+.mat-step-text-label ng-star-inserted{
+  color: white;
+}
+
+.mat-step-header{
+  background-color: #2780e3 !important;
+  border-radius: 2px !important;
+}
+.mat-step-header:hover{
+  background-color: #b5d0f0 !important;
+}
+
+.mat-step-header .mat-step-label.mat-step-label-error{
+  color:#ffcc00;
+}
+
+.mat-step-header .mat-step-icon-state-error{
+  color:#ffcc00;
+} */
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edi{
+  background-color: #2780e3;
+}
+
+.mat-step-label, .mat-step-label-active{
+  font-size: 12px !important;
+}
+
+/*Tab Customizado*/
+.vertical-tabs-app {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden !important;
+}
+
+.mat-tab-labels-app {
+  display: flex;
+  flex-direction: column;
+  width: 150px; /* Ancho deseado de las etiquetas de las pestañas */
+}
+
+.mat-tab-label-app {
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  border-bottom: 1px solid #ccc;
+  color: #2780e3;
+  font-size: 14px !important;
+  font-weight: 650;
+  /* font-family: var(--mdc-typography-body1-font-family,var(--mdc-typography-font-family, Roboto, sans-serif)); */
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f3f3;
+}
+
+.mat-tab-label-app:hover {
+  background-color: #e0e0e0;
+}
+
+.active-mat-tab-app {
+  background-color: #2780e3;
+  color: white;
+  border-bottom: solid #1a237e;
+  /* border-style: inset; */
+  /* box-shadow: inset 0 0 5px #7ab6fa;*/
+  /* box-shadow: inset 0 0 20px #0f0, inset 0 0 20px #0f0, inset 0 0 20px #0f0; */
+}
+
+.mat-tab-content-app {
+  padding: 20px;
+  flex: 1;
+  overflow: hidden !important;
+}
+
+.icon-align-mat-tab-app, .text-aling-mat-tab-app{
+  vertical-align: middle;
+}
+
+.btnFileApp{
+  margin-top: 2%; 
+  font-size:8px; 
+  border-radius: 3px !important;
+  line-height: 1;
+}
+
+/* .mdc-evolution-chip__action button {
+  width: 100% !important;
+} */
+
+.mat-mdc-chip-set > span > button {
+  min-width: 98% !important;
+  width: auto !important;
+  text-align: left !important;
+} 
+.mat-mdc-chip-set > span > button > span{
+  max-width: 7% !important;
+  width: 7% !important;
+} 
+
+.mdc-evolution-chip__cell mdc-evolution-chip__cell--primary{
+  text-align: left !important;
+}
+/* .mdc-evolution-chip__graphic, .mat-mdc-chip-graphic, .ng-star-inserted{
+
+} */

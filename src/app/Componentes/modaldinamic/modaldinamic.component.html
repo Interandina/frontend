@@ -1,0 +1,19 @@
+<div>
+	<div class="headfrm" flex="">
+		<h1 mat-dialog-title>{{titleDR}}</h1>
+		<button mat-icon-button aria-label="close dialog" mat-dialog-close title="Cerrar" style="float: right; margin-top:-6.5%; margin-right: 2%;">
+			<mat-icon>close</mat-icon>
+		</button>
+		<hr class="hrheadfrm">
+	</div>
+	<mat-dialog-content>
+		<app-user-form *ngIf="componenteDR =='user'? true : false" [modelEditar]="modelEditar"></app-user-form>
+		<app-param-form *ngIf="componenteDR =='param'? true : false" [modelEditar]="modelEditar"></app-param-form>
+		<!-- <app-docanexos-form *ngIf="componenteDR =='tipoempresa'? true : false" [modelEditar]="modelEditar"></app-docanexos-form> -->
+		<!-- <app-clients-form *ngIf="componenteDR =='client'? true : false" [modelEditar]="modelEditar"></app-clients-form> -->
+		<app-groups-form *ngIf="componenteDR =='grupos'? true : false" [modelEditar]="modelEditar"></app-groups-form>
+	</mat-dialog-content>
+</div>
+
+
+

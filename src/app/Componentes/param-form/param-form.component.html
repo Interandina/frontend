@@ -1,0 +1,47 @@
+<div class="container">
+    <form #FormP="ngForm" [formGroup]="FormParam" novalidate (ngSubmit)="GuardarEditarParam(FormParam.value)">
+        <div class="bodyfrm" flex="">
+            <div flex="">
+                <mat-grid-list cols="7" rowHeight="2:1">
+                    <mat-grid-tile  [colspan]="2" [rowspan]="1.5">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Código</mat-label>
+                            <input matInput maxlength="25" class="input-upper" title="Ingresar código del parámetro" formControlName="name" name="name" required>
+                            <mat-error *ngIf="FormParam.get('name')?.invalid">Código no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                        <input type="hidden" formControlName="id" name="id">
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="5" [rowspan]="1.5">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Valor</mat-label>
+                            <input matInput maxlength="250" title="Ingresar valor del parámetro" formControlName="value" name="value" required>
+                            <mat-error *ngIf="FormParam.get('value')?.invalid">Valor del parámetro no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="6" [rowspan]="1.5">
+                        <mat-form-field appearance="fill" class="">
+                            <mat-label>Descripción</mat-label>
+                            <textarea  matInput cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="1"
+                            cdkAutosizeMaxRows="6" maxlength="500"  title="Ingresar descripción del parámetro" formControlName="description" name="description" required></textarea>
+                            <mat-error *ngIf="FormParam.get('description')?.invalid">Descripción no puede ser nulo!</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]="1" [rowspan]="1.5">
+                        <mat-checkbox matInput color="primary"  formControlName="inactive" name="inactive">Inactivo</mat-checkbox>
+                        <input hidden=true matInput>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+        <div class="bottomfrm" flex="">
+            <hr class="hrheadfrm">
+            <div class="divbtnsForm">
+                <button id="btnClose" mat-raised-button mat-dialog-close class="btnprimaryc" tabindex="-1">Cancelar</button>
+                <button mat-raised-button class="btnprimary" tabindex="-2" type="submit" style="margin-right: 4%;">{{titlebGoE}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+
