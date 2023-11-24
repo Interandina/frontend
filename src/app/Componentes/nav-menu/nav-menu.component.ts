@@ -138,7 +138,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   // };
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog, private servicio: ServicesComponent) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog, private servicio: ServicesComponent, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -152,7 +152,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       this.servicio.SendPOSTObsWHeader('users/permissions').then((rta: any) => {
         try
         {
-          // console.log(rta);
+          //console.log(rta);
           if(rta == undefined)
           {
             Swal.fire("Error", "Ha ocurrido un error inesperado o no se ha encontrado el método!", 'error');
@@ -165,6 +165,9 @@ export class NavMenuComponent implements OnInit, OnDestroy {
               this.userlogueado = JSON.parse(sessionStorage.getItem('cccccc')!).email;
               this.Logueado = true;
               this.ShowMenu = true;
+              //buscar si es un cliente para dejarlo en la hoja de vida
+              if(!Object.keys(JSON.parse(sessionStorage.getItem('cccccc'))).includes("typeuserId"))
+                this.router.navigate(['/hv_clients'], {skipLocationChange: true});
             }
             else
             {
