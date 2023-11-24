@@ -2332,11 +2332,12 @@ export class HvClientComponent implements OnInit {
 
   backListado(){
     this.MostrapnlHV = true;
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      // Navega de nuevo a la URL original
-      this.router.navigate([currentUrl]);
-    });
+    // const currentUrl = this.router.url;
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   // Navega de nuevo a la URL original
+    //   this.router.navigate([currentUrl]);
+    // });
+    this.router.navigate(['/'], {skipLocationChange: true});
     //window.location.reload();
     // this.cdRef.detectChanges();
     // this.Stepper.ngOnDestroy();

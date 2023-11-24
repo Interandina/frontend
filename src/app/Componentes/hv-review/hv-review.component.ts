@@ -417,11 +417,12 @@ export class HvReviewComponent implements OnInit{
   backListado(){
     this.MostrapnlHV = true;
     this.MostrapnlDocRevi = false;
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      // Navega de nuevo a la URL original
-      this.router.navigate([currentUrl]);
-    });
+    //const currentUrl = this.router.url;
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   // Navega de nuevo a la URL original
+    //   this.router.navigate([currentUrl]);
+    // });
+    this.router.navigate(['/'], {skipLocationChange: true});
   }
 
   porCorregir(chip:any)
