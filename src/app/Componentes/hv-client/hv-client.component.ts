@@ -2337,7 +2337,7 @@ export class HvClientComponent implements OnInit {
     //   // Navega de nuevo a la URL original
     //   this.router.navigate([currentUrl]);
     // });
-    this.router.navigate(['/'], {skipLocationChange: true});
+    this.router.navigate(['/hv_clients'], {skipLocationChange: true});
     //window.location.reload();
     // this.cdRef.detectChanges();
     // this.Stepper.ngOnDestroy();

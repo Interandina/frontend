@@ -422,7 +422,7 @@ export class HvReviewComponent implements OnInit{
     //   // Navega de nuevo a la URL original
     //   this.router.navigate([currentUrl]);
     // });
-    this.router.navigate(['/'], {skipLocationChange: true});
+    this.router.navigate(['/hv_review'], {skipLocationChange: true});
   }
 
   porCorregir(chip:any)
