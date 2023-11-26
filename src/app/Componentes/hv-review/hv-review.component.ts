@@ -477,15 +477,16 @@ export class HvReviewComponent implements OnInit{
       this.msjspinner = "Cargando el documento, por favor espere..."
       //console.log(nameFile);
       // this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": ((new Date(this.FrmInfGeneral.controls['createdAt']?.value).getFullYear() + "/" +  this.FrmInfGeneral.controls['document']?.value + "/") + nameFile)}, true).then((rta: ResponseM2) => {
-      this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": this.slDoc.nativeElement.options[this.slDoc.nativeElement.selectedIndex].id }, true).then((rta: ResponseM2) => {  
+      this.servicio.ShowPOSTWFile('system/showFile/', {"fileName": this.slDoc.nativeElement.options[this.slDoc.nativeElement.selectedIndex].id }, true).then((rta: any) => {  
         try
         {
-          if(rta.success)
+          if(rta)
           {
+            const blob = new Blob([rta], { type: 'application/pdf' });
             this.MostrarSpinner = false;
             this.msjspinner = null;
             //this.DocPDF = rta.data;
-            this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rta.data);
+            this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
             this.Visualizar = true;
             this.TituloBotonAproRechazarDocs = "Aprobar";
             this.ValueAproRechazarDocs = true;

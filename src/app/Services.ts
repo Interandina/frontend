@@ -16,6 +16,7 @@ export class ServicesComponent {
   
   httpOptionsPlain = {};
   httpOptionsPlainAut = {};
+  httpOptionsFileAut = {};
   corsHeaders = {};
 
 
@@ -32,6 +33,14 @@ export class ServicesComponent {
     this.httpOptionsPlainAut = {
       headers: new HttpHeaders({
         'Accept': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage != null && sessionStorage.getItem('cccccc') != null && sessionStorage.getItem('cccccc') != undefined ? JSON.parse(sessionStorage.getItem('cccccc')!).token : null
+      })
+    };
+
+    this.httpOptionsFileAut = {
+      responseType: 'blob',
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': sessionStorage != null && sessionStorage.getItem('cccccc') != null && sessionStorage.getItem('cccccc') != undefined ? JSON.parse(sessionStorage.getItem('cccccc')!).token : null
       })
@@ -173,6 +182,28 @@ export class ServicesComponent {
   }
 
 
+  /**
+ * Sends the post parameter obs.
+ * @param {string} route The route.
+ * @param {any} body The body are parameters.
+ * @returns object Promise<any>
+ */
+  public async SendPOSTWParamObsShow(route: string, body: any, tokenR: boolean = false): Promise<Blob> {
+    // console.log(route);
+    return await firstValueFrom(this.http.post<Blob>((environment.URLApi+ route), body, (tokenR ? this.httpOptionsFileAut : this.httpOptionsFileAut))).then((data: Blob) => { 
+      console.log(data)
+      return data;
+    },
+    (error:HttpErrorResponse) => {
+      if(!this.CloseSesion(error))
+      {
+        console.log(error);
+        console.error('An error occurred:', error.error);
+        return error.error;
+      }
+    });
+  }  
+
     /**
  * Sends the post parameter obs.
  * @param {string} route The route.
@@ -190,9 +221,35 @@ export class ServicesComponent {
         responseType: 'blob'
         };
         return await firstValueFrom(this.http.post((environment.URLApi + route), body, httpOptionsFileAut  )).then((data) => { 
+          console.log(data)
           return data;
         },
         (error:HttpErrorResponse) => {
+          if(!this.CloseSesion(error))
+          {
+            console.log('Error httpError' + error.error.message);
+            console.error('An error occurred:', error.error.message);
+            return error.error;
+          }
+        });
+    }
+
+    public async ShowPOSTWFile(route: string, body: any, tokenR: boolean = false): Promise<any> {
+      // console.log(route);
+      const url = (environment.URLApi+ route);
+      const httpOptionsFileAut:any = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json; charset=utf-8',
+          'Authorization': sessionStorage != null && sessionStorage.getItem('cccccc') != null && sessionStorage.getItem('cccccc') != undefined ? JSON.parse(sessionStorage.getItem('cccccc')!).token : null
+        }),
+        responseType: 'arraybuffer'
+        };
+        return await firstValueFrom(this.http.post((environment.URLApi + route), body, httpOptionsFileAut  )).then((data) => { 
+          console.log(data)
+          return data;
+        },
+        (error:HttpErrorResponse) => {
+          console.log(error)
           if(!this.CloseSesion(error))
           {
             console.log('Error httpError' + error.error.message);
