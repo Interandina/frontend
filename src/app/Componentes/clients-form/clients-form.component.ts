@@ -242,7 +242,8 @@ export class ClientsFormComponent {
               });
             }
           }
-          catch{
+          catch (err){
+            console.log(err)
             Swal.fire("Error al guardar o editar el cliente", "Ha ocurrido un error inesperado!", "error");
           }
         } 
@@ -263,7 +264,7 @@ export class ClientsFormComponent {
     this.clearFormDocs();
     //NO mover al método de documentos porque cuando guarda un detalle invoca el método clearFormDocs y 
     //se perdería lo q se lleve en el detalle de documentos.
-    this.dataSourceDocs = null;
+    this.dataSourceDocs = new MatTableDataSource();;
     this.MostrapnlLis = true;
     this.LoadClientesIni();
   }
@@ -423,7 +424,7 @@ export class ClientsFormComponent {
   LoadCliente(id:number){
     this.EsEdicion = true;
     //this.FormClient.controls['email'].disable();
-    this.FormClient.controls['document'].disable();
+    //this.FormClient.controls['document'].disable();
     this.titlebGoE = "Editar"
     this.servicio.SendGetWOutPObsHeaderAut('clients/' + id).then((rta: any) => {
       try
