@@ -289,6 +289,7 @@ export class HvReviewComponent implements OnInit{
           //console.log(rta);
           if(rta.success)
           {
+            this.Documents = [];
             this.ChipStep1 = rta.data.Step1;
             if(!rta.data.fieldsReject)
               rta.data.fieldsReject='[]';
@@ -348,7 +349,7 @@ export class HvReviewComponent implements OnInit{
             }
 
             if(rta.data.Step9 != undefined && rta.data.Step9 != null && rta.data.Step9.length > 0)
-            {
+            {/*
               rta.data.Step9.sort((a:any, b:any) => {
                 // Compara los nombres de los objetos de manera insensible a mayúsculas y minúsculas.
                 const nombreA = a[2].value.toLowerCase();
@@ -362,9 +363,8 @@ export class HvReviewComponent implements OnInit{
                 }
                 return 0; // a y b son iguales en cuanto al nombre
               });              
-              
+              */
               rta.data.Step9.forEach((item: any) =>{
-                this.Documents = [];
                 this.Documents.push({"value": item[0].value, nameCi: item[5].value, "name": item[2].value});
               });
             }

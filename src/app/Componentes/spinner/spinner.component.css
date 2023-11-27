@@ -1,10 +1,11 @@
 .wrapper {
-    position: absolute;
-    background: transparent;
-    width: 100%;
-    min-height:  500%;
-    background: rgba(17, 17, 17, 0.884);
-    z-index: 99998888;
+  position: fixed;
+  /* position: absolute; */
+  background: transparent;
+  width: 100%;
+  min-height:  500%;
+  background: rgba(17, 17, 17, 0.884);
+  z-index: 99998888;
   }
   
   .spinner{
