@@ -2,7 +2,7 @@
     position: absolute;
     background: transparent;
     width: 100%;
-    height:  200%;
+    min-height:  500%;
     background: rgba(17, 17, 17, 0.884);
     z-index: 99998888;
   }
@@ -13,9 +13,10 @@
     border-radius: 50%;
     border: 8px solid #13467b;
     border-right-color:#b10103;
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     animation: s4 1s infinite linear;
-    top: 30%;
+    top: 50%;
     left: 50%;
     z-index: 99999999;
     /* display: none; */
@@ -33,8 +34,9 @@
     color: chartreuse;
     animation: s4 1s infinite linear; */
 
-    position: absolute;
-    top: 40%;
+    /* position: absolute; */
+    position: fixed;
+    top: 65%;
     left: 52%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -48,7 +50,8 @@
   .spinner:before,
   .spinner:after {
     content: "";
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     inset: -8px;
     border-radius: 50%;
     border: inherit;

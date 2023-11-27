@@ -245,7 +245,7 @@ export class ServicesComponent {
         responseType: 'arraybuffer'
         };
         return await firstValueFrom(this.http.post((environment.URLApi + route), body, httpOptionsFileAut  )).then((data) => { 
-          console.log(data)
+          //console.log(data)
           return data;
         },
         (error:HttpErrorResponse) => {

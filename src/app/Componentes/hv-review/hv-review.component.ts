@@ -364,6 +364,7 @@ export class HvReviewComponent implements OnInit{
               });              
               */
               rta.data.Step9.forEach((item: any) =>{
+                this.Documents = [];
                 this.Documents.push({"value": item[0].value, nameCi: item[5].value, "name": item[2].value});
               });
             }
@@ -423,6 +424,9 @@ export class HvReviewComponent implements OnInit{
     //   this.router.navigate([currentUrl]);
     // });
     this.router.navigate(['/hv_review'], {skipLocationChange: true});
+    this.slDoc.nativeElement.value ="0";
+    this.Visualizar = false;
+    this.safePdfUrl = null;
   }
 
   porCorregir(chip:any)
