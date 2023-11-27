@@ -1,9 +1,13 @@
 .wrapper {
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   position: fixed;
   /* position: absolute; */
   background: transparent;
-  width: 100%;
-  min-height:  500%;
+  /* width: 100%;
+  min-height:  500%; */
   background: rgba(17, 17, 17, 0.884);
   z-index: 99998888;
   }
