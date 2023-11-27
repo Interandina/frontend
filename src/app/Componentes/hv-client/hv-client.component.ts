@@ -1145,13 +1145,18 @@ export class HvClientComponent implements OnInit {
           this.MostrarSpinner = true;
           //console.log(nameFile);
           // this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": ((new Date(this.FrmInfGeneral.controls['createdAt']?.value).getFullYear() + "/" +  this.FrmInfGeneral.controls['document']?.value + "/") + nameFile)}, true).then((rta: ResponseM2) => {
-          this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName":  nameFile}, true).then((rta: ResponseM2) => {  
+//          this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName":  nameFile}, true).then((rta: ResponseM2) => { 
+  this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  nameFile}, true).then((rta: any) => { 
+          
           //console.log(rta.data);
-            if(rta.success)
+            if(rta)
             {
               this.MostrarSpinner = false;
+              console.log("Ingreso")
+              const blob = new Blob([rta], { type: 'application/pdf' });
+              var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
               // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
-              this.ShowFileinIFrame(rta.data);
+              this.ShowFileinIFrame(safePdfUrl.changingThisBreaksApplicationSecurity);
             }
           });
         }
@@ -1182,13 +1187,18 @@ export class HvClientComponent implements OnInit {
         {
           //console.log(valueNameFile);
           this.MostrarSpinner = true;
-          this.servicio.SendPOSTWParamObs('system/showFile', {"fileName": valueNameFile}, true).then((rta: ResponseM2) => {
-            //console.log(rta.data);
+//          this.servicio.SendPOSTWParamObs('system/showFile', {"fileName": valueNameFile}, true).then((rta: ResponseM2) => {
+  this.servicio.ShowPOSTWFile('system/showFile', {"fileName": valueNameFile}, true).then((rta: any) => {
+    //console.log(rta.data);
             this.MostrarSpinner = false;
-            if(rta.success)
+            if(rta)
             {
+              console.log("Ingreso")
+
               // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
-              this.ShowFileinIFrame(rta.data);
+              const blob = new Blob([rta], { type: 'application/pdf' });
+              var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+              this.ShowFileinIFrame(safePdfUrl.changingThisBreaksApplicationSecurity);
             }
             else
               Swal.fire("Advertencia", rta.message, "warning");
@@ -1325,7 +1335,6 @@ export class HvClientComponent implements OnInit {
   }
 
   private ShowFileinIFrame(pdf: string){
-    //console.log(pdf);
     let pdfWindow = window.open("");
     pdfWindow.document.write("<html><head><title>Andina de Aduanas (Visualizar Documento)</title></head><body height='100%' width='100%'><iframe width='100%' height='100%' src='" + pdf + "'></iframe></body></html>");
   }
