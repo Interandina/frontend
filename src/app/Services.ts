@@ -281,6 +281,29 @@ export class ServicesComponent {
     });
   }
 
+  /**
+ * Sends the put parameter obs.
+ * @param {string} route The route.
+ * @param {any} body The body are parameters.
+ * @returns object Promise<any>
+ */
+  public async SendPOSTWOUTParamObsToken(route: string, body: any, token:string): Promise<any> {
+    return await firstValueFrom(this.http.post((environment.URLApi+ route), body, {headers:new HttpHeaders({
+      'Accept': 'application/json; charset=utf-8',
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })})).then((data) => { 
+      return data;
+    },
+    (error:HttpErrorResponse) => {
+      if(!this.CloseSesion(error))
+      {
+        console.error('An error occurred:', error.error);
+        return error.error;
+      }
+    });
+  }
+
 
   /**
  * Sends the put parameter obs.
