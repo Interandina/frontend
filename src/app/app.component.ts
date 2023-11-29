@@ -17,6 +17,7 @@ export class AppComponent {
   mensajeLogin: string = "";
   VievCPass= false;
   VievResetPass= false;
+  DowndLoadDocs = false;
   frmLogin = new FormGroup({
     email: new FormControl('', Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)),
     password: new FormControl('', Validators.required)
@@ -25,6 +26,7 @@ export class AppComponent {
   constructor(private servicio: ServicesComponent, private router: Router) {}
 
   ngOnInit(): void {
+    //console.log(sessionStorage);
     if(sessionStorage != null && sessionStorage.getItem('cccccc') != null && sessionStorage.getItem('cccccc') != undefined)
     {
       this.Logueado = true;
@@ -32,12 +34,15 @@ export class AppComponent {
     else
     {
       let paramresetpass = new URLSearchParams(window.location.search).get('val');
-      if(paramresetpass != null && paramresetpass != undefined)
+      if(window.location.pathname == "/resetPassword" && paramresetpass != null && paramresetpass != undefined)
       {
         this.VievResetPass = true;
         //this.router.navigate(['/resetPassword'], {skipLocationChange: true});
       }
-
+      else if(window.location.pathname == "/downloaddocs")
+      {
+        this.DowndLoadDocs = true;
+      }
     }
   }
   /**

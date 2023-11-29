@@ -1,6 +1,6 @@
 <body>
     <app-nav-menu *ngIf="Logueado"></app-nav-menu>
-    <form  *ngIf="!Logueado && !VievCPass && !VievResetPass"[formGroup]="frmLogin" novalidate (ngSubmit)="Login(frmLogin.value)">
+    <form  *ngIf="!Logueado && !VievCPass && !VievResetPass && !DowndLoadDocs" [formGroup]="frmLogin" novalidate (ngSubmit)="Login(frmLogin.value)">
         <div mat-dialog-content class="col-md-4-offset-md-4" class="my-css-class" align="center">
             <!-- <h1 mat-dialog-title>Autenticación de Usuario</h1> -->
             <img src="../../../assets/Imgs/Logo.png" width="150" height="67" style="margin-top:10px;">
@@ -40,4 +40,5 @@
     </form>
     <app-c-password *ngIf="VievCPass"></app-c-password>
     <app-reset-pass *ngIf="VievResetPass"></app-reset-pass>
+    <app-downloaddocs *ngIf="DowndLoadDocs"></app-downloaddocs>
 </body>

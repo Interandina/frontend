@@ -17,6 +17,7 @@ import { ParamComponent } from './Componentes/param/param.component';
 import { HvClientComponent } from './Componentes/hv-client/hv-client.component';
 import { HvReviewComponent } from './Componentes/hv-review/hv-review.component';
 import { DocanexosComponent } from './Componentes/docanexos/docanexos.component';
+import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
 
 const routes: Routes = [ { path: '', component: HomeComponent, pathMatch: 'full' },
 { path: 'settings_users', component: UsersComponent,  data: { title: 'holamundo' }},
@@ -33,7 +34,8 @@ const routes: Routes = [ { path: '', component: HomeComponent, pathMatch: 'full'
 { path: 'change_password', component: CPasswordComponent },
 { path: 'resetPassword', component: ResetPassComponent },
 { path: 'settings_enviroments', component: ParamComponent },
-{ path: 'settings_docanexos', component: DocanexosComponent }];
+{ path: 'settings_docanexos', component: DocanexosComponent },
+{ path: 'downloaddocs', component: DownloaddocsComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

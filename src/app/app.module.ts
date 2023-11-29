@@ -42,6 +42,7 @@ import { SpinnerComponent } from './Componentes/spinner/spinner.component';
 import { DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { ListFiltersComponent } from './Componentes/list-filters/list-filters.component';
+import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ListFiltersComponent } from './Componentes/list-filters/list-filters.co
     GroupsFormComponent,
     ButtonappComponent,
     SpinnerComponent,
-    ListFiltersComponent
+    ListFiltersComponent,
+    DownloaddocsComponent
   ],
   imports: [
     BrowserModule,

@@ -213,13 +213,23 @@ export class ServicesComponent {
     public async DownloadPOSTWFile(route: string, body: any, tokenR: boolean = false): Promise<any> {
       // console.log(route);
       const url = (environment.URLApi+ route);
-      const httpOptionsFileAut:any = {
+      let httpOptionsFileAut:any = null
+      if(sessionStorage.length>0)
+      httpOptionsFileAut = {
         headers: new HttpHeaders({
           'Accept': 'application/json; charset=utf-8',
           'Authorization': sessionStorage != null && sessionStorage.getItem('cccccc') != null && sessionStorage.getItem('cccccc') != undefined ? JSON.parse(sessionStorage.getItem('cccccc')!).token : null
         }),
         responseType: 'blob'
         };
+else
+httpOptionsFileAut = {
+  headers: new HttpHeaders({
+    'Accept': 'application/json; charset=utf-8'
+  }),
+  responseType: 'blob'
+  };
+        
         return await firstValueFrom(this.http.post((environment.URLApi + route), body, httpOptionsFileAut  )).then((data) => { 
           console.log(data)
           return data;
