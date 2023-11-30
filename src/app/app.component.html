@@ -7,10 +7,10 @@
             <br><br>
             <div class="container">
                 <mat-form-field appearance="fill" class="mat-form-login">
-                    <mat-label>Email</mat-label>
-                    <input matInput maxlength="60" title="Ingresar usuario" formControlName="email" name="email" required>
-                    <mat-error *ngIf="frmLogin.get('email')?.invalid">
-                        Email es requerido y debe tener un formato de correo!
+                    <mat-label>Usuario</mat-label>
+                    <input matInput maxlength="60" title="Ingresar usuario" formControlName="user" name="user" required>
+                    <mat-error *ngIf="frmLogin.get('user')?.invalid">
+                        Usuario es requerido!
                     </mat-error>
                 </mat-form-field>
             </div><br>
