@@ -58,29 +58,4 @@ export class DownloaddocsComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-
-/*
-    this.servicio.SendPOSTWParamObs('hv/downloadAttachments/', {"val": this.token}, true).then((rta: any) => {
-      try
-      {
-        if(rta == undefined)
-        {
-          Swal.fire("Error", "Ha ocurrido un error inesperado o no se ha encontrado el método!", 'error');
-        }
-        else
-        {
-          if(rta.success)
-          {
-
-          }
-          else
-            Swal.fire("Error", rta.message, "error");
-        }
-      }
-      catch(e){
-        console.log('Ha ocurrido un error inesperado. Motivo:', e);           
-        throw e;
-      }
-    });*/
-  
 }

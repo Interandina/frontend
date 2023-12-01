@@ -482,11 +482,11 @@ export class HvClientComponent implements OnInit {
       regimen:  ['NA', Validators.required],
       responsiblestatename:  ['', Validators.required],
       responsiblestatephone:  ['', Validators.required],
-      email:  ['', Validators.required],
+      email:  ['', Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)],
       contactinvoicename:  ['', Validators.required],
       contactinvoicecharge:  ['', Validators.required],
       contactinvoicephone:  ['', Validators.required],
-      contactinvoiceemail:  ['', Validators.required],
+      contactinvoiceemail:  ['', Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)],
       contactinvoicealternativeemail:  [{value: '', disabled: true}],
       codeciuu: new FormControl(null),
       //subscribedcapital: [0, Validators.required],
@@ -1346,7 +1346,7 @@ export class HvClientComponent implements OnInit {
     {
       this.FrmInfGeneral.controls['legalrepresentativealt2'].setValidators([Validators.required]);
       this.FrmInfGeneral.controls['legalrepresentativealt2'].updateValueAndValidity();
-      this.FrmInfGeneral.controls['emaillegalrepresentativealt2'].setValidators([Validators.required, Validators.email]);
+      this.FrmInfGeneral.controls['emaillegalrepresentativealt2'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
       this.FrmInfGeneral.controls['emaillegalrepresentativealt2'].updateValueAndValidity();
       this.FrmInfGeneral.controls['typedocrepresentativealt2'].setValidators([Validators.required]);
       this.FrmInfGeneral.controls['typedocrepresentativealt2'].updateValueAndValidity();
@@ -1372,6 +1372,166 @@ export class HvClientComponent implements OnInit {
       this.FrmInfGeneral.controls['chargerepresentativealt2'].setValue(null);
       this.FrmInfGeneral.controls['chargerepresentativealt2'].removeValidators([Validators.required]);
       this.FrmInfGeneral.controls['chargerepresentativealt2'].updateValueAndValidity();
+    }
+
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get("manager").value))
+    {
+      this.FrmInfGeneral.controls['manager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['manager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargemanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargemanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailmanager'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
+      this.FrmInfGeneral.controls['emailmanager'].updateValueAndValidity();
+    }
+    else
+    {
+      this.FrmInfGeneral.controls['manager'].setValue(null);
+      this.FrmInfGeneral.controls['manager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['manager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocmanager'].setValue(null);
+      this.FrmInfGeneral.controls['typedocmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentmanager'].setValue(null);
+      this.FrmInfGeneral.controls['documentmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargemanager'].setValue(null);
+      this.FrmInfGeneral.controls['chargemanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargemanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailmanager'].setValue(null);
+      this.FrmInfGeneral.controls['emailmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['emailmanager'].updateValueAndValidity();
+    }
+
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get("financialmanager").value))
+    {
+      this.FrmInfGeneral.controls['financialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['financialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocfinancialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocfinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentfinancialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentfinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargefinancialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargefinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailfinancialmanager'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
+      this.FrmInfGeneral.controls['emailfinancialmanager'].updateValueAndValidity();
+    }
+    else
+    {
+      this.FrmInfGeneral.controls['financialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['financialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['financialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocfinancialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['typedocfinancialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocfinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentfinancialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['documentfinancialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentfinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargefinancialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['chargefinancialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargefinancialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailfinancialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['emailfinancialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['emailfinancialmanager'].updateValueAndValidity();
+    }
+
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get("administrator").value))
+    {
+      this.FrmInfGeneral.controls['administrator'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['administrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocadministrator'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentadministrator'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargeadministrator'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargeadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailadministrator'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
+      this.FrmInfGeneral.controls['emailadministrator'].updateValueAndValidity();
+    }
+    else
+    {
+      this.FrmInfGeneral.controls['administrator'].setValue(null);
+      this.FrmInfGeneral.controls['administrator'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['administrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocadministrator'].setValue(null);
+      this.FrmInfGeneral.controls['typedocadministrator'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentadministrator'].setValue(null);
+      this.FrmInfGeneral.controls['documentadministrator'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargeadministrator'].setValue(null);
+      this.FrmInfGeneral.controls['chargeadministrator'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargeadministrator'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailadministrator'].setValue(null);
+      this.FrmInfGeneral.controls['emailadministrator'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['emailadministrator'].updateValueAndValidity();
+    }
+
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get("commercialmanager").value))
+    {
+      this.FrmInfGeneral.controls['commercialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['commercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedoccommercialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedoccommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentcommercialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentcommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargecommercialmanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargecommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailcommercialmanager'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
+      this.FrmInfGeneral.controls['emailcommercialmanager'].updateValueAndValidity();
+    }
+    else
+    {
+      this.FrmInfGeneral.controls['commercialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['commercialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['commercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedoccommercialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['typedoccommercialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedoccommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentcommercialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['documentcommercialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentcommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargecommercialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['chargecommercialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargecommercialmanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailcommercialmanager'].setValue(null);
+      this.FrmInfGeneral.controls['emailcommercialmanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['emailcommercialmanager'].updateValueAndValidity();
+    }
+
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get("ftrademanager").value))
+    {
+      this.FrmInfGeneral.controls['ftrademanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['ftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocftrademanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentftrademanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargeftrademanager'].setValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargeftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailftrademanager'].setValidators([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]);
+      this.FrmInfGeneral.controls['emailftrademanager'].updateValueAndValidity();
+    }
+    else
+    {
+      this.FrmInfGeneral.controls['ftrademanager'].setValue(null);
+      this.FrmInfGeneral.controls['ftrademanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['ftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['typedocftrademanager'].setValue(null);
+      this.FrmInfGeneral.controls['typedocftrademanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['typedocftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['documentftrademanager'].setValue(null);
+      this.FrmInfGeneral.controls['documentftrademanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['documentftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['chargeftrademanager'].setValue(null);
+      this.FrmInfGeneral.controls['chargeftrademanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['chargeftrademanager'].updateValueAndValidity();
+      this.FrmInfGeneral.controls['emailftrademanager'].setValue(null);
+      this.FrmInfGeneral.controls['emailftrademanager'].removeValidators([Validators.required]);
+      this.FrmInfGeneral.controls['emailftrademanager'].updateValueAndValidity();
     }
 
     if(this.FrmInfGeneral.valid)
