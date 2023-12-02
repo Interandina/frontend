@@ -675,12 +675,19 @@ export class HvClientComponent implements OnInit {
             //console.log(rta);
             this.clientId = rta.data.client.id;
             this.hvId = rta.data.id;
+            const _doc = rta.data.client.document;
+            rta.data.client.document = _doc.substring(0,_doc.length-1) + '-' + _doc.substring(_doc.length-1,1)
             if(rta.data.Step1 == undefined || rta.data.Step1 == null)
             {
               this.FrmInfGeneral.controls["document"]?.setValue(rta.data.client.document);
               this.FrmInfGeneral.controls["companyname"]?.setValue(rta.data.client.nameenterprise);
               this.FrmInfGeneral.controls["hvId"]?.setValue(rta.data.id);
               this.IsOperator(false);
+            }
+            else
+            {
+              if(!rta.data.Step1.document.includes('-'))
+                rta.data.Step1.document = rta.data.Step1.document.substring(0,rta.data.Step1.document.length-1) + '-' + rta.data.Step1.document.charAt(rta.data.Step1.document.length-1)
             }
             // this.departamentos = JSON.parse(JSON.stringify(rta.departments));
             // this.departamentosResp = JSON.parse(JSON.stringify(rta.departments));
