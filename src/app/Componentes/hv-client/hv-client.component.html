@@ -872,11 +872,18 @@
                                                 <mat-error *ngIf="FrmRefExt.get('phone')?.invalid">Teléfono no puede ser nulo!</mat-error>
                                             </mat-form-field>
                                         </mat-grid-tile>
-                                        <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
+                                        <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
                                             <mat-form-field appearance="fill" class="">
-                                                <mat-label>Antigüedad en Años</mat-label>
-                                                <input matInput maxlength="2" type="number" title="Antigüedad en años" formControlName="antiquity" name="antiquity" min="0" required>
-                                                <mat-error *ngIf="FrmRefExt.get('antiquity')?.invalid">Antigüedad no puede ser nulo!</mat-error>
+                                                <mat-label>Antigüedad (Años)</mat-label>
+                                                <input matInput maxlength="2" type="number" title="Antigüedad en años" formControlName="antiquitya" name="antiquitya" min="0" max="99" required>
+                                                <mat-error *ngIf="FrmRefExt.get('antiquitya')?.invalid">Años es requerido!</mat-error>
+                                            </mat-form-field>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
+                                            <mat-form-field appearance="fill" class="">
+                                                <mat-label>Antigüedad (Meses)</mat-label>
+                                                <input matInput maxlength="2" type="number" title="Antigüedad en meses" formControlName="antiquitym" name="antiquitym" min="0" max="11" required>
+                                                <mat-error *ngIf="FrmRefExt.get('antiquitym')?.invalid">Meses es requerido!</mat-error>
                                             </mat-form-field>
                                         </mat-grid-tile>
                                         <mat-grid-tile  [colspan]="6" [rowspan]="2">
@@ -959,18 +966,25 @@
                                                 <mat-error *ngIf="FrmRefPExt.get('phone')?.invalid">Teléfono no puede ser nulo!</mat-error>
                                             </mat-form-field>
                                         </mat-grid-tile>
-                                        <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
+                                        <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
                                             <mat-form-field appearance="fill" class="">
                                                 <mat-label>Antigüedad</mat-label>
-                                                <input matInput maxlength="2" type="number" title="Antigüedad" formControlName="antiquity" name="antiquity" required>
-                                                <mat-error *ngIf="FrmRefPExt.get('antiquity')?.invalid">Antigüedad no puede ser nulo!</mat-error>
+                                                <input matInput maxlength="2" type="number" title="Antigüedad en años" formControlName="antiquitya" name="antiquitya" required>
+                                                <mat-error *ngIf="FrmRefPExt.get('antiquitya')?.invalid">Años es requerido!</mat-error>
+                                            </mat-form-field>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
+                                            <mat-form-field appearance="fill" class="">
+                                                <mat-label>Antigüedad (Meses)</mat-label>
+                                                <input matInput maxlength="2" type="number" title="Antigüedad en meses" formControlName="antiquitym" name="antiquitym" min="0" max="11" required>
+                                                <mat-error *ngIf="FrmRefPExt.get('antiquitym')?.invalid">Meses es requerido!</mat-error>
                                             </mat-form-field>
                                         </mat-grid-tile>
                                         <mat-grid-tile  [colspan]="6" [rowspan]="2">
                                             <mat-form-field appearance="fill" class="">
                                                 <mat-label>Productos</mat-label>
                                                 <textarea matInput placeholder="Productos" style="resize: none;"  rows="3" formControlName="products" name="products" required></textarea>
-                                                <mat-error *ngIf="FrmRefPExt.get('products')?.invalid">Productos no puede ser nulo!</mat-error>
+                                                <mat-error *ngIf="FrmRefExt.get('products')?.invalid">Productos no puede ser nulo!</mat-error>
                                             </mat-form-field>
                                         </mat-grid-tile>
                                         <mat-grid-tile  [colspan]="2" [rowspan]="2">

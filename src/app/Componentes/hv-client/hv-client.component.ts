@@ -93,13 +93,13 @@ export class HvClientComponent implements OnInit {
   modelEditarRB: ModelEditar;
   //Grilla Referencias clientes externos
   dataSourceRCE = new MatTableDataSource<any>();
-  displayedColumnsRCE: string[] = ["company", "contactname", "country", "city", "phone", "antiquity", "products", "acciones"];
-  dataColumnsRCE: any[] = [{name: "id", title: "id", display: false }, {name: "hvId", title: "hvId", display: false }, {name: "company", title: "Datos de Empresa", display: true }, {name: "contactname", title: "Contacto", display: true}, {name: "country", title: "País de la empresa", display: true }, {name: "city", title: "Ciudad de la empresa", display: true }, {name: "phone", title: "Celular", display: true }, {name: "antiquity", title: "Antigüedad", display: true }, {name: "products", title: "Productos", display: true }, {name: "acciones", title: "Acción", display: true }, {name: "controleditar", title: "controleditar", display: false }];
+  displayedColumnsRCE: string[] = ["company", "contactname", "country", "city", "phone", "antiquityv", "antiquity", "products", "acciones"];
+  dataColumnsRCE: any[] = [{name: "id", title: "id", display: false }, {name: "hvId", title: "hvId", display: false }, {name: "company", title: "Datos de Empresa", display: true }, {name: "contactname", title: "Contacto", display: true}, {name: "country", title: "País de la empresa", display: true }, {name: "city", title: "Ciudad de la empresa", display: true }, {name: "phone", title: "Celular", display: true }, {name: "antiquityv", title: "Antigüedad", display: true }, {name: "antiquity", title: "antiquity", display: false }, {name: "products", title: "Productos", display: true }, {name: "acciones", title: "Acción", display: true }, {name: "controleditar", title: "controleditar", display: false }];
   modelEditarRCE: ModelEditar;
   //Grilla Referencias proveedores externos
   dataSourceRPE = new MatTableDataSource<any>();
-  displayedColumnsRPE: string[] = ["company", "contactname", "country", "city", "phone", "antiquity", "products", "acciones"];
-  dataColumnsRPE: any[] = [{name: "id", title: "id", display: false }, {name: "hvId", title: "hvId", display: false }, {name: "company", title: "Datos de Empresa", display: true }, {name: "contactname", title: "Contacto", display: true}, {name: "country", title: "País de la empresa", display: true }, {name: "city", title: "Ciudad de la empresa", display: true }, {name: "phone", title: "Celular", display: true }, {name: "antiquity", title: "Antigüedad", display: true }, {name: "products", title: "Productos", display: true }, {name: "acciones", title: "Acción", display: true }, {name: "controleditar", title: "controleditar", display: false }];
+  displayedColumnsRPE: string[] = ["company", "contactname", "country", "city", "phone", "antiquityv", "antiquity", "products", "acciones"];
+  dataColumnsRPE: any[] = [{name: "id", title: "id", display: false }, {name: "hvId", title: "hvId", display: false }, {name: "company", title: "Datos de Empresa", display: true }, {name: "contactname", title: "Contacto", display: true}, {name: "country", title: "País de la empresa", display: true }, {name: "city", title: "Ciudad de la empresa", display: true }, {name: "phone", title: "Celular", display: true },  {name: "antiquityv", title: "Antigüedad", display: true }, {name: "antiquity", title: "Antigüedad", display: false }, {name: "products", title: "Productos", display: true }, {name: "acciones", title: "Acción", display: true }, {name: "controleditar", title: "controleditar", display: false }];
   modelEditarRPE: ModelEditar;
   //Grilla Accionistas
   dataSourceAcc = new MatTableDataSource<any>();
@@ -436,7 +436,8 @@ export class HvClientComponent implements OnInit {
       country: ['', Validators.required],
       city: ['', Validators.required],
       phone: ['', Validators.required],
-      antiquity: ['null', Validators.required],
+      antiquitya: ['null', Validators.required],
+      antiquitym: ['null', Validators.required],
       products: ['', Validators.required],
       controleditar:new FormControl(null)
     });
@@ -453,7 +454,8 @@ export class HvClientComponent implements OnInit {
       country: ['', Validators.required],
       city: ['', Validators.required],
       phone: ['', Validators.required],
-      antiquity: ['null', Validators.required],
+      antiquitya: ['null', Validators.required],
+      antiquitym: ['null', Validators.required],
       products: ['', Validators.required],
       controleditar:new FormControl(null)
     });
@@ -713,7 +715,7 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 2 Personas Autorizadas
             if(rta.data.Step2 != undefined && rta.data.Step2 != null && rta.data.Step2.length > 0)
             {
-              this.ReloadGrid(rta.data.Step2, this.dataSourcePA);
+              this.ReloadGrid(rta.data.Step2, this.dataSourcePA, 2);
               this.FrmPersonAutStep.controls["hvId"]?.setValue(rta.data.id);
               this.Stepper.next();
               //console.log("2");
@@ -722,7 +724,7 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 3 Referencias Comerciales
             if(rta.data.Step3 != undefined && rta.data.Step3 != null && rta.data.Step3.length > 0)
             {
-              this.ReloadGrid(rta.data.Step3, this.dataSourceRC);
+              this.ReloadGrid(rta.data.Step3, this.dataSourceRC, 3);
               this.FrmRefStep.controls["hvIdRC"]?.setValue(rta.data.id);
               //this.Stepper.next();
             }
@@ -730,7 +732,7 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 4 Referencias Bancarias
             if(rta.data.Step4 != undefined && rta.data.Step4 != null && rta.data.Step4.length > 0)
             {
-              this.ReloadGrid(rta.data.Step4, this.dataSourceRB);
+              this.ReloadGrid(rta.data.Step4, this.dataSourceRB, 4);
               this.FrmRefStep.controls["hvIdRB"]?.setValue(rta.data.id);
               //this.Stepper.next();
             }
@@ -740,7 +742,8 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 5 Referencias de Clientes Exteriores
             if(rta.data.Step5 != undefined && rta.data.Step5 != null && rta.data.Step5.length > 0)
             {
-              this.ReloadGrid(rta.data.Step5, this.dataSourceRCE);
+              //console.log(rta.data.Step5);
+              this.ReloadGrid(rta.data.Step5, this.dataSourceRCE, 5);
               this.FrmRefEYPStep.controls["hvIdE"]?.setValue(rta.data.id);
               //this.Stepper.next();
             }
@@ -748,7 +751,7 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 6 Referencia de Proveedores Externos
             if(rta.data.Step6 != undefined && rta.data.Step6 != null && rta.data.Step6.length > 0)
             {
-              this.ReloadGrid(rta.data.Step6, this.dataSourceRPE);
+              this.ReloadGrid(rta.data.Step6, this.dataSourceRPE, 6);
               this.FrmRefEYPStep.controls["hvIdP"]?.setValue(rta.data.id);
               // this.Stepper.next();
             }
@@ -770,7 +773,7 @@ export class HvClientComponent implements OnInit {
             //Cargar Paso 8 Accionistas
             if(rta.data.Step8 != undefined && rta.data.Step8 != null && rta.data.Step8.length > 0)
             {
-              this.ReloadGrid(this.addtypedocdesStep8(rta.data.Step8), this.dataSourceAcc);
+              this.ReloadGrid(this.addtypedocdesStep8(rta.data.Step8), this.dataSourceAcc, 9);
               this.FrmAccionistasStep.controls["hvId"]?.setValue(rta.data.id);
               this.Stepper.next();
               //console.log("8");
@@ -1683,7 +1686,7 @@ export class HvClientComponent implements OnInit {
                   this.Stepper.next();
                  }, 1);
                 this.MostrarSpinner = false;
-               this.ReloadGrid(rta.data, this.dataSourcePA);
+               this.ReloadGrid(rta.data, this.dataSourcePA, 2);
                 //document.getElementById('LoaderSend').style.display = 'none';
               }
             });
@@ -1759,7 +1762,7 @@ export class HvClientComponent implements OnInit {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
                 //Asignar campos para una posible edición sin terminar la hoja de vida, no mover para que el stepper pase a la siguiente hoja
                 this.FrmRefStep.controls["hvIdRC"]?.setValue(rta.data[0].id);
-                this.ReloadGrid(rta.data, this.dataSourceRC);
+                this.ReloadGrid(rta.data, this.dataSourceRC, 3);
                 this.MostrarSpinner = false;
                 if(!StringIsNullOrEmpty(this.FrmRefStep.controls["hvIdRC"]?.value) && !StringIsNullOrEmpty(this.FrmRefStep.controls["hvIdRB"]?.value))
                 {
@@ -1839,7 +1842,7 @@ export class HvClientComponent implements OnInit {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
                 //Asignar campos para una posible edición sin terminar la hoja de vida, no mover para que el stepper pase a la siguiente hoja
                 this.FrmRefStep.controls["hvIdRB"]?.setValue(rta.data[0].id);
-                this.ReloadGrid(rta.data, this.dataSourceRB);
+                this.ReloadGrid(rta.data, this.dataSourceRB, 4);
                 this.MostrarSpinner = false;
                 if(!StringIsNullOrEmpty(this.FrmRefStep.controls["hvIdRB"]?.value) && !StringIsNullOrEmpty(this.FrmRefStep.controls["hvIdRC"]?.value))
                 {
@@ -1920,7 +1923,7 @@ export class HvClientComponent implements OnInit {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
                 //Asignar campos para una posible edición sin terminar la hoja de vida, no mover para que el stepper pase a la siguiente hoja
                 this.FrmRefEYPStep.controls["hvIdE"]?.setValue(rta.data[0].id);
-                 this.ReloadGrid(rta.data, this.dataSourceRCE);
+                 this.ReloadGrid(rta.data, this.dataSourceRCE, 5);
                 this.MostrarSpinner = false;
                 if(!StringIsNullOrEmpty(this.FrmRefEYPStep.controls["hvIdE"]?.value) || !StringIsNullOrEmpty(this.FrmRefEYPStep.controls["hvIdP"]?.value))
                 {
@@ -1949,6 +1952,8 @@ export class HvClientComponent implements OnInit {
         this.EliminarFilaRefCE({row: row.controleditar, verPadre: false});
 
       row.hvId = this.hvId;
+      row.antiquityv = (this.FrmRefExt.controls["antiquitya"]?.value + " año(s), " + this.FrmRefExt.controls["antiquitym"]?.value + " mes(es)");
+      row.antiquity = (this.FrmRefExt.controls["antiquitya"]?.value + "," + this.FrmRefExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
       this.dataSourceRCE.data.push(row);
@@ -1971,7 +1976,7 @@ export class HvClientComponent implements OnInit {
   }
 
   EditarRowRefCE(row: any){
-    this.FrmRefExt.setValue({hvId: row.row.hvId, id: row.row.id, company: row.row.company, contactname: row.row.contactname, country: row.row.country, city: row.row.city, phone: row.row.phone, antiquity: row.row.antiquity, products: row.row.products, controleditar:row.row});
+    this.FrmRefExt.setValue({hvId: row.row.hvId, id: row.row.id, company: row.row.company, contactname: row.row.contactname, country: row.row.country, city: row.row.city, phone: row.row.phone, antiquitya: row.row.antiquity.split(",")[0], antiquitym: row.row.antiquity.split(",")[1], products: row.row.products, controleditar:row.row});
   }
 
   GuardarEditarRefPE(){
@@ -2002,7 +2007,7 @@ export class HvClientComponent implements OnInit {
                 //Asignar campos para una posible edición sin terminar la hoja de vida, no mover para que el stepper pase a la siguiente hoja
                 this.FrmRefEYPStep.controls["hvIdP"]?.setValue(rta.data[0].id);
 
-                this.ReloadGrid(rta.data, this.dataSourceRPE);
+                this.ReloadGrid(rta.data, this.dataSourceRPE, 6);
                 this.MostrarSpinner = false;
                 if(!StringIsNullOrEmpty(this.FrmRefEYPStep.controls["hvIdP"]?.value) || !StringIsNullOrEmpty(this.FrmRefEYPStep.controls["hvIdE"]?.value))
                 {
@@ -2031,6 +2036,8 @@ export class HvClientComponent implements OnInit {
         this.EliminarFilaRefPE({row: row.controleditar, verPadre: false});
 
       row.hvId = this.hvId;
+      row.antiquityv = (this.FrmRefPExt.controls["antiquitya"]?.value + " año(s), " + this.FrmRefPExt.controls["antiquitym"]?.value + " mes(es)");
+      row.antiquity = (this.FrmRefPExt.controls["antiquitya"]?.value + "," + this.FrmRefPExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
       this.dataSourceRPE.data.push(row);
@@ -2044,7 +2051,7 @@ export class HvClientComponent implements OnInit {
   }
 
   EditarRowRefPE(row: any){
-    this.FrmRefPExt.setValue({hvId: row.row.hvId, id: row.row.id, company: row.row.company, contactname: row.row.contactname, country: row.row.country, city: row.row.city, phone: row.row.phone, antiquity: row.row.antiquity, products: row.row.products, controleditar:row.row});
+    this.FrmRefPExt.setValue({hvId: row.row.hvId, id: row.row.id, company: row.row.company, contactname: row.row.contactname, country: row.row.country, city: row.row.city, phone: row.row.phone, antiquitya: row.row.antiquity.split(",")[0], antiquitym: row.row.antiquity.split(",")[1], products: row.row.products, controleditar:row.row});
   }
 
   EliminarFilaRefPE(objetoEnviado: PassModelBotonGrid){
@@ -2155,7 +2162,7 @@ export class HvClientComponent implements OnInit {
                 }, 1);
                 this.MostrarSpinner = false;
                 // this.ReloadGrid(rta.data, this.dataSourceAcc);
-                this.ReloadGrid(this.addtypedocdesStep8(rta.data), this.dataSourceAcc);
+                this.ReloadGrid(this.addtypedocdesStep8(rta.data), this.dataSourceAcc, 8);
               }
             });
           }
@@ -2360,13 +2367,25 @@ export class HvClientComponent implements OnInit {
     });
     return data;
   }
-  private ReloadGrid(data:any, dataSource: MatTableDataSource<any>)
+  private ReloadGrid(data:any, dataSource: MatTableDataSource<any>, paso: number)
   {
     let dataAccion = data;
-    dataAccion.forEach((i: any)=>{
-      i.acciones = ["delete_forever", "clic para eliminar esta fila"],
-      i.controleditar = null
-    });
+    if(paso == 5 || paso == 6)
+    {
+      dataAccion.forEach((i: any)=>    
+      {
+        i.acciones = ["delete_forever", "clic para eliminar esta fila"],
+        i.controleditar = null,
+        i.antiquityv = (i.antiquity.split(",")[0] + " año(s), " + i.antiquity.split(",")[1] + " mes(es)")
+      });
+    }
+    else
+     {
+      dataAccion.forEach((i: any)=> {
+        i.acciones = ["delete_forever", "clic para eliminar esta fila"],
+        i.controleditar = null
+      });
+    }
     dataSource.data = null;
     dataSource.data = dataAccion;
   }
