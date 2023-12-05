@@ -941,9 +941,9 @@ export class HvClientComponent implements OnInit {
     if(this.FrmInfGeneral.get('documentrepresentative').value)
       person.push({ value: this.FrmInfGeneral.get('documentrepresentative').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
     if(this.FrmInfGeneral.get('documentrepresentativealt1').value)
-      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt1').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
+      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt1').value, title: this.FrmInfGeneral.get('documentrepresentativealt1').value, selected:true })
     if(this.FrmInfGeneral.get('documentrepresentativealt2').value)
-      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt2').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
+      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt2').value, title: this.FrmInfGeneral.get('documentrepresentativealt2').value, selected:true })
 
     // Puedes realizar cualquier lógica de actualización aquí si es necesario.
     // En este caso, simplemente actualizamos las opciones para ilustrar el concepto.
