@@ -295,7 +295,6 @@ export class HvReviewComponent implements OnInit{
               rta.data.fieldsReject='[]';
             this.FieldsWithErrors = JSON.parse(rta.data.fieldsReject.toLowerCase());
             this.FrmAprobarHV.controls["id"].setValue(row.hvid);
-            rta.data.Step7.subscribedcapital=rta.data.Step7.subscribedcapital.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             if(rta.data.Step2 != undefined && rta.data.Step2 != null && rta.data.Step2.length > 0)
             {
               rta.data.Step2.forEach((item: any) =>{
