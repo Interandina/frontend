@@ -20,7 +20,7 @@
                 <form #FormCli="ngForm" [formGroup]="FormClient" novalidate (ngSubmit)="GuardarEditarCliente(FormClient.value)">
                     <mat-grid-list cols="7" rowHeight="2:1">
                         <!-- <p style="margin-top: 7%;">Información del Cliente</p> -->
-                        <mat-grid-tile  [colspan]="2" [rowspan]="1">
+                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
                             <mat-form-field appearance="fill" class="">
                                 <mat-label>NIT</mat-label>
                                 <input matInput maxlength="20" title="Ingresar nit del cliente" formControlName="document" name="document" required>
@@ -35,6 +35,12 @@
                             </mat-form-field>
                         </mat-grid-tile>
                         <mat-grid-tile  [colspan]="2" [rowspan]="1">
+                            <mat-form-field appearance="fill" class="">
+                                <mat-label>Nombre Corto</mat-label>
+                                <input matInput maxlength="250" class="input-upper" title="Ingresar nombre corto del cliente" formControlName="shortname" name="shortname">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
                             <mat-form-field appearance="fill">
                                 <mat-label>Miembro de:</mat-label>
                                 <select matNativeControl formControlName="tocompany" name="tocompany" title="Miembro de" placeholder="Miembro de:" >
@@ -118,7 +124,7 @@
                 <form #_FormClientDocs="ngForm" [formGroup]="FormClientDocs" novalidate (ngSubmit)="GuardarEditarDocsCli(FormClientDocs.value)">
                 <!-- <form #_FormClientDocs="ngForm" [formGroup]="FormClientDocs" novalidate> -->
                     <mat-grid-list cols="7" rowHeight="2:1" style="overflow: hidden !important;">
-                        <mat-grid-tile  [colspan]="5" [rowspan]="1">
+                        <mat-grid-tile  [colspan]="4" [rowspan]="1">
                             <!-- <mat-form-field appearance="fill" class="mat-form-login">
                                 <mat-label>Nombre del documento</mat-label>
                                 <input matInput maxlength="100" class="input-upper"  title="Agregar nombre del documento" formControlName="name" name="name" required>
@@ -144,16 +150,22 @@
                                 <input type="hidden" formControlName="id" name="id">
                             </mat-form-field>
                         </mat-grid-tile>
+                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
+                            <mat-form-field appearance="fill" class="">
+                                <mat-label>Nombre Corto</mat-label>
+                                <input matInput maxlength="250" class="input-upper" title="Ingresar nombre corto del cliente" formControlName="shortname" name="shortname">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
+                            <mat-checkbox #chkFecVen id="chkFecVen-input"  matInput color="primary" (change)="checkValueFV($event.checked)">Requiere vencimiento</mat-checkbox>
+                            <input hidden=true matInput>
+                        </mat-grid-tile>
                         <mat-grid-tile [colspan]="1" [rowspan]="1">
                             <mat-form-field *ngIf="OcultarDT">
                                 <mat-label>Días de vencimiento</mat-label>
                                 <input matInput type="number" min="1" formControlName="expireat" name="expireat" title="días de vencimimiento para el documento">
                                 <mat-error *ngIf="FormClientDocs.get('expireat')?.invalid">Días no puede ser nulo y mayor a cero!</mat-error>
                             </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
-                            <mat-checkbox #chkFecVen id="chkFecVen-input"  matInput color="primary" (change)="checkValueFV($event.checked)">Requiere vencimiento</mat-checkbox>
-                            <input hidden=true matInput>
                         </mat-grid-tile>
                         <mat-grid-tile  [colspan]="4" [rowspan]="1">
                             <mat-form-field appearance="fill">

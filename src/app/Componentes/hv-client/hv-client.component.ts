@@ -46,6 +46,7 @@ export class HvClientComponent implements OnInit {
   selectedFile: any = null;
   clientId: number = 0;
   hvId: number = 0;
+  signaturepersons: any = [];
   actividades: any[];
   departamentos: any[];
   departamentosResp: any[];
@@ -268,6 +269,7 @@ export class HvClientComponent implements OnInit {
     this.callbackBoton = this.LoadHV;
     this.myCtxtCapitalS.setValue('0');
     this.transformM();
+    this.refrescarLstaRepresentantes();
   }
 
 
@@ -342,6 +344,7 @@ export class HvClientComponent implements OnInit {
       chargeoperationscoordination: new FormControl('', Validators.required),
       phoneoperationcoordinator: new FormControl('', Validators.required),
       isanonymoussociety: new FormControl(false, Validators.required),
+      signatureperson: new FormControl('', Validators.required),
       createdAt: new FormControl<Date>(null),
       updatedAt: [null]
     });
@@ -914,6 +917,8 @@ export class HvClientComponent implements OnInit {
                 this.ArrayAutoME.push({nombreME: this.FrmInfGeneral.controls[item.nombremodelo].value.toString().trim().toUpperCase(), lineaorigen: item.linea, nit:  (!StringIsNullOrEmpty(this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].valor) ? this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].valor : !StringIsNullOrEmpty(this.FrmInfGeneral.controls[this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].nombremodelo].value) ? this.FrmInfGeneral.controls[this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].nombremodelo].value : null)});
             });
 
+            this.refrescarLstaRepresentantes()
+
           }
           else
             Swal.fire("Error", rta.message, "error");
@@ -928,6 +933,21 @@ export class HvClientComponent implements OnInit {
 
   get filesArray() {
     return this.FrmAnexos.get('hv_info_step9') as FormArray;
+  }
+
+  refrescarLstaRepresentantes() {
+    // Puedes acceder a los valores de otros campos en el formulario
+    let person: Object[] = new Array();
+    if(this.FrmInfGeneral.get('documentrepresentative').value)
+      person.push({ value: this.FrmInfGeneral.get('documentrepresentative').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
+    if(this.FrmInfGeneral.get('documentrepresentativealt1').value)
+      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt1').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
+    if(this.FrmInfGeneral.get('documentrepresentativealt2').value)
+      person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt2').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
+
+    // Puedes realizar cualquier lógica de actualización aquí si es necesario.
+    // En este caso, simplemente actualizamos las opciones para ilustrar el concepto.
+    this.signaturepersons = person;
   }
 
   private CalcularAnchoMaximoBotones(){

@@ -48,6 +48,7 @@ export class DocanexosFormComponent implements OnInit {
     this.FormTipEmpDet =  fb.group({
       id: new FormControl(null),
       name: new FormControl(null, Validators.required),
+      shortname: new FormControl(''),
       msjhelp: new FormControl(''),
       expireat: new FormControl(0, [Validators.minLength(1)]),
       inactive: new FormControl(false, Validators.required),
@@ -255,13 +256,14 @@ export class DocanexosFormComponent implements OnInit {
   //   //this.FormTiposEmpresas.controls["inactive"]?.setValue(false);
   // }
   EditarRow(row: any){
-    this.FormTipEmpDet.setValue({id: row.row.id, name: row.row.name, msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: row.row.operationtype, assignto: row.row.assignto, tocompany: row.row.tocompany, fileid: row.row.fileid});
+    this.FormTipEmpDet.setValue({id: row.row.id, name: row.row.name, shortname: row.row.shortname, msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: row.row.operationtype, assignto: row.row.assignto, tocompany: row.row.tocompany, fileid: row.row.fileid});
     this.checkValueFV(row.row.expireat > 0 ? true : false);
     (document.getElementById('chkFecVen-input') as HTMLInputElement).checked = row.row.expireat > 0 ? true : false;
   }
 
   private LoadDefValuesFormDet(){
     //this.FormTipEmpDet.controls["id"]?.setValue(0);
+    this.FormTipEmpDet.controls["shortname"]?.setValue('');
     this.FormTipEmpDet.controls["inactive"]?.setValue(false);
     this.FormTipEmpDet.controls["expireat"]?.setValue(0);
     this.FormTipEmpDet.controls["tocompany"]?.setValue('Andina');

@@ -364,9 +364,11 @@ export class HvReviewComponent implements OnInit{
                 return 0; // a y b son iguales en cuanto al nombre
               });              
               */
+             
               rta.data.Step9.forEach((item: any) =>{
                 this.Documents.push({"value": item[0].value, nameCi: item[5].value, "name": item[2].value});
               });
+              
             }
             this.MostrarSpinner = false;
           }

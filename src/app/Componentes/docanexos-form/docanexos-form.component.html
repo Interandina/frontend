@@ -39,13 +39,19 @@
                 <form #_FormTipEmpDet="ngForm" [formGroup]="FormTipEmpDet" novalidate (ngSubmit)="GuardarEditarDocAnexos(FormTipEmpDet.value)">
                     <mat-grid-list cols="7" rowHeight="2:1">
                         <div class="col"><h2>{{titledoc}}</h2></div>
-                        <mat-grid-tile  [colspan]="5" [rowspan]="1">
+                        <mat-grid-tile  [colspan]="4" [rowspan]="1">
                             <mat-form-field appearance="fill" class="mat-form-login">
                                 <mat-label>Nombre del documento</mat-label>
                                 <input matInput maxlength="100" class="input-upper"  title="Agregar nombre del documento" formControlName="name" name="name" required>
                                 <mat-error *ngIf="FormTipEmpDet.get('name')?.invalid">Nombre del documento no puede ser nulo!</mat-error>
                                 <input type="hidden" formControlName="id" name="id">
                                 <input type="hidden" formControlName="tocompany" name="tocompany">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile  [colspan]="1" [rowspan]="1">
+                            <mat-form-field appearance="fill" class="">
+                                <mat-label>Nombre Corto</mat-label>
+                                <input matInput maxlength="250" class="input-upper" title="Ingresar nombre corto del cliente" formControlName="shortname" name="shortname">
                             </mat-form-field>
                         </mat-grid-tile>
                         <mat-grid-tile [colspan]="1" [rowspan]="1">

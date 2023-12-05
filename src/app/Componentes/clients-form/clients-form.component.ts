@@ -49,6 +49,7 @@ export class ClientsFormComponent {
       id: new FormControl(0),
       document: new FormControl('', Validators.required),
       nameenterprise: new FormControl('', Validators.required),
+      shortname: new FormControl(''),
       accountable: new FormControl('', Validators.required),
       email: new FormControl('', Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)),
       inactive: new FormControl(false, Validators.required),
@@ -62,6 +63,7 @@ export class ClientsFormComponent {
     this.FormClientDocs =  fb.group({
       id: new FormControl(null),
       name: new FormControl(null, Validators.required),
+      shortname: new FormControl(''),
       msjhelp: new FormControl(''),
       expireat: new FormControl(0, [Validators.minLength(1)]),
       inactive: new FormControl(false, Validators.required),
@@ -275,6 +277,7 @@ export class ClientsFormComponent {
     //(document.getElementById('chkFecVen-input') as HTMLInputElement).checked = false;
     (this.chkFecVen as HTMLInputElement).checked = false;
     this.checkValueFV(false);
+    this.FormClientDocs.controls["shortname"]?.setValue('');
     this.FormClientDocs.controls["expireat"]?.setValue(0);
     this.FormClientDocs.controls["operationtype"]?.setValue('G');
     this.FormClientDocs.controls["tocompany"]?.setValue('Andina');
@@ -325,13 +328,13 @@ export class ClientsFormComponent {
   private AgregarDocsParaGuardar()
   {
     let modelo = this.dataSourceDocs.data.map(function(obj:any){
-      return {id: obj.id, name: obj.name, msjhelp: obj.msjhelp, expireat: obj.expireat, inactive: obj.inactive, operationtype: obj.operationtype, assignto: obj.assignto, tocompany: obj.tocompany, fileid: obj.fileid}
+      return {id: obj.id, name: obj.name, shortname: obj.shortname, msjhelp: obj.msjhelp, expireat: obj.expireat, inactive: obj.inactive, operationtype: obj.operationtype, assignto: obj.assignto, tocompany: obj.tocompany, fileid: obj.fileid}
     });
     this.FormClient.controls["files"]?.setValue(modelo);
   }
   EditarRow(row: any){
     // console.log(row);
-    this.FormClientDocs.setValue({id: row.row.id, name: row.row.name, msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: 'G', assignto: row.row.assignto, tocompany: 'Andina', fileid: row.row.fileid, controleditar: row.row});
+    this.FormClientDocs.setValue({id: row.row.id, name: row.row.name, shortname: row.row.shortname ,msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: 'G', assignto: row.row.assignto, tocompany: 'Andina', fileid: row.row.fileid, controleditar: row.row});
     this.LoadAutocomplete(row.row);
     this.checkValueFV(row.row.expireat > 0 ? true : false);
     // (document.getElementById('chkFecVen-input') as HTMLInputElement).checked = row.row.expireat > 0 ? true : false;
