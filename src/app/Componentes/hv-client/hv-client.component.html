@@ -255,7 +255,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Email</mat-label>
-                                    <input matInput maxlength="60" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal" formControlName="emaillegalrepresentative" name="emaillegalrepresentative" required>
+                                    <input matInput maxlength="100" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal" formControlName="emaillegalrepresentative" name="emaillegalrepresentative" required>
                                     <mat-error *ngIf="FrmInfGeneral.get('emaillegalrepresentative')?.invalid">
                                         Email es requerido y debe tener un formato de correo!
                                     </mat-error>
@@ -312,7 +312,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Email</mat-label>
-                                    <input matInput maxlength="60" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal suplente 1" formControlName="emaillegalrepresentativealt1" name="emaillegalrepresentativealt1" required>
+                                    <input matInput maxlength="100" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal suplente 1" formControlName="emaillegalrepresentativealt1" name="emaillegalrepresentativealt1" required>
                                     <mat-error *ngIf="FrmInfGeneral.get('emaillegalrepresentativealt1')?.invalid">
                                         Email es requerido y debe tener un formato de correo!
                                     </mat-error>
@@ -620,7 +620,7 @@
                             <mat-grid-tile  [colspan]="3" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Email</mat-label>
-                                    <input matInput maxlength="60" class="input-lower" placeholder="cuenta@dominio.com" title="Email del contacto" formControlName="emailoperationscoordinator" name="emailoperationscoordinator" required>
+                                    <input matInput maxlength="100" class="input-lower" placeholder="cuenta@dominio.com" title="Email del contacto" formControlName="emailoperationscoordinator" name="emailoperationscoordinator" required>
                                     <mat-error *ngIf="FrmInfGeneral.get('emailoperationscoordinator')?.invalid">
                                         Email es requerido y debe tener un formato de correo!
                                     </mat-error>
@@ -682,7 +682,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Email</mat-label>
-                                    <input matInput maxlength="60" class="input-lower" placeholder="cuenta@dominio.com" title="Email de la persona autorizada" formControlName="email" name="email" required>
+                                    <input matInput maxlength="100" class="input-lower" placeholder="cuenta@dominio.com" title="Email de la persona autorizada" formControlName="email" name="email" required>
                                     <mat-error *ngIf="FrmPersonAut.get('email')?.invalid">
                                         Email es requerido y debe tener un formato de correo!
                                     </mat-error>
