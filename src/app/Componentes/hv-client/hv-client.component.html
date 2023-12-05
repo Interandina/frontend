@@ -1256,7 +1256,7 @@
                             <mat-grid-tile  [colspan]="8" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Origen de los Recursos. Declaro que los recursos empleados en el negocio jurídico proceden del giro ordinario de actividades lícitas, las cuales resumo a continuación:</mat-label>
-                                    <input matInput maxlength="50" title="Origen de los Recursos" formControlName="islegalresources" name="islegalresources" placeholder="Ejemplo: COMERCIALIZACIÓN DE FLORES FRESCAS" required>
+                                    <input matInput maxlength="250" title="Origen de los Recursos" formControlName="islegalresources" name="islegalresources" placeholder="Ejemplo: COMERCIALIZACIÓN DE FLORES FRESCAS" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('islegalresources')?.invalid">Origen de los recursos no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
