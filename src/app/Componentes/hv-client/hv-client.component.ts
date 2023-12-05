@@ -1976,7 +1976,8 @@ export class HvClientComponent implements OnInit {
       row.antiquity = (this.FrmRefExt.controls["antiquitya"]?.value + "," + this.FrmRefExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
-      this.dataSourceRCE.data.push(row);
+      if(this.dataSourceRCE.data.length<2)
+        this.dataSourceRCE.data.push(row);
       this.dataSourceRCE._updateChangeSubscription();
       // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
       this.FrmRefExt.reset();
@@ -2060,7 +2061,8 @@ export class HvClientComponent implements OnInit {
       row.antiquity = (this.FrmRefPExt.controls["antiquitya"]?.value + "," + this.FrmRefPExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
-      this.dataSourceRPE.data.push(row);
+      if(this.dataSourceRPE.data.length<2)
+        this.dataSourceRPE.data.push(row);
       this.dataSourceRPE._updateChangeSubscription();
       // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
       this.FrmRefPExt.reset();
