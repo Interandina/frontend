@@ -938,7 +938,7 @@
                                 <form [formGroup]="FrmRefPExt">
                                     <ng-template matStepLabel>Datos Clientes/Proveedores</ng-template>
                                     <h3>Datos de Proveedores del Exterior.</h3>
-                                    <p style="font-size: 14px;">Ingrese los nombres y datos de proveedores en el exterior con las que cuenta la empresa.</p>
+                                    <p style="font-size: 14px;">Ingrese los nombres y datos de proveedores en el exterior con las que cuenta la empresa. (Máximo 2)</p>
                                     <mat-grid-list cols="8" rowHeight="2:1">
                                         <mat-grid-tile  [colspan]="4" [rowspan]="1.2">
                                             <mat-form-field appearance="fill" class="">
@@ -1154,7 +1154,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Email del contacto</mat-label>
-                                    <input matInput maxlength="30" class="input-lower" title="Email del responsable" formControlName="email" name="email" required>
+                                    <input matInput maxlength="100" class="input-lower" title="Email del responsable" formControlName="email" name="email" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('email')?.invalid">Email no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
@@ -1189,7 +1189,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Email del contacto</mat-label>
-                                    <input matInput maxlength="30" title="Email del responsable de facturación" formControlName="contactinvoiceemail" name="contactinvoiceemail" required>
+                                    <input matInput maxlength="100" title="Email del responsable de facturación" formControlName="contactinvoiceemail" name="contactinvoiceemail" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('contactinvoiceemail')?.invalid">Email no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
@@ -1199,7 +1199,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Email del contacto alterno</mat-label>
-                                    <input matInput maxlength="30" title="Email alterno del responsable de facturación alterno" formControlName="contactinvoicealternativeemail" name="contactinvoicealternativeemail" required>
+                                    <input matInput maxlength="100" title="Email alterno del responsable de facturación alterno" formControlName="contactinvoicealternativeemail" name="contactinvoicealternativeemail" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('contactinvoicealternativeemail')?.invalid">Email alterno no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
