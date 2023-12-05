@@ -681,7 +681,7 @@ export class HvClientComponent implements OnInit {
             this.clientId = rta.data.client.id;
             this.hvId = rta.data.id;
             const _doc = rta.data.client.document;
-            rta.data.client.document = _doc.substring(0,_doc.length-1) + '-' + rta.data.Step1.document.charAt(rta.data.Step1.document.length-1)
+            rta.data.client.document = _doc.substring(0,_doc.length-1) + '-' + _doc.charAt(_doc.length-1)
             if(rta.data.Step1 == undefined || rta.data.Step1 == null)
             {
               this.FrmInfGeneral.controls["document"]?.setValue(rta.data.client.document);
