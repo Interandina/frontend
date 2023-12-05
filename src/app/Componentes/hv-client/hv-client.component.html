@@ -265,7 +265,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Representante Legal Suplente 1</mat-label>
-                                    <input matInput maxlength="100" title="Nombre completo del representante legal suplente 1" formControlName="legalrepresentativealt1" name="legalrepresentativealt1" required [matAutocomplete]="autoRLS"  (focus)="AddValuestoAutocomplete($event, 2)">
+                                    <input matInput maxlength="100" title="Nombre completo del representante legal suplente 1" formControlName="legalrepresentativealt1" name="legalrepresentativealt1" [matAutocomplete]="autoRLS"  (focus)="AddValuestoAutocomplete($event, 2)">
                                     <mat-autocomplete class="autHV" #autoRLS="matAutocomplete" (optionSelected)="onOptionSelectedMiembros($event, 2)">
                                         <mat-option *ngFor="let option of filteredAutoMERLS | async" [value]="option.nombreME" [optionselected]="option">
                                             {{option.nombreME +' ' + (option.nit != null ? option.nit : "")}}
@@ -294,7 +294,7 @@
                             <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Número de Documento</mat-label>
-                                    <input matInput maxlength="15"  title="Documento de identidad del representante legal suplente 1" class="eleauto" formControlName="documentrepresentativealt1" name="documentrepresentativealt1" required>
+                                    <input matInput maxlength="15"  title="Documento de identidad del representante legal suplente 1" class="eleauto" formControlName="documentrepresentativealt1" name="documentrepresentativealt1" >
                                     <mat-error *ngIf="FrmInfGeneral.get('documentrepresentativealt1')?.invalid">
                                         Documento es requerido!
                                     </mat-error>
@@ -303,7 +303,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Cargo</mat-label>
-                                    <input matInput maxlength="100"  title="Cargo del representante legal suplente 1" class="eleauto" formControlName="chargerepresentativealt1" name="chargerepresentativealt1" required>
+                                    <input matInput maxlength="100"  title="Cargo del representante legal suplente 1" class="eleauto" formControlName="chargerepresentativealt1" name="chargerepresentativealt1" >
                                     <mat-error *ngIf="FrmInfGeneral.get('chargerepresentativealt1')?.invalid">
                                         Cargo es requerido!
                                     </mat-error>
@@ -312,7 +312,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="mat-form-login">
                                     <mat-label>Email</mat-label>
-                                    <input matInput maxlength="100" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal suplente 1" formControlName="emaillegalrepresentativealt1" name="emaillegalrepresentativealt1" required>
+                                    <input matInput maxlength="100" class="input-lower eleauto" placeholder="cuenta@dominio.com" title="Email del representante legal suplente 1" formControlName="emaillegalrepresentativealt1" name="emaillegalrepresentativealt1" >
                                     <mat-error *ngIf="FrmInfGeneral.get('emaillegalrepresentativealt1')?.invalid">
                                         Email es requerido y debe tener un formato de correo!
                                     </mat-error>
