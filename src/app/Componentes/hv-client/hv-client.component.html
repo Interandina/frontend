@@ -1035,7 +1035,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Email del contacto</mat-label>
-                                    <input matInput maxlength="30" title="Email del contacto" formControlName="walletemployemail" name="walletemployemail" required>
+                                    <input matInput maxlength="100" title="Email del contacto" formControlName="walletemployemail" name="walletemployemail" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('walletemployemail')?.invalid">Email no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
