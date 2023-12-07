@@ -938,16 +938,16 @@ export class HvClientComponent implements OnInit {
   refrescarLstaRepresentantes() {
     // Puedes acceder a los valores de otros campos en el formulario
     let person: Object[] = new Array();
-    if(this.FrmInfGeneral.get('documentrepresentative').value)
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get('documentrepresentative').value))
       person.push({ value: this.FrmInfGeneral.get('documentrepresentative').value, title: this.FrmInfGeneral.get('legalrepresentative').value, selected:true })
-    if(this.FrmInfGeneral.get('documentrepresentativealt1').value)
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get('documentrepresentativealt1').value) && !person.some((item: any) => item.value == this.FrmInfGeneral.get('documentrepresentativealt1').value))
       person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt1').value, title: this.FrmInfGeneral.get('legalrepresentativealt1').value, selected:true })
-    if(this.FrmInfGeneral.get('documentrepresentativealt2').value)
+    if(!StringIsNullOrEmpty(this.FrmInfGeneral.get('documentrepresentativealt2').value) && !person.some((item: any) => item.value == this.FrmInfGeneral.get('documentrepresentativealt2').value))
       person.push({ value: this.FrmInfGeneral.get('documentrepresentativealt2').value, title: this.FrmInfGeneral.get('legalrepresentativealt2').value, selected:true })
 
     // Puedes realizar cualquier lógica de actualización aquí si es necesario.
     // En este caso, simplemente actualizamos las opciones para ilustrar el concepto.
-    this.signaturepersons = person;
+    this.signaturepersons = person ;
   }
 
   private CalcularAnchoMaximoBotones(){
@@ -1773,10 +1773,19 @@ export class HvClientComponent implements OnInit {
           try
           {
             this.MostrarSpinner = true;
-            let modelo = this.dataSourceRC.data.map(function(obj){
+            let modelo3 = this.dataSourceRC.data.map(function(obj){
               return {id: obj.id, hvId: obj.hvId, company: obj.company,  phone: obj.phone}
             });
-            this.servicio.SendPOSTWParamObs('hv', {"hv_info_step3" : modelo, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
+
+            let modelo4 = null;
+            if(this.dataSourceRB.data.length > 0)
+            {
+              modelo4 = this.dataSourceRB.data.map(function(obj){
+                return {id: obj.id, hvId: obj.hvId, company: obj.company,  phone: obj.phone}
+              });
+            }
+
+            this.servicio.SendPOSTWParamObs('hv', modelo4 != null ? {"hv_info_step3" : modelo3, "hv_info_step4" : modelo4, "clientId": this.clientId} : {"hv_info_step3" : modelo3, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
               if(rta.success)
               {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
@@ -1853,10 +1862,19 @@ export class HvClientComponent implements OnInit {
           try
           {
             this.MostrarSpinner = true;
-            let modelo = this.dataSourceRB.data.map(function(obj){
+            let modelo3 = null;
+            if(this.dataSourceRC.data.length > 0)
+            {
+              modelo3 = this.dataSourceRC.data.map(function(obj){
+                return {id: obj.id, hvId: obj.hvId, company: obj.company,  phone: obj.phone}
+              });
+            }
+
+            let modelo4 = this.dataSourceRB.data.map(function(obj){
               return {id: obj.id, hvId: obj.hvId, company: obj.company,  phone: obj.phone}
             });
-            this.servicio.SendPOSTWParamObs('hv', {"hv_info_step4" : modelo, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
+
+            this.servicio.SendPOSTWParamObs('hv', modelo3 != null ? {"hv_info_step3" : modelo3, "hv_info_step4" : modelo4, "clientId": this.clientId} : {"hv_info_step4" : modelo4, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
               if(rta.success)
               {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
@@ -1933,11 +1951,18 @@ export class HvClientComponent implements OnInit {
           try
           {
             this.MostrarSpinner = true;
-            let modelo = this.dataSourceRCE.data.map(function(obj){
+            let modelo5 = this.dataSourceRCE.data.map(function(obj){
               return {id: obj.id, hvId: obj.hvId, company: obj.company, contactname: obj.contactname, country: obj.country, city: obj.city,  phone: obj.phone, antiquity: obj.antiquity, products: obj.products}
             });
-            
-            this.servicio.SendPOSTWParamObs('hv', {"hv_info_step5" : modelo, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
+
+            let modelo6 = null;
+            if(this.dataSourceRPE.data.length > 0)
+            {
+              modelo6 = this.dataSourceRPE.data.map(function(obj){
+                return {id: obj.id, hvId: obj.hvId, company: obj.company, contactname: obj.contactname, country: obj.country, city: obj.city,  phone: obj.phone, antiquity: obj.antiquity, products: obj.products}
+              });
+            }
+            this.servicio.SendPOSTWParamObs('hv', modelo6 == null ? {"hv_info_step5" : modelo5, "clientId": this.clientId} : {"hv_info_step5" : modelo5, "hv_info_step6" : modelo6, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
               if(rta.success)
               {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
@@ -1976,12 +2001,16 @@ export class HvClientComponent implements OnInit {
       row.antiquity = (this.FrmRefExt.controls["antiquitya"]?.value + "," + this.FrmRefExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
-      if(this.dataSourceRCE.data.length<2)
+      if(this.dataSourceRCE.data.length < 2)
+      {
         this.dataSourceRCE.data.push(row);
-      this.dataSourceRCE._updateChangeSubscription();
-      // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
-      this.FrmRefExt.reset();
-        //Para validar la grilla cuando esté llena, puede continuar al siguiente paso
+        this.dataSourceRCE._updateChangeSubscription();
+        // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
+        this.FrmRefExt.reset();
+      }
+      else
+        Swal.fire("Máximo No Permitido", "No se pueden seguir agregando más referencias de clientes; el máximo permitido son dos!", "warning");
+      //Para validar la grilla cuando esté llena, puede continuar al siguiente paso
       if(this.dataSourceRCE.data.length >= 1)
         this.FrmRefEYPStep.controls["hvIdE"]?.setValue(this.hvId);
     }
@@ -2016,12 +2045,20 @@ export class HvClientComponent implements OnInit {
         if (result.isConfirmed) {
           try
           {
+            let modelo5 = null;
+            if(this.dataSourceRCE.data.length > 0)
+            {
+              modelo5 = this.dataSourceRCE.data.map(function(obj){
+                return {id: obj.id, hvId: obj.hvId, company: obj.company, contactname: obj.contactname, country: obj.country, city: obj.city,  phone: obj.phone, antiquity: obj.antiquity, products: obj.products}
+              });
+            }
+
             this.MostrarSpinner = true;
-            let modelo = this.dataSourceRPE.data.map(function(obj){
+            let modelo6 = this.dataSourceRPE.data.map(function(obj){
               return {id: obj.id, hvId: obj.hvId, company: obj.company, contactname: obj.contactname, country: obj.country, city: obj.city,  phone: obj.phone, antiquity: obj.antiquity, products: obj.products}
             });
             
-            this.servicio.SendPOSTWParamObs('hv', {"hv_info_step6" : modelo, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
+            this.servicio.SendPOSTWParamObs('hv', modelo5 != null ? {"hv_info_step5" : modelo5, "hv_info_step6" : modelo6, "clientId": this.clientId} : {"hv_info_step6" : modelo6, "clientId": this.clientId}, true).then((rta: ResponseM2) => {
               if(rta.success)
               {
                 Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
@@ -2061,11 +2098,15 @@ export class HvClientComponent implements OnInit {
       row.antiquity = (this.FrmRefPExt.controls["antiquitya"]?.value + "," + this.FrmRefPExt.controls["antiquitym"]?.value);
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
-      if(this.dataSourceRPE.data.length<2)
+      if(this.dataSourceRPE.data.length < 2)
+      {
         this.dataSourceRPE.data.push(row);
-      this.dataSourceRPE._updateChangeSubscription();
-      // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
-      this.FrmRefPExt.reset();
+        this.dataSourceRPE._updateChangeSubscription();
+        // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
+        this.FrmRefPExt.reset();
+      }
+      else
+      Swal.fire("Máximo No Permitido", "No se pueden seguir agregando más proveedores; el máximo permitido son dos!", "warning");
         //Para validar la grilla cuando esté llena, puede continuar al siguiente paso
       if(this.dataSourceRPE.data.length >= 1)
         this.FrmRefEYPStep.controls["hvIdP"]?.setValue(this.hvId);
