@@ -1822,6 +1822,7 @@ export class HvClientComponent implements OnInit {
       row.hvId = this.hvId;
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
+      if(this.dataSourceRC.data.length<1)
       this.dataSourceRC.data.push(row);
       this.dataSourceRC._updateChangeSubscription();
       // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
@@ -1911,6 +1912,7 @@ export class HvClientComponent implements OnInit {
       row.hvId = this.hvId;
       row.controleditar = null;
       row.acciones = ["delete_forever", "clic para eliminar esta fila"]
+      if(this.dataSourceRB.data.length<1)
       this.dataSourceRB.data.push(row);
       this.dataSourceRB._updateChangeSubscription();
       // this.FormPA.reset({id:null, hvId: null, fullName: null, charge: '', email: '', phone: '', controleditar: null});
