@@ -103,6 +103,14 @@
     </div>
     <div class="subcontainer2">
         <div class="col"><h3>Visualización de Documentos</h3></div><br>
+        <mat-grid-list cols="8" rowHeight="60px" *ngIf="Supplies">
+            <mat-grid-tile [colspan]="8" [rowspan]="1.2">
+                <mat-form-field appearance="fill" class="">
+                    <mat-label>¿Ha cargado contratos de suministros?</mat-label>
+                    <input matNativeControl value="{{Supplies}}" readonly />
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
         <mat-grid-list cols="8" rowHeight="60px" *ngIf="Documents">
             <mat-grid-tile  [colspan]="4" [rowspan]="1.2">
                 <mat-form-field appearance="fill" class="">

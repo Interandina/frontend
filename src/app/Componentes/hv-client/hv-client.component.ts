@@ -266,8 +266,8 @@ export class HvClientComponent implements OnInit {
 
     this.buildForm();
     this.GetInfoIni();
-    this.callbackBoton = this.LoadHV;
     this.myCtxtCapitalS.setValue('0');
+    this.callbackBoton = this.LoadHV;
     this.transformM();
     this.refrescarLstaRepresentantes();
   }
@@ -578,7 +578,8 @@ export class HvClientComponent implements OnInit {
   }
 
   transformM(){
-    this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
+//    this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
+this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
     //console.log(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value);
   } 
   // asyncValidator(control: FormControl) {
@@ -763,6 +764,7 @@ export class HvClientComponent implements OnInit {
 
             if(rta.data.Step7 != undefined && rta.data.Step7 != null)
             {
+              this.myCtxtCapitalS.setValue(rta.data.Step7.subscribedcapital)
               this.LoadFrmInfFinanciera(rta.data.Step7);             
               this.Stepper.next();
               //console.log("7");
@@ -917,6 +919,7 @@ export class HvClientComponent implements OnInit {
                 this.ArrayAutoME.push({nombreME: this.FrmInfGeneral.controls[item.nombremodelo].value.toString().trim().toUpperCase(), lineaorigen: item.linea, nit:  (!StringIsNullOrEmpty(this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].valor) ? this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].valor : !StringIsNullOrEmpty(this.FrmInfGeneral.controls[this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].nombremodelo].value) ? this.FrmInfGeneral.controls[this.ArrayCamposAuto.filter(i => i.linea == item.linea && i.orden == 3)[0].nombremodelo].value : null)});
             });
 
+            this.transformM()
             this.refrescarLstaRepresentantes()
 
           }

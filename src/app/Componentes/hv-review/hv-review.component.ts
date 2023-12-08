@@ -78,6 +78,7 @@ export class HvReviewComponent implements OnInit{
   dataColumnsAcc: any[] = [{name: "id", title: "id", display: false }, {name: "hvId", title: "hvId", display: false }, {name: "node", title: "node", display: false },{name: "company", title: "Nombres o Razón Social", display: true }, {name: "typedoc", title: "Tipo documento", display: false }, {name: "typedocdes", title: "Tipo documento", display: true }, {name: "document", title: "Documento", display: true }, {name: "country", title: "País", display: true }, {name: "controleditar", title: "controleditar", display: false }];
   modelEditarAcc: ModelEditar;
   Documents:any[] =[];
+  Supplies:String;
   Visualizar = false;
   //DocPDF: any = null;
   safePdfUrl: SafeUrl;
@@ -290,7 +291,12 @@ export class HvReviewComponent implements OnInit{
           if(rta.success)
           {
             this.Documents = [];
+            this.Supplies = 'NO';
             this.ChipStep1 = rta.data.Step1;
+
+            if(rta.data.hasSupplies)
+              if(rta.data.hasSupplies>0)
+                this.Supplies='SI (' + rta.data.hasSupplies + ' contratos de suministros)';
             if(!rta.data.fieldsReject)
               rta.data.fieldsReject='[]';
             this.FieldsWithErrors = JSON.parse(rta.data.fieldsReject.toLowerCase());
