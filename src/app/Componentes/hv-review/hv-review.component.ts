@@ -261,7 +261,7 @@ export class HvReviewComponent implements OnInit{
             this.dataSource = new MatTableDataSource(this.dataGrid);
             //Grilla historico
             rta.data.completed.forEach((item:any) =>{
-              item.acciones =  item.state == "Aprobada" ? [{icon: "forward_to_inbox", title: "Reenviar correo del estado de la hoja de vida", indice: 1},  {icon: "rule_folder", title: "Registrar documentos del Revisor" , indice: 2}] : [{icon: "forward_to_inbox", title: "Reenviar correo del estado de la hoja de vida", indice: 1}];
+              item.acciones =  item.state == "Aprobada" ? [{icon: "forward_to_inbox", title: "Reenviar correo del estado de la hoja de vida", indice: 1},  {icon: "rule_folder", title: "Registrar documentos del Revisor" , indice: 2}, {icon: "cloud_download", title: "Generar Archivos para Firmar", indice: 3}] : [{icon: "forward_to_inbox", title: "Reenviar correo del estado de la hoja de vida", indice: 1}];
             });
             this.dataSourceC = new MatTableDataSource(rta.data.completed);
           }
@@ -745,6 +745,39 @@ export class HvReviewComponent implements OnInit{
           startWith(''),
           map(value => this._filterDocs(value || '')),
         );
+      }
+      catch(excepcion){
+        this.MostrarSpinner = false;
+        Swal.fire("Error", "Ha ocurrido un error, motivo:"+ excepcion, "error");
+      }
+    }
+    else if(row.indice == 3)
+    {
+      try
+      {
+        this.MostrarSpinner = true;
+
+        this.servicio.DownloadPOSTWFile('hv/downloaddocs', {"val": row.row.id}, true).then((rta: Blob) => {
+          if(rta)
+          {
+            //console.log(rta);
+            const dataType = 'application/zip';
+            const blob = new Blob([rta], { type: dataType });
+  
+            const downloadLink = document.createElement('a');
+            downloadLink.href = window.URL.createObjectURL(blob);
+            downloadLink.setAttribute('download', 'documentos_anexos.zip');
+            
+            downloadLink.click();  
+            this.MostrarSpinner = false;
+
+            this.filteredOptionsDocs = this.FrmDocsRev.controls['documentname'].valueChanges.pipe(
+              startWith(''),
+              map(value => this._filterDocs(value || '')),
+            );
+          }
+        });
+        
       }
       catch(excepcion){
         this.MostrarSpinner = false;
