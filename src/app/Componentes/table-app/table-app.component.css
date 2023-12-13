@@ -2,7 +2,7 @@
   table {
     /*display: block;*/
     width: 100%;
-    overflow-x: auto !important;
+    overflow-x: scroll !important;
   }
   /* Cuando se seleccione una fila */
   .highlight{
@@ -129,4 +129,50 @@ mat-paginator {
 
 .RCargar{
   background-color: rgb(240, 149, 65) !important;
+}
+
+/* .table-div {
+  overflow-x: scroll !important;
+  
+  mat-table {
+     table-layout: fixed;
+       mat-header-cell, mat-cell {
+         overflow-wrap: normal;
+         white-space: nowrap;
+         overflow: visible !important;
+         margin-right: 30px;
+         flex: 0 0 300px;
+       }
+  }
+} */
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+mat-table {
+ width: 1200px;
+ max-width: 1200px;
+ margin-bottom: 1rem;
+ display: table;
+ border-collapse: collapse;
+ margin: 0px;
+}
+
+mat-row,
+mat-header-row {
+  display: table-row;
+}
+mat-cell,
+mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 5px;
+  line-break: unset;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
 }

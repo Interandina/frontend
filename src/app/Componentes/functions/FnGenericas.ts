@@ -1,6 +1,7 @@
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { ResponseM2 } from "src/app/modelos/Interfaces";
 import {NgFor, AsyncPipe, CurrencyPipe} from '@angular/common';
+import * as XLSX from 'xlsx';
 
 
 export function ConvertStringToDecimal(valor: string = "0"):number
@@ -119,3 +120,43 @@ export function todosMiembrosSonNulos(obj: any): boolean[] {
     }
     return rta;
 }
+
+// export function readExcelFile(file: File, numberSheet: number = 0): Promise<any[]> {
+export function readExcelFile(file: File, numberSheet: number = 0): Promise<{ headers: string[], data: any[], sheetExcel: XLSX.WorkSheet}> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array((e.target as any).result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[numberSheet];
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Obtener los encabezados de la hoja de Excel
+                // const headers: string[] = [];
+                // for (const key in worksheet) {
+                //     if (worksheet.hasOwnProperty(key) && key.startsWith('A1')) {
+                //         headers.push(worksheet[key].v);
+                //     }
+                // }
+                const headers: string[] = [];
+                const range = XLSX.utils.decode_range(worksheet['!ref']);
+        
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                  const cellAddress = { r: 0, c: C };
+                  const cellRef = XLSX.utils.encode_cell(cellAddress);
+                  headers.push(worksheet[cellRef]?.v || '');
+                }
+
+                // Convertir los datos de la hoja de cálculo a un array de objetos
+                const excelData: any[] = XLSX.utils.sheet_to_json<any>(worksheet, { header: 1 }).slice(1);
+                //resolve(excelData);
+                resolve({ headers, data: excelData, sheetExcel:  worksheet});
+                //console.log(excelData);
+            } catch (error) {
+                reject(error);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    });
+  }

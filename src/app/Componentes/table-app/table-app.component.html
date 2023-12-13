@@ -22,7 +22,7 @@
     </mat-form-field>
     <!-- [trackBy]="trackByTimestmamp" -->
     <!-- {{displayedColumns[0].title}} *ngIf="dataSource && displayedColumns"  [resizableColumns]="true"-->
-    <table  #table *ngIf="dataSource && displayedColumns"  mat-table [dataSource]="dataSource" matSort fixedLayout="true">
+    <table class="table-responsive"  #table *ngIf="dataSource && displayedColumns"  mat-table [dataSource]="dataSource" matSort fixedLayout="true">
         <ng-container [matColumnDef]="column.name" *ngFor="let column of dataColumns">
             <th mat-header-cell *matHeaderCellDef [ngClass]="[!column.display ? 'hide_element' : '']">{{column.title}}</th>
             <!-- <td mat-cell *matCellDef="let element" [ngClass]="[!column.display ? 'hide_element' : '']">{{element[column.name]}}</td> -->

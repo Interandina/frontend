@@ -13,7 +13,7 @@ import { ItemAutocomplete, ModelEditar, ModelGridClients, ModelInfoHV, PassModel
 import { CompositeMensajeFields, ConvertStringToDecimal, NameTipeDocument, StringIsNullOrEmpty, ValidateFieldsForm, hasRequiredValidator, transformMoney } from '../functions/FnGenericas';
 import { Observable, pipe } from 'rxjs';
 import {debounceTime, map, min, startWith} from 'rxjs/operators';
-import {NgFor, AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
+import {NgFor, AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe} from '@angular/common';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import { AUTO_STYLE } from '@angular/animations';
 import { Router } from '@angular/router';
@@ -545,7 +545,6 @@ export class HvClientComponent implements OnInit {
     // console.log(this.ArrayCamposAuto);
     //console.log(this.ArrayAutoME);
   }
-
   
   onOptionSelectedMiembros(event: any, lineTarget: number){
     this.ArrayCamposAuto.filter(ls => ls.linea == event.option._element.nativeElement.optionselected.lineaorigen).forEach(item => {
@@ -578,8 +577,8 @@ export class HvClientComponent implements OnInit {
   }
 
   transformM(){
-//    this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
-this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
+    //this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
+    this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(this.myCtxtCapitalS));
     //console.log(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value);
   } 
   // asyncValidator(control: FormControl) {
@@ -607,7 +606,7 @@ this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(th
         {
           if(rta.success)
           {
-            //console.log(rta);
+            console.log(rta);
             this.dataSource = null;
             this.dataSourceC = null;
             this.dataGrid = rta.data.pending;
@@ -1653,7 +1652,7 @@ this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(th
     //this.LoadValueNameinputFile(docNamePDF, "fakeFileInput");
     this.IsOperator(data.isoperator);
     //console.log(data);
-    if(this.departamentosResp.filter((d: any) => d.id.toString() == data.mailindepartment.toString()).length>0)
+    if(this.departamentosResp.filter((d: any) => d.id.toString() == data.mailindepartment.toString()).length > 0)
     {
       this.myControlDpto.setValue({"id" : this.departamentosResp.filter((d: any) => d.id.toString() == data.mailindepartment.toString())[0].id, "name" : this.departamentosResp.filter((d: any) => d.id.toString() == data.mailindepartment.toString())[0].name});
      //Se vuelve a asingar porq el evento change lo cambia en la línea anterior
@@ -2134,7 +2133,9 @@ this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(transformMoney(th
   GuardarEditarInfoFin(){
     if(this.FrmInfoFinanciera.valid)
     {
-      if( this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")
+      if(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value <= 0)
+        Swal.fire("Advertencia", "Campo capital suscrito debe ser mayor a cero!", "warning");
+      else if(this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")
         Swal.fire("Advertencia", "Campo tipo de régimen es obligatorio!", "warning");
       // else if(StringIsNullOrEmpty(this.FrmInfoFinanciera.get("id").value) && this.FrmInfoFinanciera.get("hasfiscalreview").value == true && this.FrmInfoFinanciera.get("certificationdictamenfile").value == undefined)
       //   Swal.fire("Advertencia", "Campo archivo adjunto de responsable fiscal es obligatorio!", 'warning');
