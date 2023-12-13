@@ -293,6 +293,12 @@ export class HvReviewComponent implements OnInit{
             this.Documents = [];
             this.Supplies = 'NO';
             this.ChipStep1 = rta.data.Step1;
+            this.dataSourcePA.data = []
+            this.dataSourceRC.data = []
+            this.dataSourceRB.data = []
+            this.dataSourceRCE.data = []
+            this.dataSourceRPE.data = []
+            this.dataSourceAcc.data = []
 
             if(rta.data.hasSupplies)
               if(rta.data.hasSupplies>0)
