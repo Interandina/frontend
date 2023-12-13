@@ -410,7 +410,7 @@ export class ClientsFormComponent {
             if(rta == undefined)
               Swal.fire("Error", "Ha ocurrido un error inesperado o no se ha encontrado el método!", 'error');
             else
-              Swal.fire(rta.success ? "Correo Enviado" : "Advertencia", (rta.success ? rta.message + ".<br>El cliente " + row.nameenterprise +" ha sido notificado.": ""), rta.success ? "success": "warning");
+              Swal.fire(rta.success ? "Correo Enviado" : "Advertencia", (rta.success ? rta.message + ".<br>El cliente " + row.nameenterprise +" ha sido notificado.": rta.message), rta.success ? "success": "warning");
           });
         }
         catch(exception){
