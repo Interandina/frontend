@@ -43,6 +43,7 @@ import { DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { ListFiltersComponent } from './Componentes/list-filters/list-filters.component';
 import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.c
     FormsModule,
     TableAppComponent,
     CommonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatInputModule
   ],
   entryComponents: [
     DialogLoginComponent,
