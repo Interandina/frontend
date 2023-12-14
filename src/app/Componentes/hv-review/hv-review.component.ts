@@ -92,6 +92,7 @@ export class HvReviewComponent implements OnInit{
   @ViewChild('btnApRecDoc', {static: false}) btnApRecDoc: HTMLButtonElement;
   FrmDocsRev: FormGroup;
   currentDate = new Date(2025,2,31);
+  currentD = new Date();
   DocLoad = false;
   reasonRR: any[] =[];
   DocsR: any[] =[];
@@ -719,7 +720,7 @@ export class HvReviewComponent implements OnInit{
           nameenterprise: new FormControl(row.row.nameenterprise),
           state: new FormControl(row.row.state),
           hvreasonId: new FormControl(null, Validators.required),
-          dateupload: new FormControl(this.currentDate, Validators.required),
+          dateupload: new FormControl(this.currentD, Validators.required),
           documentname: new FormControl(null, Validators.required),
           docattachmentId: new FormControl(null, Validators.required),
           files: new FormControl(null),
@@ -857,7 +858,7 @@ export class HvReviewComponent implements OnInit{
   clearDoc() {
     this.FrmDocsRev.controls['id']?.setValue(null);
     this.FrmDocsRev.controls['hvreasonId']?.setValue(null);
-    this.FrmDocsRev.controls['dateupload']?.setValue(this.currentDate);
+    this.FrmDocsRev.controls['dateupload']?.setValue(this.currentD);
     this.FrmDocsRev.controls['documentname']?.setValue(null);
     this.FrmDocsRev.controls['docattachmentId']?.setValue(null);
     this.FrmDocsRev.controls['files']?.setValue(null);
