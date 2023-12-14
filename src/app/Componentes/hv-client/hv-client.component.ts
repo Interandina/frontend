@@ -2033,6 +2033,18 @@ export class HvClientComponent implements OnInit {
     this.FrmRefExt.setValue({hvId: row.row.hvId, id: row.row.id, company: row.row.company, contactname: row.row.contactname, country: row.row.country, city: row.row.city, phone: row.row.phone, antiquitya: row.row.antiquity.split(",")[0], antiquitym: row.row.antiquity.split(",")[1], products: row.row.products, controleditar:row.row});
   }
 
+  validarTeclaNumerica(event: KeyboardEvent) {
+    const teclaPresionada = event.key;
+
+    // Verificar si la tecla presionada es un número
+    if (!isNaN(Number(teclaPresionada)) || ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight','.'].includes(teclaPresionada)) {
+      // Permitir la tecla
+      return;
+    } else {
+      // Cancelar la tecla
+      event.preventDefault();
+    }
+    }
   GuardarEditarRefPE(){
     if(this.dataSourceRPE.data.length <= 0)
       Swal.fire("Advertencia", "No se ha agreagado ningún registro al detalle de referencias de proveedores para poder guardar o editar!", "warning");

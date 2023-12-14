@@ -1073,7 +1073,7 @@
                             <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Tarifa de Reteción</mat-label>
-                                    <input matInput maxlength="5" min="0" max="100" title="Tarifa de retención" formControlName="taxretencion" name="taxretencion" required>
+                                    <input matInput maxlength="5" min="0" max="100" title="Tarifa de retención" formControlName="taxretencion" name="taxretencion" (keydown)="validarTeclaNumerica($event)" required>
                                     <mat-error *ngIf="FrmInfoFinanciera.get('taxretencion')?.invalid">Tarifa no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
@@ -1126,7 +1126,7 @@
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Capital Suscrito Registrado Según C.CIO</mat-label>
-                                    <input type="text" matInput [formControl]="myCtxtCapitalS" (blur)="transformM()" title="Capital suscrito registrado según Cámara de Comercio" required />
+                                    <input type="text" matInput [formControl]="myCtxtCapitalS" inputmode="numeric" (blur)="transformM()" (keydown)="validarTeclaNumerica($event)" title="Capital suscrito registrado según Cámara de Comercio" required />
                                     <mat-error *ngIf="FrmInfoFinanciera.get('subscribedcapital')?.invalid">Capital no puede ser nulo!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
