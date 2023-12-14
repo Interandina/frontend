@@ -203,7 +203,7 @@
             <mat-grid-tile  [colspan]="2" [rowspan]="1">
                 <mat-form-field appearance="fill" class="">
                     <mat-label>Fecha (dd/MM/AAAA)</mat-label>
-                    <input matInput [matDatepicker]="fechaExp" formControlName="dateupload" readonly title="Fecha" [max]="currentDate">
+                    <input matInput [matDatepicker]="fechaExp" formControlName="dateupload" readonly title="Fecha" [max]="currentD">
                     <mat-datepicker-toggle matIconSuffix [for]="fechaExp"></mat-datepicker-toggle>
                     <mat-datepicker #fechaExp></mat-datepicker>
                     <mat-error *ngIf="FrmDocsRev.get('dateupload')?.invalid">
