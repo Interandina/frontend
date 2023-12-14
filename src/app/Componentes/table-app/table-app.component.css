@@ -1,8 +1,17 @@
 /*Material Table CSS*/
+  .table-container {
+    overflow-x: auto !important;
+  }
+
   table {
-    /*display: block;*/
+    /* display: block !important; */
+    /* min-width: 100% !important; */
+    /* min-width: 100%;
     width: 100%;
-    overflow-x: scroll !important;
+    max-width: 100%;
+    overflow-x: auto !important; */
+    width: 100%; /* O ajusta según sea necesario */
+  border-collapse: collapse;
   }
   /* Cuando se seleccione una fila */
   .highlight{
@@ -146,33 +155,33 @@ mat-paginator {
   }
 } */
 
-.table-responsive {
+/* .table-responsive {
   display: block;
   width: 100%;
   overflow-x: auto;
-}
+} */
 
-mat-table {
- width: 1200px;
+/* table {
+ width: 1200px !important;
  max-width: 1200px;
  margin-bottom: 1rem;
  display: table;
  border-collapse: collapse;
  margin: 0px;
-}
+} */
 
-mat-row,
+/* mat-row,
 mat-header-row {
   display: table-row;
-}
-mat-cell,
+} */
+/* mat-cell,
 mat-header-cell {
   word-wrap: initial;
   display: table-cell;
   padding: 0px 5px;
   line-break: unset;
-  width: auto;
+  width: auto !important;
   white-space: nowrap;
   overflow: hidden;
   vertical-align: middle;
-}
+} */

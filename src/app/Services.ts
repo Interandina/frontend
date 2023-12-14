@@ -167,7 +167,7 @@ export class ServicesComponent {
  * @returns object Promise<any>
  */
   public async SendPOSTWParamObs(route: string, body: any, tokenR: boolean = false): Promise<any> {
-    // console.log(route);
+    //console.log(body);
     return await firstValueFrom(this.http.post((environment.URLApi+ route), body, (tokenR ? this.httpOptionsPlainAut : this.httpOptionsPlain))).then((data) => { 
       return data;
     },

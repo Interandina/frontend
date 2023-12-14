@@ -22,34 +22,39 @@
     </mat-form-field>
     <!-- [trackBy]="trackByTimestmamp" -->
     <!-- {{displayedColumns[0].title}} *ngIf="dataSource && displayedColumns"  [resizableColumns]="true"-->
-    <table class="table-responsive"  #table *ngIf="dataSource && displayedColumns"  mat-table [dataSource]="dataSource" matSort fixedLayout="true">
-        <ng-container [matColumnDef]="column.name" *ngFor="let column of dataColumns">
-            <th mat-header-cell *matHeaderCellDef [ngClass]="[!column.display ? 'hide_element' : '']">{{column.title}}</th>
-            <!-- <td mat-cell *matCellDef="let element" [ngClass]="[!column.display ? 'hide_element' : '']">{{element[column.name]}}</td> -->
-            <td mat-cell *matCellDef="let element" [ngClass]="[!column.display ? 'hide_element' : '']">
-                <ng-container *ngIf="column.title !== 'Acciones' && column.title !== 'Acción'">
-                  <ng-container *ngIf="column.name=='state'; else OnlyText">
-                    <!-- [ngClass]="{'RRechazada': condicion1, 'RRevisar': condicion2, 'RAprobada': condicion3, 'RCargar': condicion3}" -->
-                    <!-- [ngClass]="{'RRechazada': {{element[column.name]}} == 'Rechazada' ? true : false, 'RRevisar': {{element[column.name]}} == 'Por Revisar' ? true : false, 'RAprobada': {{element[column.name]}} == 'Aprobada' ? true : false, 'RCargar': {{element[column.name]}} == 'Por Cargar' ? true : false}" -->
-                    <mat-chip color="primary" [ngClass]="{'RRechazada': element[column.name] === 'Rechazada', 'RRevisar': element[column.name] === 'En Revisión', 'RAprobada': element[column.name] === 'Aprobada', 'RCargar': element[column.name] === 'Por Cargar'}"  highlighted >{{ element[column.name] }}</mat-chip>
-                  </ng-container>
-                  <ng-template #OnlyText>
-                    {{ element[column.name] }}
-                  </ng-template>
-                </ng-container>
-                <button mat-mini-fab class="btn-primary-icons-table" (click)="EventButton(element)" *ngIf="column.title ==='Acción'" title="{{ element['acciones'][1] }}"><mat-icon>{{ element['acciones'][0] }}</mat-icon></button>
-                <div *ngIf="column.title === 'Acciones'">
-                    <button mat-mini-fab class="btn-primary-icons-table" *ngFor="let boton of element['acciones']" (click)="EventosBotones(element, boton.indice)" title="{{ boton.title }}"><mat-icon>{{ boton.icon }}</mat-icon></button>
-                </div>
-            </td>
-            <!-- {{column.title != "Acciones" ? 'element[column.name]' : '<button mat-mini-fab color="primary" class="btnprimary"><mat-icon>border_color</mat-icon></button>'}} -->
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="eventClickRow(row, $event)" (dblclick)="UpdateRowinForm(row, $event)" title="{{modelEditar.EditarRow ? 'doble clic en la fila para editar' : ''}}" [ngClass]="{'highlight': selectedRowIndex == row.id, 'rejectRow' : setColorReject(row)}"></tr>
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No hay registros coincidentes para "{{input.value}}"</td>
-        </tr>
-    </table>
+    <!-- <div cdk-virtual-scroll-viewport itemSize="1800"> -->
+    <!-- [virtualScroll]="true" -->
+    <div class="table-container">
+        <table class="table-responsive"  #table *ngIf="dataSource && displayedColumns"  mat-table [dataSource]="dataSource" matSort fixedLayout="true">
+            <ng-container [matColumnDef]="column.name" *ngFor="let column of dataColumns;">
+                <th mat-header-cell *matHeaderCellDef [ngClass]="[!column.display ? 'hide_element' : '']">{{column.title}}</th>
+                <!-- <td mat-cell *matCellDef="let element" [ngClass]="[!column.display ? 'hide_element' : '']">{{element[column.name]}}</td> -->
+                <td mat-cell *matCellDef="let element" [ngClass]="[!column.display ? 'hide_element' : '']">
+                    <ng-container *ngIf="column.title !== 'Acciones' && column.title !== 'Acción'">
+                    <ng-container *ngIf="column.name=='state'; else OnlyText">
+                        <!-- [ngClass]="{'RRechazada': condicion1, 'RRevisar': condicion2, 'RAprobada': condicion3, 'RCargar': condicion3}" -->
+                        <!-- [ngClass]="{'RRechazada': {{element[column.name]}} == 'Rechazada' ? true : false, 'RRevisar': {{element[column.name]}} == 'Por Revisar' ? true : false, 'RAprobada': {{element[column.name]}} == 'Aprobada' ? true : false, 'RCargar': {{element[column.name]}} == 'Por Cargar' ? true : false}" -->
+                        <mat-chip color="primary" [ngClass]="{'RRechazada': element[column.name] === 'Rechazada', 'RRevisar': element[column.name] === 'En Revisión', 'RAprobada': element[column.name] === 'Aprobada', 'RCargar': element[column.name] === 'Por Cargar'}"  highlighted >{{ element[column.name] }}</mat-chip>
+                    </ng-container>
+                    <ng-template #OnlyText>
+                        {{ element[column.name] }}
+                    </ng-template>
+                    </ng-container>
+                    <button mat-mini-fab class="btn-primary-icons-table" (click)="EventButton(element)" *ngIf="column.title ==='Acción'" title="{{ element['acciones'][1] }}"><mat-icon>{{ element['acciones'][0] }}</mat-icon></button>
+                    <div *ngIf="column.title === 'Acciones'">
+                        <button mat-mini-fab class="btn-primary-icons-table" *ngFor="let boton of element['acciones']" (click)="EventosBotones(element, boton.indice)" title="{{ boton.title }}"><mat-icon>{{ boton.icon }}</mat-icon></button>
+                    </div>
+                </td>
+                <!-- {{column.title != "Acciones" ? 'element[column.name]' : '<button mat-mini-fab color="primary" class="btnprimary"><mat-icon>border_color</mat-icon></button>'}} -->
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="eventClickRow(row, $event)" (dblclick)="UpdateRowinForm(row, $event)" title="{{modelEditar.EditarRow ? 'doble clic en la fila para editar' : ''}}" [ngClass]="{'highlight': selectedRowIndex == row.id, 'rejectRow' : setColorReject(row)}"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No hay registros coincidentes para "{{input.value}}"</td>
+            </tr>
+        </table>
+    </div>
+    <!-- </div> -->
 </div>
 <!--Paginador no mover afuera porque no pagina la grilla *ngIf="dataSource && displayedColumns"-->
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Seleccione la página"></mat-paginator><br>

@@ -606,7 +606,7 @@ export class HvClientComponent implements OnInit {
         {
           if(rta.success)
           {
-            console.log(rta);
+            //console.log(rta);
             this.dataSource = null;
             this.dataSourceC = null;
             this.dataGrid = rta.data.pending;

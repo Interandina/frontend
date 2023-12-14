@@ -4,7 +4,7 @@
         <mat-grid-tile  [colspan]="3" [rowspan]="1"></mat-grid-tile>
         <mat-grid-tile  [colspan]="2" [rowspan]="1">
             <button mat-flat-button class="btnprimary btnFileApp" type="button" title="Clic para adjuntar archivo" id="fakeFileInput" (click)="hiddenInputFile.click()"><mat-icon *ngIf="DocLoad">check_small</mat-icon><mat-icon *ngIf="!DocLoad">attach_file</mat-icon>Cargar Archivo</button>
-            <input hidden type="file" accept=".xlsx" (change)="GetFileOnLoadInput2($event)" #hiddenInputFile>
+            <input hidden type="file" accept=".xlsx" (change)="GetFileOnLoadInput($event)" #hiddenInputFile>
         </mat-grid-tile>
         <mat-grid-tile  [colspan]="3" [rowspan]="1"></mat-grid-tile>
     </mat-grid-list>

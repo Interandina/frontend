@@ -1,1 +1,24 @@
-<p>seals works!</p>
+<app-spinner *ngIf="MostrarSpinner" [msj]="msjspinner"></app-spinner>
+<div class="container">
+    <mat-grid-list cols="8" rowHeight="60px">
+        <mat-grid-tile  [colspan]="3" [rowspan]="1"></mat-grid-tile>
+        <mat-grid-tile  [colspan]="2" [rowspan]="1">
+            <button mat-flat-button class="btnprimary btnFileApp" type="button" title="Clic para adjuntar archivo" id="fakeFileInput" (click)="hiddenInputFile.click()"><mat-icon *ngIf="DocLoad">check_small</mat-icon><mat-icon *ngIf="!DocLoad">attach_file</mat-icon>Cargar Archivo</button>
+            <input hidden type="file" accept=".xlsx" (change)="GetFileOnLoadInput2($event)" #hiddenInputFile>
+        </mat-grid-tile>
+        <mat-grid-tile  [colspan]="3" [rowspan]="1"></mat-grid-tile>
+    </mat-grid-list>
+    <div layout="row" layout-xs="column" *ngIf="viewGrid">
+        <br><br>
+        <div flex="">
+            <div class="col"><h1>Visualización de Cargue de Sellos</h1></div>
+        </div>
+        <br>
+        <div flex="">
+            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar"></app-table-app>
+        </div><br>
+        <div class="pnlcontbottons">
+            <button mat-raised-button class="btnprimary" type="button" title="Guardar documento" (click)="GuardarDocumento()">Guardar Documento</button>
+        </div>
+    </div> 
+</div>

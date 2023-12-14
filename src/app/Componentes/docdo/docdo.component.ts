@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { DO, ModelEditar, ResponseM2 } from 'src/app/modelos/Interfaces';
 import Swal from 'sweetalert2';
 import { readExcelFile } from '../functions/FnGenericas';
 import { ServicesComponent } from 'src/app/Services';
 import * as XLSX from 'xlsx';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-docdo',
@@ -22,7 +23,9 @@ export class DocdoComponent implements OnInit {
   displayedColumns: string[];
   modelEditar: ModelEditar;
   fileSend: File;
-  constructor(private servicio: ServicesComponent) {}
+  // private paginator: MatPaginator;
+  
+  constructor(private servicio: ServicesComponent, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.modelEditar = {
@@ -66,29 +69,22 @@ export class DocdoComponent implements OnInit {
           this.displayedColumns =  arraycols.map((col: any) => col.name);
           //Se crea el datasource manualmente para la tabla
           let arraydata: any[] = [];
-          //let hoja: XLSX.WorkSheet = rta.sheetExcel;
           rta.data.forEach((row: any) => {
             const rowData: any = {};
             for (let i = 0; i < arraycols.length; i++){
               rowData[arraycols[i].name] = row[i] == undefined ? '' :  String(row[i]);
               //rowData[arraycols[i]]=hoja.ge(row.index).getCell(i).value.text? hoja.getRow(row.index).getCell(i).value.text : hoja.getRow(row.index).getCell(i).value
             }
-            //console.log(title)
             arraydata.push(rowData);
           });
-          // console.log("temina de armar  la lectura");
-          // console.log(new Date());
-          // console.log(arraydata);
+
           this.dataSource = new MatTableDataSource<any>(arraydata);
-          //console.log(arraydata);
-          // setTimeout(() => {
-          //   this.dataSource = new MatTableDataSource<any>(arraydata);
-          //  }, 1);
-          // console.log("final de armar  la lectura");
-          // console.log(new Date());
           this.viewGrid = true;
           this.MostrarSpinner = false;
           this.msjspinner = null;
+          this.cdr.detectChanges();
+          // this.dataSource.paginator = this.paginator;
+
           Swal.fire("Archivo Procesado Correctamente", "El archivo se ha cargado correctamente!", "success");
         });
       }

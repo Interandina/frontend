@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, ViewChild, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Output, EventEmitter } from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
@@ -11,16 +11,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModaldinamicComponent } from '../modaldinamic/modaldinamic.component';
 import { ModelEditar, PassModelBotonGrid, PassModelBotonesGrid } from 'src/app/modelos/Interfaces';
 import { MatChipsModule } from '@angular/material/chips';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 //import { DomSanitizer } from '@angular/platform-browser';
 // import { MatTableExporterModule } from 'mat-table-exporter';
 
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-table-app',
   templateUrl: './table-app.component.html',
   styleUrls: ['./table-app.component.css'],
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, CommonModule, MatIconModule, MatChipsModule]
+  imports: [MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, CommonModule, MatIconModule, MatChipsModule, ScrollingModule],
 })
 
 // export class TableAppComponent implements AfterViewInit {
@@ -46,12 +48,12 @@ export class TableAppComponent {
   @Output() eventosFormPadre = new EventEmitter<PassModelBotonesGrid>();
   @Output() eventoRowOutFormPadre = new EventEmitter<PassModelBotonGrid>();
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.setDataSourceAttributes();
+    //this.setDataSourceAttributes();
   }
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+  @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
     //Se traslada al setdatasource attributes para que no arroje error las configuraciones al setearlos
     // mp._intl = new MatPaginatorIntl();
     // mp._intl.itemsPerPageLabel = "Ítems por página";
@@ -249,5 +251,9 @@ export class TableAppComponent {
   //   console.log(filaseleccionada);
   //   console.log(idfila);
   //   console.log(event);
+  // }
+
+  // myTrackById(index: any ) {
+  //   return( index );
   // }
 }

@@ -18,7 +18,7 @@
                 <mat-form-field appearance="fill"  class="mat-form-login">
                     <mat-label>Password</mat-label>
                     <!-- <input matInput title="Ingresar contraseña" type="password" maxlength="10" formControlName="password" name="password"> -->
-                    <input matInput title="Ingresar contraseña" [type]="hidePass ? 'password' : 'text'" maxlength="10" formControlName="password" name="password">
+                    <input matInput title="Ingresar contraseña" [type]="hidePass ? 'password' : 'text'" maxlength="12" formControlName="password" name="password">
                     <button mat-icon-button type="button" matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Ocultar password'" [attr.aria-pressed]="hidePass">
                         <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
