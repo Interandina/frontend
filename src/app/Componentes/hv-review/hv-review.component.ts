@@ -910,15 +910,21 @@ export class HvReviewComponent implements OnInit{
           this.MostrarSpinner = true;
           //console.log(nameFile);
           // this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": ((new Date(this.FrmInfGeneral.controls['createdAt']?.value).getFullYear() + "/" +  this.FrmInfGeneral.controls['document']?.value + "/") + nameFile)}, true).then((rta: ResponseM2) => {
-          this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName":  this.txtDocEnc.nativeElement.value}, true).then((rta: ResponseM2) => {  
-          //console.log(rta.data);
-            if(rta.success)
-            {
-              this.MostrarSpinner = false;
-              // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
-              this.ShowFileinIFrame(rta.data);
-            }
-          });
+            this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  this.txtDocEnc.nativeElement.value}, true).then((rta: any) => { 
+          
+              //console.log(rta.data);
+                if(rta)
+                {
+                  this.MostrarSpinner = false;
+                  console.log("Ingreso")
+                  const blob = new Blob([rta], { type: 'application/pdf' });
+                  var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+                  // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
+                  this.ShowFileinIFrame(safePdfUrl.changingThisBreaksApplicationSecurity);
+                }
+              });
+
+
         }
         else
           Swal.fire("Advertencia", "No se ha cargado ningún archivo para su visualización!", "warning");
