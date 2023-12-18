@@ -244,8 +244,7 @@
             <mat-grid-tile  [colspan]="6" [rowspan]="1">
                 <mat-form-field appearance="fill" class="">
                     <mat-label>Observaciones:</mat-label>
-                    <textarea matInput placeholder="Observaciones" style="resize: none;"  rows="3" formControlName="comment" name="comment" required maxlength="500"></textarea>
-                    <mat-error *ngIf="FrmDocsRev.get('comment')?.invalid">Observaciones no puede ser nulo!</mat-error>
+                    <textarea matInput placeholder="Observaciones" style="resize: none;"  rows="3" formControlName="comment" name="comment" maxlength="500"></textarea>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile  [colspan]="1" [rowspan]="1"></mat-grid-tile>
