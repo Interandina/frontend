@@ -1,5 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, ElementRef, LOCALE_ID, OnInit, QueryList, Renderer2, SecurityContext, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, LOCALE_ID, NgZone, OnInit, Optional, Output, QueryList, Renderer2, SecurityContext, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,14 +10,16 @@ import { ServicesComponent } from 'src/app/Services';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
 import { ItemAutocomplete, ModelEditar, ModelGridClients, ModelInfoHV, PassModelBotonGrid, ResponseM2, activities, arrayCAuto, arrayME, fileHV, filesApp, hv_info_attachments } from 'src/app/modelos/Interfaces';
-import { CompositeMensajeFields, ConvertStringToDecimal, NameTipeDocument, StringIsNullOrEmpty, ValidateFieldsForm, hasRequiredValidator, transformMoney } from '../functions/FnGenericas';
+import { CompositeMensajeFields, ConvertStringDateTODateTime, ConvertStringToDecimal, NameTipeDocument, StringIsNullOrEmpty, ValidateFieldsForm, hasRequiredValidator, transformMoney } from '../functions/FnGenericas';
 import { Observable, pipe } from 'rxjs';
 import {debounceTime, map, min, startWith} from 'rxjs/operators';
 import {NgFor, AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe} from '@angular/common';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import { AUTO_STYLE } from '@angular/animations';
-import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
+//import { HvReviewComponent } from '../hv-review/hv-review.component';
 //import { } from '@angular/material-moment-adapter';
 //, MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS
 
@@ -42,7 +44,6 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 export class HvClientComponent implements OnInit {
  //isEditable = false;
-  public MostrapnlHV = true;
   selectedFile: any = null;
   clientId: number = 0;
   hvId: number = 0;
@@ -64,19 +65,6 @@ export class HvClientComponent implements OnInit {
   filteredOptionsActivities: Observable<activities[]>;
   myControlCityAlt = new FormControl<any>({id: '', name: ''}, Validators.required);
   //Grilla Pendientes
-  dataSource = new MatTableDataSource<ModelGridClients>();
-  //dataSource: new MatTableDataSource();
-  dataColumns: any[];
-  displayedColumns: string[];
-  dataGrid: ModelGridClients[];
-  modelEditar: ModelEditar;
-  callbackEditar: Function;
-  callbackBoton: Function;
-  //Grilla Historico
-  dataSourceC = new MatTableDataSource();
-  dataColumnsC: any[];
-  displayedColumnsC: string[];
-  modelEditarC: ModelEditar;
   //Grilla Personas Aut
   dataSourcePA = new MatTableDataSource<any>();
   displayedColumnsPA: string[] = ["fullName", "document", "charge", "phone", "email", "acciones"];
@@ -163,6 +151,10 @@ export class HvClientComponent implements OnInit {
   filteredAutoMEGC: Observable<arrayME[]>;
   filteredAutoMEGCE: Observable<arrayME[]>;
   msjspinner: string;
+  //Desacoplamiemto
+  @Input() rowGridDetails: any = null;
+  @Input() navegadorPadre: string = null;
+  @Output() eventoFormPadre = new EventEmitter<any>();
   // ControlAutoMERL = new FormControl<arrayME>({nombreME: '', lineaorigen: null, nit: '' }, Validators.required);
   // ControlAutoMERLS = new FormControl<arrayME>({nombreME: '', lineaorigen: null, nit: '' }, Validators.required);
   // Configura las opciones para el campo de moneda
@@ -178,32 +170,20 @@ export class HvClientComponent implements OnInit {
   // };
 
   //private currencyPipe : CurrencyPipe
+  //private router: Router
   constructor(private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private servicio: ServicesComponent, private cdRef: ChangeDetectorRef, public sanitizer: DomSanitizer, private datePipe: DatePipe, private router: Router) {
+    // if(_hvId != null)
+    // {
+    //   let row: any  = null;
+    //   row.row.id = _hvId;
+    //   this.LoadHV(row);
+    //   this.MostrapnlHV = false;
+    // }
     //this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
     this.dateAdapter.setLocale('es-CO'); //dd/MM/yyyy
   }
     
   ngOnInit(): void {
-    this.modelEditar = {
-      Title: '',
-      Componente: '',
-      EditarRow : false,
-      WidthDg: '',
-      HeightDg: '',
-      EventoBotonEditar: true,
-      EditarRowOut: false
-    };
-
-    this.modelEditarC = {
-      Title: '',
-      Componente: '',
-      EditarRow : false,
-      WidthDg: '',
-      HeightDg: '',
-      EventoBotonEditar: false,
-      EditarRowOut: false
-    };
-
     this.modelEditarPA = {
       Title: '',
       Componente: '',
@@ -265,17 +245,17 @@ export class HvClientComponent implements OnInit {
     };
 
     this.buildForm();
-    this.GetInfoIni();
     this.myCtxtCapitalS.setValue('0');
-    this.callbackBoton = this.LoadHV;
     this.transformM();
     this.refrescarLstaRepresentantes();
+    ///console.log(this.rowGridDetails);
+    if(this.rowGridDetails != null)
+      this.LoadHV(this.rowGridDetails);
   }
 
 
   private _filterActivity(value: string): activities[] {
     const filterValue = value.toLowerCase();
-
     return this.actividades.filter(activity => activity.activity.toLowerCase().includes(filterValue) || activity.id.toLowerCase().includes(filterValue));
   }
 
@@ -420,12 +400,13 @@ export class HvClientComponent implements OnInit {
       phone: ['', Validators.required],
       controleditar:new FormControl(null)
     });
-      //Para realizar el control del Stepper de los form FrmRefComer y FrmRefBanc
-      this.FrmRefStep = this.fb.group({
-        hvIdRC: new FormControl(null, Validators.required),
-        hvIdRB: new FormControl(null, Validators.required),
-      });
-    
+
+    //Para realizar el control del Stepper de los form FrmRefComer y FrmRefBanc
+    this.FrmRefStep = this.fb.group({
+      hvIdRC: new FormControl(null, Validators.required),
+      hvIdRB: new FormControl(null, Validators.required),
+    });
+  
     //Para realizar el control del Stepper
     // this.FrmRefBancStep = this.fb.group({
     //   hvId: new FormControl(null, Validators.required),
@@ -594,50 +575,6 @@ export class HvClientComponent implements OnInit {
   //   });
   // }
 
-  GetInfoIni():void{
-    this.servicio.SendGetWOutPObsHeaderAut('hv/').then((rta: any) => {
-      try
-      {
-        if(rta == undefined)
-        {
-          Swal.fire("Error", "Ha ocurrido un error inesperado o no se ha encontrado el método!", 'error');
-        }
-        else
-        {
-          if(rta.success)
-          {
-            //console.log(rta);
-            this.dataSource = null;
-            this.dataSourceC = null;
-            this.dataGrid = rta.data.pending;
-            this.dataGrid.forEach(i=>{
-              i.acciones = ["border_color", "clic para editar esta fila"]
-            });
-            this.dataColumnsC =  rta.columns;
-            this.displayedColumnsC =  rta.columns.map((col:any)=>col.name);
-            rta.columns.push({name: "acciones", title: "Acción", display: true});
-            const dcc: any =[];
-            rta.columns.forEach((item:any) => {
-              dcc.push(Object.assign({}, item));
-            });
-            dcc.filter((c: any) => c.name == "reviewAt")[0].display = false;
-            this.dataColumns = dcc;
-            this.displayedColumns = rta.columns.map((col:any)=>col.name);
-            this.dataSource = new MatTableDataSource(this.dataGrid);
-            //Grilla historico
-            this.dataSourceC = new MatTableDataSource(rta.data.completed);
-          }
-          else
-            Swal.fire("Error", rta.message, "error");
-        }
-      }
-      catch(e){
-        console.log('Ha ocurrido un error inesperado. Motivo:', e);           
-        throw e;
-      }
-    });
-  }
-
   LoadHV(row: any){
     // this.servicio.SendGetWOutPObsHeaderAut('hv/' + row.id).then((rta: any) => {
     this.servicio.SendGetWOutPObsHeaderAut('hv/' + row.hvid).then((rta: any) => {
@@ -665,7 +602,7 @@ export class HvClientComponent implements OnInit {
                 {   
                   const campoInt = parseInt(campo)
                   const recRow = lasthvInfo[nodoPadre].map((r:any)=>r.id).indexOf(campoInt)
-                  if(recRow!=-1)
+                  if(recRow != -1)
                     lasthvInfo[nodoPadre].splice(recRow,1)
                   /*for(let i:number=3; i<Object.keys(lasthvInfo[nodoPadre][recRow]).length; i++)
                     lasthvInfo[nodoPadre][recRow][Object.keys(lasthvInfo[nodoPadre][recRow])[i]]=null*/
@@ -1177,14 +1114,14 @@ export class HvClientComponent implements OnInit {
           this.MostrarSpinner = true;
           //console.log(nameFile);
           // this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": ((new Date(this.FrmInfGeneral.controls['createdAt']?.value).getFullYear() + "/" +  this.FrmInfGeneral.controls['document']?.value + "/") + nameFile)}, true).then((rta: ResponseM2) => {
-//          this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName":  nameFile}, true).then((rta: ResponseM2) => { 
-  this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  nameFile}, true).then((rta: any) => { 
+          //this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName":  nameFile}, true).then((rta: ResponseM2) => { 
+          this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  nameFile}, true).then((rta: any) => { 
           
           //console.log(rta.data);
             if(rta)
             {
               this.MostrarSpinner = false;
-              console.log("Ingreso")
+              //console.log("Ingreso")
               const blob = new Blob([rta], { type: 'application/pdf' });
               var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
               // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
@@ -1219,9 +1156,9 @@ export class HvClientComponent implements OnInit {
         {
           //console.log(valueNameFile);
           this.MostrarSpinner = true;
-//          this.servicio.SendPOSTWParamObs('system/showFile', {"fileName": valueNameFile}, true).then((rta: ResponseM2) => {
-  this.servicio.ShowPOSTWFile('system/showFile', {"fileName": valueNameFile}, true).then((rta: any) => {
-    //console.log(rta.data);
+          //this.servicio.SendPOSTWParamObs('system/showFile', {"fileName": valueNameFile}, true).then((rta: ResponseM2) => {
+          this.servicio.ShowPOSTWFile('system/showFile', {"fileName": valueNameFile}, true).then((rta: any) => {
+            //console.log(rta.data);
             this.MostrarSpinner = false;
             if(rta)
             {
@@ -1269,8 +1206,9 @@ export class HvClientComponent implements OnInit {
       this.FilesSend.splice(this.FilesSend.findIndex(i => i.position == file.docattachmentid && i.type == file.type), 1);
     let _fechaExp = null;
     if((document.getElementById(nameDate) as HTMLInputElement) != undefined && !StringIsNullOrEmpty((document.getElementById(nameDate) as HTMLInputElement).value))
-      _fechaExp = new Date(this.datePipe.transform((document.getElementById(nameDate) as HTMLInputElement).value, 'dd/MM/yyyy'));
-    //console.log(_fechaExp);
+      _fechaExp = ConvertStringDateTODateTime((document.getElementById(nameDate) as HTMLInputElement).value, 'dd/MM/yyyy');
+      //_fechaExp = new Date(this.datePipe.transform((document.getElementById(nameDate) as HTMLInputElement).value, 'dd/MM/yyyy'));
+      //console.log(_fechaExp);
     this.FilesSend.push({position: file.docattachmentid, archivo: filepdf, expireat : file.expireat, documentdate: _fechaExp, name: file.name, type: file.type});
     if((this.FrmAnexos.get('hv_info_step9') as FormArray).controls.some((item) => item.value.docattachmentid == file.docattachmentid && item.value.docoperationtype == file.type) && _fechaExp != null)
       (this.FrmAnexos.get('hv_info_step9') as FormArray).controls.filter((frm: AbstractControl<hv_info_attachments>)=> frm.value.docattachmentid == file.docattachmentid && frm.value.docoperationtype == file.type)[0].value.documentdate = _fechaExp;  
@@ -1303,7 +1241,6 @@ export class HvClientComponent implements OnInit {
   }
 
   private LoadDocStep9(rta: any){
-    //console.log(rta);
     //Asigna los archivos que el cliente tiene asignados
     this.Files = rta.files;
     //Verifica que el paso nueve exista o ya tenga diligenciado el paso 9
@@ -1330,6 +1267,7 @@ export class HvClientComponent implements OnInit {
       // if((rta.data.Step9 == undefined || rta.data.Step9.length == 0) || !rta.data.Step9.some((item: any) => item.docattachmentId == item.docattachmentid))
       //   this.FilesSend.push({position: item.docattachmentid, archivo: null, documentdate: null, expireat: item.expireat, name: item.name, type: item.type});
     });
+
     //Sí el paso nueve existe, carga los documentos
     if(rta.data.Step9 != undefined && rta.data.Step9 != null && rta.data.Step9.length > 0)
       this.LoadDocs(rta.data.Step9);
@@ -1358,7 +1296,9 @@ export class HvClientComponent implements OnInit {
     });
 
     //if((this.FrmAnexos.controls['hv_info_step9'] as FormArray).controls.length === this.Files.length)
-    if(this.FrmAnexos.value['hv_info_step9'].length === this.Files.length)
+    //Si tiene un navegador padre, quuiere decir que se invocó el componente desde un proceso que no es del cliente quien puede cerrar
+    //la hoja de vida, los otros procesos no pueden cerrar la hoja de vida, solo el cliente
+    if(this.FrmAnexos.value['hv_info_step9'].length === this.Files.length && this.navegadorPadre == null)
       this.MostrarBtnFinalizar = true;
   }
 
@@ -2308,8 +2248,8 @@ export class HvClientComponent implements OnInit {
     //OJO aquí tiene q validar o cambiar a frmanexos porq si no se edita o crea documento no va a estar lleno
     else if(this.FilesSend.some((item: fileHV) => item.expireat > 0 && (item.documentdate == null || item.documentdate == undefined)))
     {
-      console.log("FileSend");
-      console.log(this.FilesSend);
+      // console.log("FileSend");
+      // console.log(this.FilesSend);
       Swal.fire("Fecha de Documento", 'Uno o más documento(s) exigen fecha de expedición del mismo y no se ha diligenciado la fecha.<br>Diligencie la fecha para poder guardar el documento!', 'warning');
     }
     else if(this.mstoggleCS.checked && StringIsNullOrEmpty(this.FrmAnexos.controls['contratosuministrosfile'].value))
@@ -2377,7 +2317,7 @@ export class HvClientComponent implements OnInit {
                   this.MostrarSpinner = false;
                   this.msjspinner = null;
                   if(rta.data.length == this.FilesSend.length)
-                    Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (rta.success ? "<br>Ha finalizado de adjuntar los documentos requeridos. Ahora puede finalizar el proceso de hoja de vida" : "")), rta.success ? "success" : 'warning');
+                    Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (rta.success && this.navegadorPadre == null ? "<br>Ha finalizado de adjuntar los documentos requeridos. Ahora puede finalizar el proceso de hoja de vida" : "")), rta.success ? "success" : 'warning');
                   else
                     Swal.fire(rta.success ? this.EsEdicionForm == "Editar" ?  "Registro Editado" : "Registro Guardado" : "Advertencia", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
                 }
@@ -2414,11 +2354,22 @@ export class HvClientComponent implements OnInit {
           this.servicio.SendPOSTWParamObs('hv/publish', {"hvId" : this.hvId}, true).then((rta: ResponseM2) => {
             if(rta.success)
             {
-              Swal.fire("Proceso Finalizado", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
-              this.GetInfoIni();
-              this.MostrapnlHV = true;
+              //Swal.fire("Proceso Finalizado", (rta.message + (!rta.success ? CompositeMensajeFields(rta) : "")), rta.success ? "success" : 'warning');
+              //this.GetInfoIni();
+              //this.MostrapnlHV = true;
               this.MostrarSpinner = false;
               this.msjspinner = null;
+              Swal.fire({
+                title: ("Proceso Finalizado"),
+                text: rta.message,
+                showCancelButton: false,
+                confirmButtonText: "OK",
+                confirmButtonColor: '#2780e3',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    this.backListado();
+                }
+              });
             }
           });
         }
@@ -2598,22 +2549,15 @@ export class HvClientComponent implements OnInit {
   //#endregion
   //#endregion
 
-  //#region Eventos Grillas
-  OcultarGrid(objetoEnviado: PassModelBotonGrid){
-    //console.log(objetoEnviado);
-    this.LoadHV(objetoEnviado.row);
-    this.MostrapnlHV = objetoEnviado.verPadre;
-  }
-  //#endregion
-
   backListado(){
-    this.MostrapnlHV = true;
+    //this.MostrapnlHV = true;
     // const currentUrl = this.router.url;
     // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     //   // Navega de nuevo a la URL original
     //   this.router.navigate([currentUrl]);
     // });
-    this.router.navigate(['/hv_clients'], {skipLocationChange: true});
+    //console.log("Regerso");
+    //this.router.navigate(['/hv_clients'], {skipLocationChange: true});
     //window.location.reload();
     // this.cdRef.detectChanges();
     // this.Stepper.ngOnDestroy();
@@ -2622,7 +2566,21 @@ export class HvClientComponent implements OnInit {
     // });
     // this.router.navigate(['/']);
     // this.router.navigate(['/hv_clients']);
-    // window.location.reload();
+    //console.log(this.navegadorPadre);
+    if(StringIsNullOrEmpty(this.navegadorPadre))
+      window.location.reload();
+    else
+    {
+      this.router.navigate([this.navegadorPadre], {skipLocationChange: true});
+      this.eventoFormPadre.emit(false);
+      // this.router.navigate([this.navegadorPadre], {skipLocationChange: true}).then(() => {
+      //   this.cdRef.detectChanges();
+      // });
+      // this.ngZone.run(() => {
+      //   this.router.navigate([this.navegadorPadre]);
+      // });
+    }
+
     //this.router.navigate(['/hv_clients']);
     //this.FrmInfGeneral.reset();
     //this.dataSourcePA = new MatTableDataSource<any>();

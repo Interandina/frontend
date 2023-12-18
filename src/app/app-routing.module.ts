@@ -18,6 +18,7 @@ import { HvClientComponent } from './Componentes/hv-client/hv-client.component';
 import { HvReviewComponent } from './Componentes/hv-review/hv-review.component';
 import { DocanexosComponent } from './Componentes/docanexos/docanexos.component';
 import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
+import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-list.component';
 
 const routes: Routes = [ { path: '', component: HomeComponent, pathMatch: 'full' },
 { path: 'settings_users', component: UsersComponent,  data: { title: 'holamundo' }},
@@ -26,7 +27,8 @@ const routes: Routes = [ { path: '', component: HomeComponent, pathMatch: 'full'
 { path: 'settings_documents', component: DocumentsComponent },
 { path: 'settings_seals', component: SealsComponent },
 { path: 'settings_docdo', component: DocdoComponent },
-{ path: 'hv_clients', component: HvClientComponent },
+// { path: 'hv_clients', component: HvClientComponent },
+{ path: 'hv_clients', component: HvClientListComponent },
 { path: 'hv_query', component: HvQueryComponent },
 { path: 'hv_final', component: HvFinalComponent },
 { path: 'hv_review', component: HvReviewComponent },

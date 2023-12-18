@@ -1,5 +1,5 @@
 <app-spinner *ngIf="MostrarSpinner" [msj]="msjspinner"></app-spinner>
-<div class="container" *ngIf="!MostrapnlDocRevi && MostrapnlHV">
+<div class="container" *ngIf="!MostrapnlDocRevi && !MostrapnlHVEditor && MostrapnlHV">
     <div layout="row" layout-xs="column" >
         <div flex="">
             <div class="col"><h1>Gestión de Hojas de Vida</h1></div>
@@ -8,7 +8,8 @@
         </div>
         <br>
         <div flex="">
-            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" (eventoFormPadre)="OcultarGrid($event)"></app-table-app>
+            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" (eventosFormPadre)="EditarRowReview($event)"></app-table-app>
+            <!-- <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" (eventoFormPadre)="OcultarGrid($event)"></app-table-app> -->
         </div>
     </div>
     <div layout="row" layout-xs="column">
@@ -21,7 +22,7 @@
         </div><br>
     </div> 
 </div>
-<div class="container2" *ngIf="!MostrapnlDocRevi && !MostrapnlHV">
+<div class="container2" *ngIf="!MostrapnlDocRevi && !MostrapnlHV && !MostrapnlHVEditor">
     <!-- <div class="col"><h1>Hoja de Vida</h1></div><br> -->
     <div class="subcontainer">
         <mat-list>
@@ -261,4 +262,7 @@
     <div layout="row" layout-xs="column" style="padding-bottom: 1% !important;">
         <app-table-app [dataSource]="dataSourceDet" [dataColumns]="dataColumnsDet" [displayedColumns]="displayedColumnsDet" [modelEditar]="modelEditarDet" (eventoFormPadre)="null" (eventoRowOutFormPadre)="EditarRowDocsRev($event)"></app-table-app>
     </div>
+</div>
+<div *ngIf="!MostrapnlDocRevi && MostrapnlHVEditor && !MostrapnlHV">
+    <app-hv-client [rowGridDetails]="rowGridDetails" [navegadorPadre]="navegadorPadre" (eventoFormPadre)="EventosOut($event)"></app-hv-client>
 </div>

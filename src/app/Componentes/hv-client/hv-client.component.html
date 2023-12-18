@@ -1,29 +1,7 @@
 <!-- <div *ngIf="MostrapnlHV2">hola mundo</div><button (click)="prueba()">botón</button> -->
 <app-spinner *ngIf="MostrarSpinner" [msj]="msjspinner"></app-spinner>
-<div class="container" *ngIf="MostrapnlHV">
-    <div layout="row" layout-xs="column" >
-        <div flex="">
-            <div class="col"><h1>Gestión de Hojas de Vida</h1></div>
-            <p>A continuación se presentan las hojas de vida cargadas al sistema en el transcurso del presente año.</p><br>
-            <div class="col"><h2>Pendientes por Cargar</h2></div>
-        </div>
-        <br>
-        <div flex="">
-            <!-- <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" [callbackBoton]="callbackBoton" (variablecontrolpadre)="OcultarGrid($event)"></app-table-app> -->
-            <app-table-app [dataSource]="dataSource" [dataColumns]="dataColumns" [displayedColumns]="displayedColumns" [modelEditar]="modelEditar" [callbackEditar]="callbackEditar" (eventoFormPadre)="OcultarGrid($event)"></app-table-app>
-        </div>
-    </div>
-    <div layout="row" layout-xs="column">
-        <div flex="">
-            <div class="col"><h2>Histórico de Hojas de Vida</h2></div>
-        </div>
-        <br>
-        <div flex="">
-            <app-table-app [dataSource]="dataSourceC" [dataColumns]="dataColumnsC" [displayedColumns]="displayedColumnsC" [modelEditar]="modelEditarC"></app-table-app>
-        </div><br>
-    </div> 
-</div>
-<div class="container" *ngIf="!MostrapnlHV">
+<!-- <div class="container" *ngIf="!MostrapnlHV"> -->
+<div class="container">
     <mat-list>
         <div layout="row" layout-xs="column" style="padding-bottom: 1% !important;" >
             <div class="col"><h1>Hoja de Vida</h1></div><br>
@@ -669,7 +647,7 @@
                                 <mat-form-field appearance="fill" class="">
                                     <mat-label>Documento</mat-label>
                                     <input matInput maxlength="10" title="Documento" formControlName="document" name="document" required>
-                                    <mat-error *ngIf="FrmPersonAut.get('document')?.invalid">Documento no puede ser nulo!</mat-error>
+                                    <mat-error *ngIf="FrmPersonAut.get('document')?.invalid">Documento es requerido!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
@@ -695,13 +673,12 @@
                                     <mat-error *ngIf="FrmPersonAut.get('phone')?.invalid">Teléfono es requerido!</mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
-                            <mat-grid-tile  [colspan]="7" [rowspan]="1.2"></mat-grid-tile>
-                            <mat-grid-tile  [colspan]="1" [rowspan]="1.2">
+                            <mat-grid-tile  [colspan]="6" [rowspan]="1.2"></mat-grid-tile>
+                            <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <button mat-raised-button class="btnprimary" title="Agregar Persona" (click)="AddPerAut()">Agregar Persona</button>
                                 <!-- <button mat-raised-button type="submit" class="btnprimary" title="Agregar Persona">Agregar Persona</button> -->
                             </mat-grid-tile>
-                        </mat-grid-list><br>
-                        <br>
+                        </mat-grid-list>
                         <div flex="">
                             <app-table-app [dataSource]="dataSourcePA" [dataColumns]="dataColumnsPA" [displayedColumns]="displayedColumnsPA" [modelEditar]="modelEditarPA" (eventoFormPadre)="EliminarFilaPerAut($event)" (eventoRowOutFormPadre)="EditarRowPerAut($event)"></app-table-app>
                         </div>
@@ -1132,7 +1109,7 @@
                             </mat-grid-tile>
                             <mat-grid-tile  [colspan]="2" [rowspan]="1.2">
                                 <!-- <mat-slide-toggle color="primary" formControlName="hasfiscalreview"  name="hasfiscalreview" (change)="Isfiscalreview($event.checked)" >¿Es Responsable Fiscal?</mat-slide-toggle> -->
-                                <mat-slide-toggle color="primary" formControlName="hasfiscalreview"  name="hasfiscalreview" >¿Es Responsable Fiscal?</mat-slide-toggle>
+                                <mat-slide-toggle color="primary" formControlName="hasfiscalreview"  name="hasfiscalreview" >¿Están obligados a tener revisor fiscal?</mat-slide-toggle>
                             </mat-grid-tile>
                             <!-- <mat-grid-tile  [colspan]="1" [rowspan]="1">
                                 <button mat-flat-button class="btnprimary btnFileApp" type="button" title="Clic para adjuntar archivo de responsable fiscal" id="fakeFileInputRF" (click)="hiddenInputFileRF.click()"><mat-icon *ngIf="DocLoadRF">check_small</mat-icon><mat-icon *ngIf="!DocLoadRF">attach_file</mat-icon>Cargar Archivo</button>

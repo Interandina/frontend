@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -10,13 +10,13 @@ import Swal from 'sweetalert2';
 import { NameTipeDocument, StringIsNullOrEmpty } from '../functions/FnGenericas';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, startWith } from 'rxjs';
-
+//import { HvClientComponent } from '../hv-client/hv-client.component';
+//import { HvClientListComponent } from '../hv-client-list/hv-client-list.component';
 
 // export interface ChipColor {
 //   name: string;
 //   color: ThemePalette;
 // }
-
 
 // export interface ChipColor {
 //   color: ThemePalette;
@@ -106,6 +106,10 @@ export class HvReviewComponent implements OnInit{
   nameenterprise: string;
   state: string;
   msjspinner: string;
+  //Componente HV
+  rowGridDetails: any = null;
+  navegadorPadre: string = "/hv_review";
+  MostrapnlHVEditor = false;
 
   @ViewChild('txtDocEnc', {static: false}) txtDocEnc: ElementRef;
 
@@ -246,8 +250,8 @@ export class HvReviewComponent implements OnInit{
             this.dataSource = null;
             this.dataSourceC = null;
             this.dataGrid = rta.data.pending;
-            this.dataGrid.forEach(i=>{
-              i.acciones = ["border_color", "clic para editar esta fila"]
+            this.dataGrid.forEach((i: any) =>{
+              i.acciones = [{icon: "fact_check", title: "clic para revisar esta hoja de vida", indice: 1}, {icon: "border_color", title: "clic para editar la hoja vida", indice: 2}]
             });
             const dcc: any =[];
             rta.columns.forEach((item:any) => {
@@ -256,7 +260,7 @@ export class HvReviewComponent implements OnInit{
             dcc.push({name: "acciones", title: "Acciones", display: true});
             this.dataColumnsC =  dcc;
             this.displayedColumnsC =  dcc.map((col:any)=>col.name);
-            rta.columns.push({name: "acciones", title: "Acción", display: true});
+            rta.columns.push({name: "acciones", title: "Acciones", display: true});
             this.dataColumns = rta.columns;
             this.displayedColumns = rta.columns.map((col:any)=>col.name);
             this.dataSource = new MatTableDataSource(this.dataGrid);
@@ -399,10 +403,27 @@ export class HvReviewComponent implements OnInit{
   }
 
   //#region Eventos Grillas
-  OcultarGrid(objetoEnviado: PassModelBotonGrid){
-    //console.log(objetoEnviado);
-    this.LoadHV(objetoEnviado.row);
-    this.MostrapnlHV = objetoEnviado.verPadre;
+  // OcultarGrid(objetoEnviado: PassModelBotonGrid){
+  EditarRowReview(objetoEnviado: PassModelBotonesGrid){
+    switch(objetoEnviado.indice)
+    {
+      case 1:
+        this.LoadHV(objetoEnviado.row);
+        this.MostrapnlHV = objetoEnviado.verPadre;
+        this.MostrapnlDocRevi = false;
+      break;
+      case 2:
+        this.rowGridDetails = objetoEnviado.row;
+        this.MostrapnlHVEditor = true;
+        this.MostrapnlHV = false;
+        this.MostrapnlDocRevi = false;
+      break;
+    }
+  }
+
+  EventosOut(salidas:any){
+    this.MostrapnlHVEditor = salidas;
+    this.MostrapnlHV = true;
     this.MostrapnlDocRevi = false;
   }
 
@@ -543,6 +564,7 @@ export class HvReviewComponent implements OnInit{
       this.FrmAprobarHV.controls['deadlinedate'].updateValueAndValidity();
     }
   }
+
 
   onCheckboxChangeDocs(event:any){
     this.TituloBotonAproRechazarDocs = event.checked ? "Aprobar" : "Rechazar"; 
@@ -910,21 +932,18 @@ export class HvReviewComponent implements OnInit{
           this.MostrarSpinner = true;
           //console.log(nameFile);
           // this.servicio.SendPOSTWParamObs('system/showFile/', {"fileName": ((new Date(this.FrmInfGeneral.controls['createdAt']?.value).getFullYear() + "/" +  this.FrmInfGeneral.controls['document']?.value + "/") + nameFile)}, true).then((rta: ResponseM2) => {
-            this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  this.txtDocEnc.nativeElement.value}, true).then((rta: any) => { 
-          
-              //console.log(rta.data);
-                if(rta)
-                {
-                  this.MostrarSpinner = false;
-                  console.log("Ingreso")
-                  const blob = new Blob([rta], { type: 'application/pdf' });
-                  var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
-                  // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
-                  this.ShowFileinIFrame(safePdfUrl.changingThisBreaksApplicationSecurity);
-                }
-              });
-
-
+          this.servicio.ShowPOSTWFile('system/showFile/', {"fileName":  this.txtDocEnc.nativeElement.value}, true).then((rta: any) => { 
+            //console.log(rta.data);
+            if(rta)
+            {
+              this.MostrarSpinner = false;
+              console.log("Ingreso")
+              const blob = new Blob([rta], { type: 'application/pdf' });
+              var safePdfUrl:any = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+              // this.ShowFileinIFrame(rta.data.replace("dataapplication/pdfbase64", "data:application/pdf;base64,"));
+              this.ShowFileinIFrame(safePdfUrl.changingThisBreaksApplicationSecurity);
+            }
+          });
         }
         else
           Swal.fire("Advertencia", "No se ha cargado ningún archivo para su visualización!", "warning");
@@ -952,9 +971,13 @@ export class HvReviewComponent implements OnInit{
   //#endregion
 
   EditarRowDocsRev(row: any){
-    //console.log(row);
     this.FrmDocsRev.setValue({id: row.row.id, hvId: this.hvId, hvreasonId: row.row.hvreasonId, documentname: null, docattachmentId: row.row.docattachmentId, comment: row.row.comment, dateupload: row.row.dateupload, docoperationtype: row.row.docoperationtype, nameenterprise: this.nameenterprise, state: this.state, files: null});
     this.FrmDocsRev.controls['documentname']?.setValue(this.DocsR.filter(item => item.id == row.row.docattachmentId)[0].id + ' - ' + this.DocsR.filter(item => item.id == row.row.docattachmentId)[0].name);
     this.txtDocEnc.nativeElement.value = row.row.documentname;
   }
+
+  // editarHV()
+  // {
+  //   this.hvClient = new HvClientComponent(_hvId: 1);
+  // }
 }

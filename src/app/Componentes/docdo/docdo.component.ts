@@ -132,6 +132,8 @@ export class DocdoComponent implements OnInit {
             // console.log("inyecta la data al datasocrce");
             // console.log(new Date());
             this.dataSource = new MatTableDataSource<DO>(rta.data);
+            //this.dataSource._updateChangeSubscription();}
+            this.dataSource._renderChangesSubscription;
             this.DocLoad = true;
             //this.fileSend = null;
             Swal.fire("Archivo Procesado Correctamente", "El archivo se ha cargado correctamente!", "success");

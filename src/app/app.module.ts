@@ -44,6 +44,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ListFiltersComponent } from './Componentes/list-filters/list-filters.component';
 import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
 import { MatInputModule } from '@angular/material/input';
+import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-list.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { MatInputModule } from '@angular/material/input';
     ButtonappComponent,
     SpinnerComponent,
     ListFiltersComponent,
-    DownloaddocsComponent
+    DownloaddocsComponent,
+    HvClientListComponent
   ],
   imports: [
     BrowserModule,

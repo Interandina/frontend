@@ -159,4 +159,30 @@ export function readExcelFile(file: File, numberSheet: number = 0): Promise<{ he
         };
         reader.readAsArrayBuffer(file);
     });
-  }
+}
+
+//Recibe un formato dd/MM/yyyy o dd-MM-yyyyy
+export function ConvertStringDateTODateTime(fechastring :string, tipoFomartoIn: string):Date
+{
+    let dia = 0;
+    let mes = 0;
+    let anio = 0;
+    switch(tipoFomartoIn)
+    {
+        case 'dd/MM/yyyy':
+            const partesFechaF1 = fechastring.split('/');
+            // Obtener los componentes de la fecha
+            dia = parseInt(partesFechaF1[0], 10);
+            mes = parseInt(partesFechaF1[1], 10) - 1; // Restar 1 porque los meses en JavaScript son de 0 a 11
+            anio = parseInt(partesFechaF1[2], 10);
+            break;
+        case 'dd-MM-yyyy':
+            const partesFechaF2 = fechastring.split('-');
+            // Obtener los componentes de la fecha
+            dia = parseInt(partesFechaF2[0], 10);
+            mes = parseInt(partesFechaF2[1], 10) - 1; // Restar 1 porque los meses en JavaScript son de 0 a 11
+            anio = parseInt(partesFechaF2[2], 10);
+            break;
+    }
+    return new Date(anio, mes, dia);
+}

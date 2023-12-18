@@ -12,14 +12,14 @@
             <div class="container">
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Contraseña</mat-label>
-                    <input class="pass" type="text"  matInput autocomplete="new-password" autocomplete="off" maxlength="10" title="Ingresar contraseña de usuario" formControlName="password" name="password" required>
+                    <input class="pass" type="text"  matInput autocomplete="new-password" autocomplete="off" maxlength="12" title="Ingresar contraseña de usuario" formControlName="password" name="password" required>
                     <mat-error *ngIf="FormRPass.get('password')?.invalid">Contraseña debe tener al menos 8 caracteres, 1 carácter especial, 1 mayúscula y un número!</mat-error>
                 </mat-form-field>
             </div><br>
             <div class="container">
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Confirmación Contraseña</mat-label>
-                    <input class="pass" type="text" autocomplete="new-password" autocomplete="off" matInput maxlength="10" title="Ingresar confirmación de contraseña" formControlName="confirmPassword" name="confirmPassword" required>
+                    <input class="pass" type="text" autocomplete="new-password" autocomplete="off" matInput maxlength="12" title="Ingresar confirmación de contraseña" formControlName="confirmPassword" name="confirmPassword" required>
                     <mat-error *ngIf="FormRPass.get('confirmPassword')?.invalid">Contraseña y confirmación no coinciden!</mat-error>
                 </mat-form-field>
             </div><br>
