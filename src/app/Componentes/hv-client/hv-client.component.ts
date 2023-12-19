@@ -2340,10 +2340,10 @@ export class HvClientComponent implements OnInit {
   finalizarHV(){
     Swal.fire({
       title: ("Finalizar Proceso de Hoja de Vida"),
-      text: "Está seguro que desea finalizar el proceso de cargue de información de la hoja de vida?",
+      html: '<div style="text-align: justify">Al pulsar el boton "Finalizar" usted está certificando que <strong>la información aquí ingresada es la correcta, verídica y que no presentará cambios de estos datos una vez hayan sido autorizados por el revisor</strong>. Si tiene dudas, regrese el comienzo, revise nuevamente toda la información y de finalizar.<br><br>¿Está seguro que desea finalizar el proceso de cargue de información de la hoja de vida?</div>',
       showCancelButton: true,
-      cancelButtonText:'Cancelar',
-      confirmButtonText: "Guardar",
+      cancelButtonText:'No, cancelar',
+      confirmButtonText: "Si, finalizar",
       confirmButtonColor: '#2780e3',
     }).then((result) => {
       if (result.isConfirmed) {
