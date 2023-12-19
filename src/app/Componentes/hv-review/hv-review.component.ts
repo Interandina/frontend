@@ -746,7 +746,7 @@ export class HvReviewComponent implements OnInit{
           documentname: new FormControl(null, Validators.required),
           docattachmentId: new FormControl(null, Validators.required),
           files: new FormControl(null),
-          comment: new FormControl(null, Validators.required),
+          comment: new FormControl(null),
           docoperationtype: new FormControl(null, Validators.required)
         });
 
