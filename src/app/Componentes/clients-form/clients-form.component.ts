@@ -57,7 +57,7 @@ export class ClientsFormComponent {
       groupId: new FormControl(0),
       tocompany: new FormControl('Andina'),
       files: new FormControl([])
-      //docattachmentId: new FormControl(0)
+            //docattachmentId: new FormControl(0)
     });
 
     this.FormClientDocs =  fb.group({
@@ -71,6 +71,7 @@ export class ClientsFormComponent {
       assignto: new FormControl('', Validators.required),
       tocompany:new FormControl('Andina'),
       fileid: new FormControl(null),
+      index: new FormControl(0),
       controleditar:new FormControl(null)
     });
   }
@@ -316,8 +317,8 @@ export class ClientsFormComponent {
   GuardarEditarDocsCliBack(){
     if(!this.FormClient.valid)
       Swal.fire("Advertencia", "Se debe establecer un cliente para poder guardar o editar los documentos!", "warning");
-    else if(this.dataSourceDocs.data.length <= 0)
-      Swal.fire("Advertencia", "No se ha agreagado ningún documento al detalle de documentos del cliente para poder guardar o editar!", "warning");
+//    else if(this.dataSourceDocs.data.length <= 0)
+//      Swal.fire("Advertencia", "No se ha agreagado ningún documento al detalle de documentos del cliente para poder guardar o editar!", "warning");
     else{
       this.EsEdicionDocs = this.dataSourceDocs.data.some((i: any) => !StringIsNullOrEmpty(i.id)) ||  this.FormClient.controls["id"]?.value != 0 ? "Editar" : "Guardar";
       this.AgregarDocsParaGuardar();
@@ -334,7 +335,7 @@ export class ClientsFormComponent {
   }
   EditarRow(row: any){
     // console.log(row);
-    this.FormClientDocs.setValue({id: row.row.id, name: row.row.name, shortname: row.row.shortname ,msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: 'G', assignto: row.row.assignto, tocompany: 'Andina', fileid: row.row.fileid, controleditar: row.row});
+    this.FormClientDocs.setValue({id: row.row.id, name: row.row.name, shortname: row.row.shortname ,msjhelp: row.row.msjhelp, expireat: row.row.expireat, inactive: row.row.inactive, operationtype: 'G', assignto: row.row.assignto, tocompany: 'Andina', fileid: row.row.fileid, index: 99 , controleditar: row.row});
     this.LoadAutocomplete(row.row);
     this.checkValueFV(row.row.expireat > 0 ? true : false);
     // (document.getElementById('chkFecVen-input') as HTMLInputElement).checked = row.row.expireat > 0 ? true : false;

@@ -148,6 +148,7 @@
                                 <!-- <input type="hidden" formControlName="alternatedepartment" name="alternatedepartment"> -->
                                 <mat-error *ngIf="FormClientDocs.get('name')?.invalid">Nombre del documento no puede ser nulo!</mat-error>
                                 <input type="hidden" formControlName="id" name="id">
+                                <input type="hidden" formControlName="index" name="index">
                             </mat-form-field>
                         </mat-grid-tile>
                         <mat-grid-tile  [colspan]="1" [rowspan]="1">
