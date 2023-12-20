@@ -293,7 +293,7 @@ export class ClientsFormComponent {
     else
     {
       if(this.FormClientDocs.controls["fileid"].value == undefined && this.FormClientDocs.controls["fileid"].value == null)
-        this.FormClientDocs.controls["name"].setValue(this.myControlFile.value);
+      this.FormClientDocs.controls["name"].setValue(this.myControlFile.value.name? this.myControlFile.value.name : this.myControlFile.value);
 
       if(this.FormClientDocs.valid)
       {
