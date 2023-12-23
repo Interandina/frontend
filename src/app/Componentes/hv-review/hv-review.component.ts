@@ -308,6 +308,7 @@ export class HvReviewComponent implements OnInit{
             this.FrmAprobarHV.controls["id"].setValue(row.hvid);
             if(rta.data.Step2 != undefined && rta.data.Step2 != null && rta.data.Step2.length > 0)
             {
+              this.dataSourcePA.data=new Array();
               rta.data.Step2.forEach((item: any) =>{
                 this.dataSourcePA.data.push({"id": item[0].value, "hvId": item[1].value, "node": item[0].node, "fullName": item[2].value, "charge": item[3].value, "phone": item[4].value, "email": item[5].value});
               });
@@ -316,6 +317,7 @@ export class HvReviewComponent implements OnInit{
             
             if(rta.data.Step3 != undefined && rta.data.Step3 != null && rta.data.Step3.length > 0)
             {
+              this.dataSourceRC.data=new Array();
               rta.data.Step3.forEach((item: any) =>{
                 this.dataSourceRC.data.push({"id": item[0].value, "hvId": item[1].value, "node": item[0].node, "company": item[2].value, "phone": item[3].value});
               });
@@ -323,6 +325,7 @@ export class HvReviewComponent implements OnInit{
             }
             if(rta.data.Step4 != undefined && rta.data.Step4 != null && rta.data.Step4.length > 0)
             {
+              this.dataSourceRB.data=new Array();
               rta.data.Step4.forEach((item: any) =>{
                 this.dataSourceRB.data.push({"id": item[0].value, "hvId": item[1].value,"node": item[0].node, "company": item[2].value, "phone": item[3].value});
               });
@@ -331,6 +334,7 @@ export class HvReviewComponent implements OnInit{
 
             if(rta.data.Step5 != undefined && rta.data.Step5 != null && rta.data.Step5.length > 0)
             {
+              this.dataSourceRCE.data = new Array();
               rta.data.Step5.forEach((item: any) =>{
                 this.dataSourceRCE.data.push({"id": item[0].value, "hvId": item[1].value,"node": item[0].node, "company": item[2].value, "contactname": item[3].value, "country": item[4].value, "city": item[5].value, "phone": item[6].value, "antiquity": item[7].value, "products": item[8].value});
               });
@@ -339,6 +343,7 @@ export class HvReviewComponent implements OnInit{
 
             if(rta.data.Step6 != undefined && rta.data.Step6 != null && rta.data.Step6.length > 0)
             {
+              this.dataSourceRPE.data = new Array();
               rta.data.Step6.forEach((item: any) =>{
                 this.dataSourceRPE.data.push({"id": item[0].value, "hvId": item[1].value, "node": item[0].node, "company": item[2].value, "contactname": item[3].value, "country": item[4].value, "city": item[5].value, "phone": item[6].value, "antiquity": item[7].value, "products": item[8].value});
               });
@@ -349,6 +354,7 @@ export class HvReviewComponent implements OnInit{
             this.ChipStep7 = rta.data.Step7;
             if(rta.data.Step8 != undefined && rta.data.Step8 != null && rta.data.Step8.length > 0)
             {
+              this.dataSourceAcc.data = new Array();
               rta.data.Step8.forEach((item: any) =>{
                 let node:any = {}
 //                for(let key of Object.keys(item))
@@ -376,6 +382,7 @@ export class HvReviewComponent implements OnInit{
               });              
               */
              
+              this.Documents = new Array();
               rta.data.Step9.forEach((item: any) =>{
                 this.Documents.push({"value": item[0].value, nameCi: item[5].value, "name": item[2].value});
               });
