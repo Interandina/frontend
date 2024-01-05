@@ -62,7 +62,7 @@ export function transformMoney(fieldMoney: FormControl)
     let respuesta = 0;
     //this.FrmInfoFinanciera.controls["subscribedcapital"]?.setValue(this.currencyPipe.transform(StringIsNullOrEmpty(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value) ? '0' : this.FrmInfoFinanciera.controls["subscribedcapital"]?.value, '$'));
     let currencyPipe : CurrencyPipe = new CurrencyPipe('en-US', '$');
-    console.log(currencyPipe.transform(fieldMoney.value.replace('$','').replace(',','').replace('.00','')))
+    fieldMoney.setValue(currencyPipe.transform(fieldMoney.value.replace('$','').replace(',','').replace('.00','')));
     return respuesta;
 }
 
