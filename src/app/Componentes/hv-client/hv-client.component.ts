@@ -2085,7 +2085,7 @@ export class HvClientComponent implements OnInit {
   GuardarEditarInfoFin(){
     if(this.FrmInfoFinanciera.valid)
     {
-      if(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value.replace('$','').replace(',','').replace('.00','') <= 0)
+      if((this.FrmInfoFinanciera.controls["subscribedcapital"]?.value.toString()).replace('$','').replace(',','').replace('.00','') <= 0)
         Swal.fire("Advertencia", "Campo capital suscrito debe ser mayor a cero!", "warning");
       else if(this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")
         Swal.fire("Advertencia", "Campo tipo de régimen es obligatorio!", "warning");
