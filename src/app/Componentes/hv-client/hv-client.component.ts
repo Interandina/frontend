@@ -478,7 +478,7 @@ export class HvClientComponent implements OnInit {
       //subscribedcapital: [0, Validators.required],
       //subscribedcapital: [0, Validators.required, this.optionsCU, this.asyncValidator],
       // subscribedcapital: [{value: ('0' + sessionStorage.getItem('formats')!.replaceAll('"', '')  + '00')}, Validators.required, this.asyncValidator],
-      subscribedcapital: ['0', Validators.required],
+      subscribedcapital: ['', Validators.required],
       bankname: ['', Validators.required],
       bankaddress: ['', Validators.required],
       bankcity: ['', Validators.required],
@@ -2085,7 +2085,10 @@ export class HvClientComponent implements OnInit {
   GuardarEditarInfoFin(){
     if(this.FrmInfoFinanciera.valid)
     {
-      if(this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")
+      console.log(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value)
+      if(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value.toString().replace('$','').replace(',','').replace('.00','') <= 0)
+        Swal.fire("Advertencia", "Campo capital suscrito debe ser mayor a cero!", "warning");
+      else if(this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")
         Swal.fire("Advertencia", "Campo tipo de régimen es obligatorio!", "warning");
       // else if(StringIsNullOrEmpty(this.FrmInfoFinanciera.get("id").value) && this.FrmInfoFinanciera.get("hasfiscalreview").value == true && this.FrmInfoFinanciera.get("certificationdictamenfile").value == undefined)
       //   Swal.fire("Advertencia", "Campo archivo adjunto de responsable fiscal es obligatorio!", 'warning');
