@@ -171,6 +171,12 @@ body{
   margin-right: 1%;
 }
 
+.btnFilled {
+  background-color: rgb(4, 190, 97) !important;
+  color: white !important;
+  border-radius: 0px !important;
+  margin-right: 1%;
+}
 .divbtnsForm{
   width: auto;
   /* float: right; */
