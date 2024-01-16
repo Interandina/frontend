@@ -1591,11 +1591,11 @@ export class HvClientComponent implements OnInit {
         if(rta.some(item => item == "mailindepartment"))
           arraytitles.push("Departamento de correspondencia no puede ser nulo!");
         if(rta.some(item => item == "mailincity"))
-          arraytitles.push("Ciudad de correspondencia no puede ser nulo!");
+          arraytitles.push("Ciudad de correspondencia no puede ser nulo y debe pertenecer al departamento!");
         if(rta.some(item => item == "alternatedepartment"))
           arraytitles.push("Departamento de cultivo no puede ser nulo!");
         if(rta.some(item => item == "alternatecity"))
-          arraytitles.push("Ciudad de cultivo no puede ser nulo!");
+          arraytitles.push("Ciudad de cultivo no puede ser nulo y debe pertenecer al departamento!");
         
           if(arraytitles.length > 0)
             Swal.fire("Campos obligatorios sin diligenciar", arraytitles.join("\n"), 'warning');
