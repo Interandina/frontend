@@ -49,6 +49,8 @@ export class TableAppComponent {
   @Output() eventoRowOutFormPadre = new EventEmitter<PassModelBotonGrid>();
 
   @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
+    // console.log("entro sort");
+    // console.log(Date());
     this.sort = ms;
     //this.setDataSourceAttributes();
   }
@@ -61,6 +63,8 @@ export class TableAppComponent {
     // mp._intl.nextPageLabel = "Siguiente página";
     // mp._intl.previousPageLabel = "Anterior página";
     // mp._intl.lastPageLabel = "Última página";
+    // console.log("entro paginator");
+    // console.log(Date());
     mp._changePageSize(mp.pageSize);
     this.paginator = mp;
     this.setDataSourceAttributes();
@@ -84,7 +88,11 @@ export class TableAppComponent {
   //     this.dataSource.sort = value;
   //   }
   // }
-  constructor(private dialog: MatDialog){}
+  // constructor(private dialog: MatDialog, private ngZone: NgZone, private cdr: ChangeDetectorRef){
+  constructor(private dialog: MatDialog){
+    // console.log("entro coonst");
+    // console.log(Date());
+  }
   // ngOnInit(): void {
   //   let btn = document.getElementById("btnPruebahv");
   //   btn.addEventListener('click', () => {
@@ -100,9 +108,16 @@ export class TableAppComponent {
   // }
 
   setDataSourceAttributes() {
+    // console.log("entro set");
+    // console.log(Date());
     setTimeout(() =>{
       if(this.dataSource != null && this.dataSource != undefined)
       {
+        // this.ngZone.runOutsideAngular(() => {
+        //   this.cdr.detach(); // Desactivar detección de cambios
+        // });
+        // const start = performance.now();
+
         this.paginator._intl.itemsPerPageLabel = "Ítems por página";
         this.paginator._intl.firstPageLabel = "Primera página";
         this.paginator._intl.nextPageLabel = "Siguiente página";
@@ -110,6 +125,13 @@ export class TableAppComponent {
         this.paginator._intl.lastPageLabel = "Última página";
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        // const end = performance.now();
+        // console.log('Tiempo de carga:', end - start, 'milisegundos');
+        // this.ngZone.run(() => {
+        //   this.cdr.reattach(); // Activar detección de cambios
+        // });
+        // console.log("final final");
+        // console.log(Date());
       }
     });
     //console.log(this.dataColumns);

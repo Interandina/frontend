@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { DO, ModelEditar, ResponseM2 } from 'src/app/modelos/Interfaces';
+import { DO, DO1, ModelEditar, ResponseM2 } from 'src/app/modelos/Interfaces';
 import Swal from 'sweetalert2';
 import { readExcelFile } from '../functions/FnGenericas';
 import { ServicesComponent } from 'src/app/Services';
@@ -68,21 +68,24 @@ export class DocdoComponent implements OnInit {
           this.dataColumns =  arraycols;
           this.displayedColumns =  arraycols.map((col: any) => col.name);
           //Se crea el datasource manualmente para la tabla
-          let arraydata: any[] = [];
+          let arrayData: any[] = [];
           rta.data.forEach((row: any) => {
             const rowData: any = {};
             for (let i = 0; i < arraycols.length; i++){
               rowData[arraycols[i].name] = row[i] == undefined ? '' :  String(row[i]);
               //rowData[arraycols[i]]=hoja.ge(row.index).getCell(i).value.text? hoja.getRow(row.index).getCell(i).value.text : hoja.getRow(row.index).getCell(i).value
             }
-            arraydata.push(rowData);
+            arrayData.push(rowData);
           });
-
-          this.dataSource = new MatTableDataSource<any>(arraydata);
+          this.cdr.detach();
+          // this.dataSource = new MatTableDataSource<any>(arraydata);
+          setTimeout(() => {
+            this.dataSource = new MatTableDataSource<any>(arrayData);
+          }, 0);
           this.viewGrid = true;
           this.MostrarSpinner = false;
           this.msjspinner = null;
-          this.cdr.detectChanges();
+          this.cdr.reattach();
           // this.dataSource.paginator = this.paginator;
 
           Swal.fire("Archivo Procesado Correctamente", "El archivo se ha cargado correctamente!", "success");
@@ -109,7 +112,6 @@ export class DocdoComponent implements OnInit {
       }
       else
       {
-        this.dataSource = new MatTableDataSource<DO>();
         this.DocLoad = true;
         this.MostrarSpinner = true;
         this.msjspinner = "Leyendo el archivo excel...";
@@ -117,10 +119,12 @@ export class DocdoComponent implements OnInit {
         DO.append("file", this.fileSend);
         DO.append("save", 'false');
         //console.log(new Date());
+        console.log("entro petiocion");
+        console.log(Date());
         this.servicio.SendPOSTWParamFiles('parameters/uploaddocop', DO).then((rta: any) => {
           if(rta.success)
           {
-            console.log(rta);
+            //console.log(rta);
             this.MostrarSpinner = false;
             this.msjspinner = null;
             this.viewGrid = true;
@@ -131,9 +135,24 @@ export class DocdoComponent implements OnInit {
             //this.dataSource.data = rta.data;
             // console.log("inyecta la data al datasocrce");
             // console.log(new Date());
-            this.dataSource = new MatTableDataSource<DO>(rta.data);
+            //this.cdr.detach();
+            // setTimeout(() => {
+            //   this.dataSource = new MatTableDataSource<DO>(rta.data);
+            // }, 0);
+            //this.cdr.reattach();
             //this.dataSource._updateChangeSubscription();}
-            this.dataSource._renderChangesSubscription;
+            //this.dataSource._renderChangesSubscription;
+
+            this.dataSource = new MatTableDataSource<DO>(rta.data);
+            console.log("asigno dataasource");
+            console.log(Date());
+            // this.ngZone.runOutsideAngular(() => {
+            //   setTimeout(() => {
+            //     this.ngZone.run(() => {
+            //       this.dataSource = new MatTableDataSource<any>(arrayData);
+            //     });
+            //   }, 0);
+            //});
             this.DocLoad = true;
             //this.fileSend = null;
             Swal.fire("Archivo Procesado Correctamente", "El archivo se ha cargado correctamente!", "success");

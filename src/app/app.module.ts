@@ -45,6 +45,7 @@ import { ListFiltersComponent } from './Componentes/list-filters/list-filters.co
 import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.component';
 import { MatInputModule } from '@angular/material/input';
 import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-list.component';
+import { CalendarComponent } from './Componentes/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-li
     SpinnerComponent,
     ListFiltersComponent,
     DownloaddocsComponent,
-    HvClientListComponent
+    HvClientListComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

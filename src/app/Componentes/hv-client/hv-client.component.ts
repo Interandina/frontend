@@ -1,5 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, LOCALE_ID, NgZone, OnInit, Optional, Output, QueryList, Renderer2, SecurityContext, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, LOCALE_ID, OnInit, Optional, Output, QueryList, Renderer2, SecurityContext, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { ServicesComponent } from 'src/app/Services';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
 import { ItemAutocomplete, ModelEditar, ModelGridClients, ModelInfoHV, PassModelBotonGrid, ResponseM2, activities, arrayCAuto, arrayME, fileHV, filesApp, hv_info_attachments } from 'src/app/modelos/Interfaces';
-import { CompositeMensajeFields, ConvertStringDateTODateTime, ConvertStringToDecimal, NameTipeDocument, StringIsNullOrEmpty, ValidateFieldsForm, hasRequiredValidator, transformMoney } from '../functions/FnGenericas';
+import { CompositeMensajeFields, ConvertStringDateTODateTime, ConvertStringToDecimal, NameTipeDocument, StringIsNullOrEmpty, ValidateFieldsForm, ValidateFieldsFormResult, hasRequiredValidator, transformMoney } from '../functions/FnGenericas';
 import { Observable, pipe } from 'rxjs';
 import {debounceTime, map, min, startWith} from 'rxjs/operators';
 import {NgFor, AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe} from '@angular/common';
@@ -171,7 +171,7 @@ export class HvClientComponent implements OnInit {
 
   //private currencyPipe : CurrencyPipe
   //private router: Router
-  constructor(private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private servicio: ServicesComponent, private cdRef: ChangeDetectorRef, public sanitizer: DomSanitizer, private datePipe: DatePipe, private router: Router) {
+  constructor(private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private servicio: ServicesComponent, private cdRef: ChangeDetectorRef, public sanitizer: DomSanitizer, private datePipe: DatePipe, private router: Router, private elemFrm: ElementRef) {
     // if(_hvId != null)
     // {
     //   let row: any  = null;
@@ -1092,6 +1092,7 @@ export class HvClientComponent implements OnInit {
         else
           this.DocLoadRF = false;
       }
+      //console.log(this.DocLoadRF);
     }
   }
 
@@ -1505,7 +1506,7 @@ export class HvClientComponent implements OnInit {
       this.FrmInfGeneral.controls['emailftrademanager'].removeValidators([Validators.required]);
       this.FrmInfGeneral.controls['emailftrademanager'].updateValueAndValidity();
     }
-
+    //console.log(this.FrmInfGeneral.valid);
     if(this.FrmInfGeneral.valid)
     {
       if( this.FrmInfGeneral.get("isoperator").value == true && StringIsNullOrEmpty(this.FrmInfGeneral.get("operatorname").value))
@@ -1578,6 +1579,26 @@ export class HvClientComponent implements OnInit {
             }
           } 
         });   
+      }
+    }
+    else
+    {
+      let rta = ValidateFieldsFormResult(this.FrmInfGeneral);
+      console.log(rta);
+      if (rta.length > 0)
+      {
+        let arraytitles = [];
+        if(rta.some(item => item == "mailindepartment"))
+          arraytitles.push("Departamento de correspondencia no puede ser nulo!");
+        if(rta.some(item => item == "mailincity"))
+          arraytitles.push("Ciudad de correspondencia no puede ser nulo!");
+        if(rta.some(item => item == "alternatedepartment"))
+          arraytitles.push("Departamento de cultivo no puede ser nulo!");
+        if(rta.some(item => item == "alternatecity"))
+          arraytitles.push("Ciudad de cultivo no puede ser nulo!");
+        
+          if(arraytitles.length > 0)
+            Swal.fire("Campos obligatorios sin diligenciar", arraytitles.join("\n"), 'warning');
       }
     }
   }
@@ -2085,7 +2106,7 @@ export class HvClientComponent implements OnInit {
   GuardarEditarInfoFin(){
     if(this.FrmInfoFinanciera.valid)
     {
-      console.log(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value)
+      //console.log(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value)
       if(this.FrmInfoFinanciera.controls["subscribedcapital"]?.value.toString().replace('$','').replace(',','').replace('.00','') <= 0)
         Swal.fire("Advertencia", "Campo capital suscrito debe ser mayor a cero!", "warning");
       else if(this.FrmInfoFinanciera.controls["regimen"]?.value == "NA")

@@ -302,3 +302,17 @@ export interface Login {
     numero_autoadhesivo: string,
     fecha_autoadhesivo: string
   }
+
+  export interface DO1 {
+    cod_lugar_ingreso_: string,
+    numero_do: string,
+    numero_pedido: string,
+    empleado_digitador: string,
+    nit_importador: string,
+    dv_importador: string,
+    apellidos_y_nombres_o_razon_: string,
+    documento_de_transporte: string,
+    fecha_documento_: string,
+    nombre_exportador: string,
+    subpartida_arancelaria: string
+  }

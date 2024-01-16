@@ -57,6 +57,16 @@ export function ValidateFieldsForm(frm: FormGroup)
     });
 }
 
+export function ValidateFieldsFormResult(frm: FormGroup): any[]
+{
+    let rta: any[] =[];
+
+    Object.keys(frm.controls).forEach(f => {
+        if(frm.controls[f].invalid)
+            rta.push(f);
+    });
+    return rta;
+}
 export function transformMoney(fieldMoney: FormControl)
 {
     let respuesta = 0;
