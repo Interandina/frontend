@@ -1084,6 +1084,8 @@ export class HvClientComponent implements OnInit {
           this.DocLoadCS = true;
         else
           this.DocLoadRF = true;
+        //Agrega la clase color verde para identificar que hay un archivo cargado
+        document.getElementById(nameElement).classList.add('btnFilled');
       }
       else
       {
@@ -1094,6 +1096,10 @@ export class HvClientComponent implements OnInit {
       }
       //console.log(this.DocLoadRF);
     }
+  }
+
+  verificarClaseParaIconoAnexo(nameElement: string): boolean {
+    return document.getElementById(nameElement).classList.contains('btnFilled') ? true : false;
   }
 
   private GetValueNameinputFile(nameInputFile: string):string
@@ -1584,7 +1590,6 @@ export class HvClientComponent implements OnInit {
     else
     {
       let rta = ValidateFieldsFormResult(this.FrmInfGeneral);
-      console.log(rta);
       if (rta.length > 0)
       {
         let arraytitles = [];

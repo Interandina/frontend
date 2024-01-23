@@ -1,0 +1,14 @@
+
+<mat-form-field class="fill">
+    <mat-label>{{objetosComponenteAutoComplete.LabelAuto}}</mat-label>
+    <input type="text" title="{{objetosComponenteAutoComplete.titleAuto}}" placeholder="Seleccione un {{objetosComponenteAutoComplete.PlaceHolderAuto}}" aria-label="'objetosComponenteAutoComplete.LabelAuto'"
+        matInput [formControl]="myControl" [matAutocomplete]="autoc">
+    <mat-autocomplete  #autoc="matAutocomplete" [displayWith]="displayFuncion" (optionSelected)='OpcionSelccionada($event, objetosComponenteAutoComplete.nombrecampoModelo)'>
+        <mat-option *ngFor="let opcion of OpcionesFiltradas | async" [value]="opcion">
+            {{opcion.name}}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="objetosComponenteAutoComplete.FrmAuto?.get(objetosComponenteAutoComplete.nombrecampoModelo)?.invalid">
+        '{{objetosComponenteAutoComplete.LabelAuto}}' es requerido!
+    </mat-error>
+</mat-form-field>

@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms";
+import { MatTableDataSource } from "@angular/material/table";
 import { SafeHtml } from "@angular/platform-browser";
 
 export interface Login {
@@ -152,6 +154,11 @@ export interface Login {
     type: string,
     documentdate: Date,
     nameEnc: string
+  }
+
+  export interface respuestaAutocomplete{
+    valor: object,
+    elemento: string
   }
 
   export interface fileHV{
@@ -315,4 +322,33 @@ export interface Login {
     fecha_documento_: string,
     nombre_exportador: string,
     subpartida_arancelaria: string
+  }
+
+  export interface objetosComponenteAutoComplete{
+    ListaOpcionesAuto: any[],
+    PlaceHolderAuto: string,
+    LabelAuto: string,
+    titleAuto: string,
+    FrmAuto: FormGroup<any>,
+    nombrecampoModelo: string
+  }
+
+  export interface botonesEventosTableEdit{
+    name: AccionesBotonesTableEdit,
+    visible: boolean
+  }
+
+  export interface objetosTableEditable{
+    dataSource: MatTableDataSource<any>,
+    displayedColumns:string[],
+    dataColumns: any[],
+    Formulario: FormGroup,
+    botonesEventos: botonesEventosTableEdit[]
+  }
+
+  export enum AccionesBotonesTableEdit {
+    Save,
+    Edit,
+    Cancel,
+    Delete
   }

@@ -46,6 +46,8 @@ import { DownloaddocsComponent } from './Componentes/downloaddocs/downloaddocs.c
 import { MatInputModule } from '@angular/material/input';
 import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-list.component';
 import { CalendarComponent } from './Componentes/calendar/calendar.component';
+import { TableAppEditComponent } from './Componentes/table-app-edit/table-app-edit.component';
+import { AutocompleteAppComponent } from './Componentes/autocomplete-app/autocomplete-app.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { CalendarComponent } from './Componentes/calendar/calendar.component';
     ListFiltersComponent,
     DownloaddocsComponent,
     HvClientListComponent,
-    CalendarComponent
+    CalendarComponent,
+    TableAppEditComponent,
+    AutocompleteAppComponent
   ],
   imports: [
     BrowserModule,
