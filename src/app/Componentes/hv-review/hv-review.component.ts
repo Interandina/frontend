@@ -392,6 +392,7 @@ export class HvReviewComponent implements OnInit{
           }
           else
           {
+            //console.log(rta); 
             this.MostrarSpinner = false;
             Swal.fire("Error", rta.message, "error");
           }
@@ -412,6 +413,7 @@ export class HvReviewComponent implements OnInit{
   //#region Eventos Grillas
   // OcultarGrid(objetoEnviado: PassModelBotonGrid){
   EditarRowReview(objetoEnviado: PassModelBotonesGrid){
+    console.log(objetoEnviado.indice);
     switch(objetoEnviado.indice)
     {
       case 1:

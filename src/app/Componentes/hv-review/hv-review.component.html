@@ -134,8 +134,8 @@
                 <mat-icon matBadge="{{hv_info_step9.length}}" class="maticonsdocs" (click)="VerDocsAddRoA()" title="Clic para ver los documentos que han sido agregados">post_add</mat-icon>
             </mat-grid-tile>
         </mat-grid-list><br>
-        <div *ngIf="Visualizar" style="width: 100%; height: 100%;">
-            <iframe [src]='safePdfUrl' frameborder="0" width="100%" height="100%"></iframe><br>
+        <div *ngIf="Visualizar" style="width: 100%; max-width: 100%; height: 100%;">
+            <iframe [src]='safePdfUrl' frameborder="0" width="100%" height="82%" style="overflow-x: auto !important;"></iframe><br>
         </div>
     </div>
     <div class="subcontainerFixed">
