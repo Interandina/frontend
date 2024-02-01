@@ -154,7 +154,8 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-form-field>
                         <mat-label>Fecha Vencimiento de Mandato</mat-label>
-                        <input matInput [matDatepicker]="dtpMand" formControlName="deadlinedate" name="deadlinedate" [min]="currentDate" readonly>
+                        <!-- <input matInput [matDatepicker]="dtpMand" formControlName="deadlinedate" name="deadlinedate" [min]="currentDate" readonly> se suprime min por instrucción de DM -->
+                        <input matInput [matDatepicker]="dtpMand" formControlName="deadlinedate" name="deadlinedate" readonly>
                         <mat-datepicker-toggle matIconSuffix  [for]="dtpMand"></mat-datepicker-toggle>
                         <mat-datepicker #dtpMand></mat-datepicker>
                         <mat-error *ngIf="FrmAprobarHV.get('deadlinedate')?.invalid">
