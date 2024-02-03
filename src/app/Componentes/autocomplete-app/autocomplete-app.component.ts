@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, debounceTime, map, startWith } from 'rxjs';
-import { ItemAutocomplete, objetosComponenteAutoComplete, respuestaAutocomplete } from 'src/app/modelos/Interfaces';
+import { ItemAutocomplete2, objetosComponenteAutoComplete, respuestaAutocomplete } from 'src/app/modelos/Interfaces';
 
 @Component({
   selector: 'app-autocomplete-app',
@@ -25,10 +25,10 @@ export class AutocompleteAppComponent {
         })
       );
     // console.log(this.objetosComponenteAutoComplete.LabelAuto);
-    //console.log(this.objetosComponenteAutoComplete.ListaOpcionesAuto);
+    // console.log(this.objetosComponenteAutoComplete.ListaOpcionesAuto);
   }
 
-  private _filter(value: string): ItemAutocomplete[] {
+  private _filter(value: string): ItemAutocomplete2[] {
     if(value)
     {
       const filterValue = value.toLowerCase();
@@ -54,7 +54,6 @@ export class AutocompleteAppComponent {
     let respuestaAutocomplete: respuestaAutocomplete = {
       valor: event.option.value,
       elemento: nombreCampomodelo
-
     };
     this.RetornarValueAutomcomplete.emit(respuestaAutocomplete);
   }

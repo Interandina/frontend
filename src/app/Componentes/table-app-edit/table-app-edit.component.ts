@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { AccionesBotonesTableEdit, botonesEventosTableEdit, objetosTableEditable
   styleUrls: ['./table-app-edit.component.css']
 })
 export class TableAppEditComponent implements OnInit {
-  dataSource = new MatTableDataSource<any>();
+
   displayedColumns:any[] = [];
   dataColumns:any[] = [];
   Formulario: FormGroup;
@@ -22,13 +22,15 @@ export class TableAppEditComponent implements OnInit {
   botonDelete: boolean;
   /*Variables de la Grilla*/
   pageNumber: number = 1;
+  @Input() dataSource = new MatTableDataSource<any>();
   @Input() objetosTableEdit: objetosTableEditable = {
-    dataSource: new MatTableDataSource<any>(),
     displayedColumns:[],
     dataColumns:[],
     Formulario: null,
-    botonesEventos:[]
+    botonesEventos:[],
+    editarEnFila: false
   };
+  @Output() eventoRowOutFormPadre = new EventEmitter<any>();
 
   isLoading = true;
   MostrarBotonAddRow = false;
@@ -47,9 +49,10 @@ export class TableAppEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = this.objetosTableEdit.dataSource;
+    //this.dataSource = this.objetosTableEdit.dataSource;
     this.displayedColumns = this.objetosTableEdit.displayedColumns;
     this.dataColumns = this.objetosTableEdit.dataColumns;
+    //console.log(this.dataColumns);
     this.Formulario = this.objetosTableEdit.Formulario;
     this.botonSave = this.objetosTableEdit.botonesEventos.filter(b=> b.name == AccionesBotonesTableEdit.Save)[0].visible;
     this.botonEdit = this.objetosTableEdit.botonesEventos.filter(b=> b.name == AccionesBotonesTableEdit.Edit)[0].visible;
@@ -58,7 +61,6 @@ export class TableAppEditComponent implements OnInit {
     this.isLoading = false;
     this.dataSource = new MatTableDataSource((this.Formulario.get('FrmRows') as FormArray).controls);
     this.dataSource.paginator = this.paginator;
-
     const filterPredicate = this.dataSource.filterPredicate;
     this.dataSource.filterPredicate = (data: AbstractControl, filter) => {
       return filterPredicate.call(this.dataSource, data.value, filter);
@@ -128,8 +130,12 @@ export class TableAppEditComponent implements OnInit {
   }
 
   // this function will enabled the select field for editd
-  EditFormGrid(FormElement: any, i: number) {
-    FormElement.get('FrmRows').at(i).get('isEditable').patchValue(false);
+  EditFormGrid(FormElement: any, i: number, row: any) {
+    console.log(row);
+    if(this.objetosTableEdit.editarEnFila)
+      FormElement.get('FrmRows').at(i).get('isEditable').patchValue(false);
+    else
+      this.eventoRowOutFormPadre.emit(row);
   }
 
   // On click of cancel button in the table (after click on edit) this method will call and reset the previous data
@@ -137,17 +143,23 @@ export class TableAppEditComponent implements OnInit {
     FormElement.get('FrmRows').at(i).get('isEditable').patchValue(true);
   }
 
+   // On click of cancel button in the table (after click on edit) this method will call and reset the previous data
+   DeleteFormGrid(i: number) {
+    this.dataSource.data.splice(i, 1);
+    this.dataSource._updateChangeSubscription();
+  }
+
   setDataSourceAttributes() {
     setTimeout(() =>{
-      if(this.objetosTableEdit.dataSource != null && this.objetosTableEdit.dataSource != undefined)
+      if(this.dataSource != null && this.dataSource != undefined)
       {
         this.paginator._intl.itemsPerPageLabel = "Ítems por página";
         this.paginator._intl.firstPageLabel = "Primera página";
         this.paginator._intl.nextPageLabel = "Siguiente página";
         this.paginator._intl.previousPageLabel = "Anterior página";
         this.paginator._intl.lastPageLabel = "Última página";
-        this.objetosTableEdit.dataSource.paginator = this.paginator;
-        this.objetosTableEdit.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     });
   }

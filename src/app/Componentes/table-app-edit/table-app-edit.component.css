@@ -87,20 +87,34 @@ input.mat-input-element {
 }  
 
 mat-form-field {
-    width: 100%;
+    width:auto !important;
 }
 
 .hide_element{
     display: none;
 }
 
-.edit_element{
+.noedit_element{
     border: none !important;
-
+    background-color: white !important;
 }
 
-.edit_element:disabled{
+.noedit_element:disabled{
     background-color: #ccc;
     color: #666;
     cursor: not-allowed; 
 }
+
+.btn-primary-icons-table{
+    border: none !important;
+    background-color: #2780e3 !important;
+    color: white !important;
+    border-radius: 2px !important;
+    margin-right: 1%;
+    padding: 3px 5px 3px 5px;
+  }
+  
+  .btn-primary-icons-table:hover{
+    cursor: pointer;
+    background-color: #0656b2 !important;
+  }

@@ -173,6 +173,7 @@ export function readExcelFile(file: File, numberSheet: number = 0): Promise<{ he
 //Recibe un formato dd/MM/yyyy o dd-MM-yyyyy
 export function ConvertStringDateTODateTime(fechastring :string, tipoFomartoIn: string):Date
 {
+    //console.log(fechastring);
     let dia = 0;
     let mes = 0;
     let anio = 0;
@@ -194,4 +195,50 @@ export function ConvertStringDateTODateTime(fechastring :string, tipoFomartoIn: 
             break;
     }
     return new Date(anio, mes, dia);
+}
+
+
+//Recibe un formato dd/MM/yyyy o dd-MM-yyyyy
+export function ConvertDateTimeToString(fecha :Date, tipoFomartoOut: string):string
+{
+    let fechaRta: string = "";
+    switch(tipoFomartoOut)
+    {
+        case 'dd/MM/yyyy':
+           
+            break;
+        case 'MM/dd/yyyy':
+            fechaRta = fecha.toLocaleString().split(",")[0];
+            break;
+        case 'dd-MM-yyyy':
+
+            break;
+        case 'yyyy-MM-dd':
+            fechaRta = fecha.toISOString().split("T")[0];
+            break;
+    }
+    
+    return fechaRta;
+}
+
+export function ObtenerFechaReal(fecha: Date):Date
+{
+    //Falta terminarlo
+    let dia = 0;
+    let mes = 0;
+    let anio = 0;
+
+    return new Date(anio, mes, dia);
+}
+
+export function ObtenerUltimoDiaMes(fecha: Date = null):Date
+{
+    const fechaActual = fecha == null ? new Date() : fecha;
+    return new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+}
+
+export function ObtenerPrimerDiaMes(fecha: Date):Date
+{
+    const fechaActual = new Date();
+    return new Date(fecha.getFullYear(), fecha.getMonth(), 1);
 }

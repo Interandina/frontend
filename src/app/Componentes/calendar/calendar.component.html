@@ -1,169 +1,195 @@
 <div class="container">
     <div flex="">
-        <div class="col"><h1>Calendario</h1></div><br>
-        <div class="mat-tab-group vertical-tabs-app">
-          <div class="mat-tab-labels">
-              <div class="mat-tab-label-app" style="font-size: 12px !important;" (click)="seleccionarPestana('pestana1')" [ngClass]="{'active-mat-tab-app': pestanaSeleccionada === 'pestana1'}"><mat-icon class="icon-align-mat-tab-app">calendar_month</mat-icon> Calendario</div>
-              <div class="mat-tab-label-app" style="font-size: 12px !important;" (click)="seleccionarPestana('pestana2')" [ngClass]="{'active-mat-tab-app': pestanaSeleccionada === 'pestana2'}"><mat-icon class="icon-align-mat-tab-app">calendar_view_month</mat-icon> Listado</div>
-          </div>
-          <div class="mat-tab-content-app">
-            <div *ngIf="pestanaSeleccionada === 'pestana1'">
-              <mat-accordion class="accordion-headers-align" multi>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Criterios de Creación</mat-panel-title>
-                        <mat-panel-description>
-                            Aquí puede seleccionar como desea insertar la información
-                            <!-- <mat-icon title="Clic aquí para listar">view_list</mat-icon> -->
-                            <mat-icon>view_list</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <form [formGroup]="FrmCalendar" (ngSubmit)="HacerCalendario(FrmCalendar.value)">
-                      <mat-grid-list cols="8" rowHeight="80px">
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Tipo de Operación:</mat-label>
-                              <select matNativeControl formControlName="tipoOper" name="tipoOper" title="Tipo de operación" placeholder="Seleccione un tipo de operación" (ngModelChange)="ObtenerConsecPorOperYSucu()">
-                                  <!-- <option value="T"> Terrestre</option>
-                                  <option value="M"> Marítimo</option>
-                                  <option value="A"> Áereo</option> -->
-                                  <option value="null"> Seleccione un tipo de operación...</option>
-                                  <option *ngFor="let operation of operations" [ngValue]="operation.id">{{operation.name}} ({{operation.code}})</option>
-                              </select>
-                              <mat-error *ngIf="FrmCalendar.get('tipoOper')?.invalid">
-                                  Tipo de operación es requerido!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Sucursal:</mat-label>
-                              <select matNativeControl formControlName="sucursal" name="sucursal" title="Sucursal" placeholder="Seleccione una sucursal" (ngModelChange)="ObtenerConsecPorOperYSucu()">
-                                  <option value="null"> Seleccione una sucursal...</option>
-                                  <option *ngFor="let branche of branches" [ngValue]="branche.id">{{branche.name}} ({{branche.code}})</option>
-                              </select>
-                              <mat-error *ngIf="FrmCalendar.get('sucursal')?.invalid">
-                                  Sucursal es requerido!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Consecutivo:</mat-label>
-                              <input matInput maxlength="100" title="Consecutivo" formControlName="consecutivo" name="consecutivo" required>
-                              <mat-error *ngIf="FrmCalendar.get('consecutivo')?.invalid">
-                                  Consecutivo es requerido!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Fecha Programación:</mat-label>
-                              <input matInput [matDatepicker]="datepickerToggleFP" formControlName="fechapro" name="fechapro" [max]="currentDate">
-                              <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFP"></mat-datepicker-toggle>
-                              <mat-datepicker #datepickerToggleFP></mat-datepicker>
-                              <mat-error *ngIf="FrmCalendar.get('fechapro')?.invalid">
-                                  Fecha de programación es requerida!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <!-- <mat-form-field>
-                            <mat-label>Asignado a:</mat-label>
-                            <input matInput maxlength="100" title="Asignar al líder coordinador" formControlName="responsable" name="responsable" required>
-                            <mat-error *ngIf="FrmCalendar.get('responsable')?.invalid">
-                                Responsable es requerido!
-                            </mat-error>
-                        </mat-form-field> -->
-                        <mat-grid-tile [colspan]="4" [rowspan]="1">
-                            <app-autocomplete-app style="width: 100%;" [objetosComponenteAutoComplete]="objetosComponenteAutoCompleteR" (RetornarValueAutomcomplete)="ObtenerValorAutocomplete($event)"></app-autocomplete-app>
-                            <input type="hidden" formControlName="responsable" name="responsable">
-                            <!-- <mat-error *ngIf="FrmCalendar.get('responsable')?.invalid">Responsable es requerido!</mat-error> -->
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="4" [rowspan]="1">
-                          <!-- <mat-form-field>
-                              <mat-label>Cliente:</mat-label>
-                              <input matInput maxlength="100" title="Cliente" formControlName="cliente" name="cliente" required>
-                              <mat-error *ngIf="FrmCalendar.get('cliente')?.invalid">
-                                  Cliente es requerido!
-                              </mat-error>
-                          </mat-form-field> -->
-                          <app-autocomplete-app style="width: 100%;" [objetosComponenteAutoComplete]="objetosComponenteAutoCompleteC" (RetornarValueAutomcomplete)="ObtenerValorAutocomplete($event)"></app-autocomplete-app>
-                          <input type="hidden" formControlName="cliente" name="cliente">
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="6" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Producto:</mat-label>
-                              <input matInput maxlength="300" title="Cliente" formControlName="producto" name="producto" required>
-                              <mat-error *ngIf="FrmCalendar.get('producto')?.invalid">
-                                  Producto es requerido!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="1" [rowspan]="1">
-                          <mat-form-field>
-                              <mat-label>Cantidad de Registros:</mat-label>
-                              <input matInput type="number" min="1" maxlength="3" title="Registros a adicionar" formControlName="registros" name="registros" required>
-                              <mat-error *ngIf="FrmCalendar.get('registros')?.invalid">
-                                  Cantidad es requerido!
-                              </mat-error>
-                          </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="1" [rowspan]="1">
-                            <button mat-raised-button class="btnprimary" type="submit" title="Insertar filas">Insertar</button>
-                            <button mat-raised-button class="btnprimary" type="button" title="Limpiar criterios" (click)="LimpiarFormCal()">Limpiar</button>
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                  </form>
-                </mat-expansion-panel>
-              </mat-accordion><br>
-              <app-table-app-edit [objetosTableEdit]="objetosTableEdit"></app-table-app-edit>
+        <div class="col"><h1>Programador</h1></div><br>
+        <div class="mat-tab-group vertical-tabs-app" *ngIf="!Expandido">
+            <div class="mat-tab-labels">
+              <div class="mat-tab-label-app" style="font-size: 12px !important;" (click)="seleccionarPestana('pestana1')" [ngClass]="{'active-mat-tab-app': pestanaSeleccionada === 'pestana1'}"><mat-icon class="icon-align-mat-tab-app">calendar_month</mat-icon>Calendario</div>
+              <div class="mat-tab-label-app" style="font-size: 12px !important;" (click)="seleccionarPestana('pestana2')" [ngClass]="{'active-mat-tab-app': pestanaSeleccionada === 'pestana2'}"><mat-icon class="icon-align-mat-tab-app">edit_calendar</mat-icon>Crear Calendario</div>
             </div>
-            <div *ngIf="pestanaSeleccionada === 'pestana2'">
-              <mat-accordion class="accordion-headers-align" multi>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Listado de Calendarios</mat-panel-title>
-                        <mat-panel-description>
-                            Aquí puede listar la información de calendarios creados
-                            <!-- <mat-icon title="Clic aquí para listar">view_list</mat-icon> -->
-                            <mat-icon>view_list</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <form [formGroup]="FrmCalendarLis" (ngSubmit)="ListarCalendario(FrmCalendarLis.value)">
-                      <mat-grid-list cols="8" rowHeight="80px">
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                            <mat-form-field>
-                                <mat-label>Fecha Inicial</mat-label>
-                                <input matInput [matDatepicker]="datepickerToggleFI" formControlName="fechaInicio" name="fechaInicio" [max]="currentDate">
-                                <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFI"></mat-datepicker-toggle>
-                                <mat-datepicker #datepickerToggleFI></mat-datepicker>
-                                <mat-error *ngIf="FrmCalendarLis.get('fechaInicio')?.invalid">
-                                    Fecha inicial es requerido!
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="2" [rowspan]="1">
-                            <mat-form-field>
-                                <mat-label>Fecha Final</mat-label>
-                                <input matInput [matDatepicker]="datepickerToggleFF" formControlName="fechaInicio" name="fechaInicio" [max]="currentDate">
-                                <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFF"></mat-datepicker-toggle>
-                                <mat-datepicker #datepickerToggleFF></mat-datepicker>
-                                <mat-error *ngIf="FrmCalendarLis.get('fechaFin')?.invalid">
-                                    Fecha final es requerido!
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile [colspan]="3" [rowspan]="1"></mat-grid-tile>
-                        <mat-grid-tile [colspan]="1" [rowspan]="1">
-                            <button mat-raised-button class="btnprimary" type="button" title="Listar">Listar</button>
-                        </mat-grid-tile>
-                        <!-- Grilla de Listado -->
-                    </mat-grid-list>
-                  </form>
-                </mat-expansion-panel>
-              </mat-accordion>
+            <div class="mat-tab-content-app">
+                <div *ngIf="pestanaSeleccionada === 'pestana1'">
+                    <mat-accordion class="accordion-headers-align" multi>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>Listado de Calendarios</mat-panel-title>
+                                <mat-panel-description>
+                                    Aquí puede listar la información de calendarios creados
+                                    <!-- <mat-icon title="Clic aquí para listar">view_list</mat-icon> -->
+                                    <mat-icon>view_list</mat-icon>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <form [formGroup]="FrmCalendarLis" (ngSubmit)="ListarCalendario(FrmCalendarLis.value)">
+                                <mat-grid-list cols="8" rowHeight="80px">
+                                    <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                        <mat-form-field>
+                                            <mat-label>Fecha Inicial</mat-label>
+                                            <!-- [value]="formatDate($event)" -->
+                                            <input matInput [matDatepicker]="datepickerToggleFI" formControlName="fechaInicio" name="fechaInicio" readonly>
+                                            <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFI"></mat-datepicker-toggle>
+                                            <mat-datepicker #datepickerToggleFI></mat-datepicker>
+                                            <mat-error *ngIf="FrmCalendarLis.get('fechaInicio')?.invalid">
+                                                Fecha inicial es requerido!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                        <mat-form-field>
+                                            <mat-label>Fecha Final</mat-label>
+                                            <input matInput [matDatepicker]="datepickerToggleFF" formControlName="fechaFin" name="fechaFin" readonly>
+                                            <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFF"></mat-datepicker-toggle>
+                                            <mat-datepicker #datepickerToggleFF></mat-datepicker>
+                                            <mat-error *ngIf="FrmCalendarLis.get('fechaFin')?.invalid">
+                                                Fecha final es requerido!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="3" [rowspan]="1"></mat-grid-tile>
+                                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                        <button mat-raised-button class="btnprimary" type="button" title="Listar">Listar</button>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </form>
+                        </mat-expansion-panel>
+                    </mat-accordion><br>
+                    <button mat-mini-fab title="Expandir a pantalla completa" class="botonexpan" (click)="Expandido= !Expandido"><mat-icon>fullscreen</mat-icon></button>
+                    <!-- Grilla de Listado -->
+                    <app-full-calendar [URLEventos]="URLEventos"  [Editable]="Editable"  (eventoFormPadre)="ObtenerMetodosCalendario($event)"></app-full-calendar>
+                </div>
+                <div *ngIf="pestanaSeleccionada === 'pestana2'">
+                    <mat-accordion class="accordion-headers-align" multi>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>Criterios de Creación</mat-panel-title>
+                                <mat-panel-description>
+                                    Aquí puede seleccionar como desea insertar la información
+                                    <!-- <mat-icon title="Clic aquí para listar">view_list</mat-icon> -->
+                                    <mat-icon>view_list</mat-icon>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <form [formGroup]="FrmCalendar" (ngSubmit)="HacerCalendario(FrmCalendar.value)">
+                                <mat-grid-list cols="8" rowHeight="80px">
+                                    <mat-grid-tile [colspan]="2" [rowspan]="5">
+                                        <!-- <mat-form-field>
+                                            <mat-label>Fecha Programación:</mat-label>
+                                            <input matInput [matDatepicker]="datepickerToggleFP" formControlName="fechapro" name="fechapro" [max]="currentDate">
+                                            <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFP"></mat-datepicker-toggle>
+                                            <mat-datepicker #datepickerToggleFP></mat-datepicker>
+                                            <mat-error *ngIf="FrmCalendar.get('fechapro')?.invalid">
+                                                Fecha de programación es requerida!
+                                            </mat-error>
+                                        </mat-form-field> -->
+                                        <div class="inline-calendar-card">
+                                            <mat-card class="inline-calendar-card">
+                                                <mat-calendar locale="es-ES" [maxDate]="currentDate" [(selected)]="selectDate" (selectedChange)="onDateSelected($event)"></mat-calendar> 
+                                            </mat-card>
+                                            <p style="font-size: 12px;">Fecha Seleccionada: {{selectDate | date:'dd/MM/yyyy'}}</p>
+                                        </div>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="3" [rowspan]="1">
+                                        <mat-form-field>
+                                            <mat-label>Tipo de Operación:</mat-label>
+                                            <!-- (ngModelChange)="ObtenerConsecPorOperYSucu() -->
+                                            <select matNativeControl formControlName="operationid" name="operationid" title="Tipo de operación" placeholder="Seleccione un tipo de operación">
+                                                <!-- <option value="T"> Terrestre</option>
+                                                <option value="M"> Marítimo</option>
+                                                <option value="A"> Áereo</option> -->
+                                                <option value="null"> Seleccione un tipo de operación...</option>
+                                                <option *ngFor="let operation of operations" [ngValue]="operation.id">{{operation.name}} ({{operation.code}})</option>
+                                            </select>
+                                            <mat-error *ngIf="FrmCalendar.get('operationid')?.invalid">
+                                                Tipo de operación es requerido!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile [colspan]="3" [rowspan]="1">
+                                        <mat-form-field>
+                                            <!-- (ngModelChange)="ObtenerConsecPorOperYSucu() -->
+                                            <mat-label>Sucursal:</mat-label>
+                                            <select matNativeControl formControlName="branchid" name="branchid" title="Sucursal" placeholder="Seleccione una sucursal">
+                                                <option value="null"> Seleccione una sucursal...</option>
+                                                <option *ngFor="let branche of branches" [ngValue]="branche.id">{{branche.name}} ({{branche.code}})</option>
+                                            </select>
+                                            <mat-error *ngIf="FrmCalendar.get('branchid')?.invalid">
+                                                Sucursal es requerido!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </mat-grid-tile>
+                                    <!-- <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                        <mat-form-field>
+                                            <mat-label>Consecutivo:</mat-label>
+                                            <input matInput maxlength="100" title="Consecutivo" formControlName="consecutivo" name="consecutivo" required>
+                                            <mat-error *ngIf="FrmCalendar.get('consecutivo')?.invalid">
+                                                Consecutivo es requerido!
+                                            </mat-error>
+                                        </mat-form-field>
+                                        </mat-grid-tile> -->
+                                        <!-- <mat-form-field>
+                                            <mat-label>Asignado a:</mat-label>
+                                            <input matInput maxlength="100" title="Asignar al líder coordinador" formControlName="responsable" name="responsable" required>
+                                            <mat-error *ngIf="FrmCalendar.get('responsable')?.invalid">
+                                                Responsable es requerido!
+                                            </mat-error>
+                                        </mat-form-field> -->
+                                        <mat-grid-tile [colspan]="3" [rowspan]="1">
+                                            <app-autocomplete-app style="width: 100%;" [objetosComponenteAutoComplete]="objetosComponenteAutoCompleteR" (RetornarValueAutomcomplete)="ObtenerValorAutocomplete($event)"></app-autocomplete-app>
+                                            <input type="hidden" formControlName="assignuserid" name="assignuserid">
+                                            <input type="hidden" formControlName="assignuser" name="assignuser">
+                                            <!-- <mat-error *ngIf="FrmCalendar.get('responsable')?.invalid">Responsable es requerido!</mat-error> -->
+                                        </mat-grid-tile>
+                                        <mat-grid-tile [colspan]="3" [rowspan]="1">
+                                            <!-- <mat-form-field>
+                                                <mat-label>Cliente:</mat-label>
+                                                <input matInput maxlength="100" title="Cliente" formControlName="cliente" name="cliente" required>
+                                                <mat-error *ngIf="FrmCalendar.get('cliente')?.invalid">
+                                                    Cliente es requerido!
+                                                </mat-error>
+                                            </mat-form-field> -->
+                                            <app-autocomplete-app style="width: 100%;" [objetosComponenteAutoComplete]="objetosComponenteAutoCompleteC" (RetornarValueAutomcomplete)="ObtenerValorAutocomplete($event)"></app-autocomplete-app>
+                                            <input type="hidden" formControlName="clientid" name="idclient">
+                                            <input type="hidden" formControlName="client" name="client">
+                                        </mat-grid-tile>
+                                        <mat-grid-tile [colspan]="6" [rowspan]="1">
+                                            <mat-form-field>
+                                                <mat-label>Producto:</mat-label>
+                                                <input matInput maxlength="300" title="Producto" formControlName="products" name="products">
+                                                <mat-error *ngIf="FrmCalendar.get('products')?.invalid">
+                                                    Producto es requerido!
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                            <mat-form-field>
+                                                <mat-label>Fecha Estimada:</mat-label>
+                                                <input matInput [matDatepicker]="datepickerToggleFP" formControlName="dateestimated" name="dateestimated" readonly [min]="currentDate">
+                                                <mat-datepicker-toggle matIconSuffix  [for]="datepickerToggleFP"></mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerToggleFP></mat-datepicker>
+                                                <!-- <mat-error *ngIf="FrmCalendar.get('fechapro')?.invalid">
+                                                    Fecha estimada es requerida!
+                                                </mat-error> -->
+                                            </mat-form-field>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                            <mat-form-field>
+                                                <mat-label>Cantidad de Registros:</mat-label>
+                                                <input matInput type="number" min="1" maxlength="3" title="Registros a adicionar" formControlName="numrows" name="numrows" required>
+                                                <mat-error *ngIf="FrmCalendar.get('numrows')?.invalid">
+                                                    Cantidad es requerido!
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile [colspan]="2" [rowspan]="1">
+                                            <button mat-raised-button class="btnprimary" type="submit" title="Insertar filas">Insertar</button>
+                                            <button mat-raised-button class="btnprimary" type="button" title="Limpiar criterios" (click)="LimpiarFormCal()">Limpiar</button>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+                            </form>
+                        </mat-expansion-panel>
+                    </mat-accordion><br>
+                    <app-table-app-edit [dataSource]="dataSource" [objetosTableEdit]="objetosTableEdit" (eventoRowOutFormPadre)="EditarRow($event)"></app-table-app-edit>
+                </div>
             </div>
-          </div>
         </div>
+        <button mat-mini-fab title="Expandir a pantalla completa" *ngIf="Expandido" class="botonexpan" (click)="Expandido= !Expandido"><mat-icon>fullscreen</mat-icon></button>
+        <app-full-calendar *ngIf="Expandido" [URLEventos]="URLEventos"  [Editable]="Editable"  (eventoFormPadre)="ObtenerMetodosCalendario($event)"></app-full-calendar>
     </div>   
 </div>

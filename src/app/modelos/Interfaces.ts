@@ -146,6 +146,15 @@ export interface Login {
     name: string
   }
 
+  export interface ItemAutocomplete2{
+    id: string;
+    name: string,
+    status: boolean,
+    requiereIcono: boolean,
+    iconfalse?: string,
+    icontrue?: string
+  }
+
   export interface filesApp{
     docattachmentid:number,
     expireat: number,
@@ -325,7 +334,7 @@ export interface Login {
   }
 
   export interface objetosComponenteAutoComplete{
-    ListaOpcionesAuto: any[],
+    ListaOpcionesAuto: ItemAutocomplete2[],
     PlaceHolderAuto: string,
     LabelAuto: string,
     titleAuto: string,
@@ -339,11 +348,12 @@ export interface Login {
   }
 
   export interface objetosTableEditable{
-    dataSource: MatTableDataSource<any>,
+    //dataSource: MatTableDataSource<any>,
     displayedColumns:string[],
     dataColumns: any[],
     Formulario: FormGroup,
-    botonesEventos: botonesEventosTableEdit[]
+    botonesEventos: botonesEventosTableEdit[],
+    editarEnFila: boolean
   }
 
   export enum AccionesBotonesTableEdit {
@@ -351,4 +361,10 @@ export interface Login {
     Edit,
     Cancel,
     Delete
+  }
+
+  export interface RespuestasFullCalendar{
+    //dataSource: MatTableDataSource<any>,
+    objeto:any,
+    tipoevento: string,
   }

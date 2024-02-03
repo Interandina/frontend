@@ -359,3 +359,18 @@ mat-label{
 /* .mdc-evolution-chip__graphic, .mat-mdc-chip-graphic, .ng-star-inserted{
 
 } */
+
+/*Estilos CalendarFull*/
+.fc-prev-button, .fc-button, .fc-button-primary{
+  background-color: #2780e3 !important;
+}
+.fc-prev-button:hover, .fc-button:hover, .fc-button-primary:hover{
+  background-color: #1a237e !important;
+}
+
+/**/
+.botonexpan > mat-icon{
+  font-size: 20px !important;
+  font-weight: bold;
+  color: white;
+}

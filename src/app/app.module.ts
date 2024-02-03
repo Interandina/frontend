@@ -48,6 +48,8 @@ import { HvClientListComponent } from './Componentes/hv-client-list/hv-client-li
 import { CalendarComponent } from './Componentes/calendar/calendar.component';
 import { TableAppEditComponent } from './Componentes/table-app-edit/table-app-edit.component';
 import { AutocompleteAppComponent } from './Componentes/autocomplete-app/autocomplete-app.component';
+import { FullCalendarComponentE } from './full-calendar/full-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { AutocompleteAppComponent } from './Componentes/autocomplete-app/autocom
     HvClientListComponent,
     CalendarComponent,
     TableAppEditComponent,
-    AutocompleteAppComponent
+    AutocompleteAppComponent,
+    FullCalendarComponentE
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ import { AutocompleteAppComponent } from './Componentes/autocomplete-app/autocom
     TableAppComponent,
     CommonModule,
     MatChipsModule,
-    MatInputModule
+    MatInputModule,
+    FullCalendarModule
   ],
   entryComponents: [
     DialogLoginComponent,
