@@ -1,3 +1,6 @@
+[providers]
+node = true
+
 [variables]
 TZ = "America/Bogota"
 LANG = "C.UTF-8"
@@ -5,3 +8,9 @@ LC_ALL = "C.UTF-8"
 
 [phases.setup]
 nixPkgs = ["tzdata"]
+
+[phases.build]
+cmds = ["npm ci", "npm run build"]
+
+[start]
+cmd = "npx serve -s dist -l $PORT"
