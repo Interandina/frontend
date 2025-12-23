@@ -1,0 +1,7 @@
+[variables]
+TZ = "America/Bogota"
+LANG = "es_CO.UTF-8"
+LC_ALL = "es_CO.UTF-8"
+
+[phases.setup]
+nixPkgs = ["glibcLocales", "tzdata"]
